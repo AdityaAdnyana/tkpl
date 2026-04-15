@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="tkpl/tkpl.csproj" />
+  <Project Path="implementasi-generic-quiz/ImplemantasiGenericQuiz.csproj" />
 </Solution>
