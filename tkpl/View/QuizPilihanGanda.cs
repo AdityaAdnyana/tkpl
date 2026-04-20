@@ -14,5 +14,16 @@ namespace tkpl
         {
             InitializeComponent();
         }
+
+        public void GenerateAnswerButton(string answerText)
+        {
+            Button answerButton = new Button();
+            answerButton.Text = answerText;
+            answerButton.Width = 200;
+            answerButton.Height = 50;
+            flowLayoutPanel1.Controls.Add(answerButton);
+        }
+
     }
+
 }
