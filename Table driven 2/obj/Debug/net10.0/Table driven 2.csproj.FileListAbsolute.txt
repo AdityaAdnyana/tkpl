@@ -1,0 +1,14 @@
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\bin\Debug\net10.0\Table driven 2.exe
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\bin\Debug\net10.0\Table driven 2.deps.json
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\bin\Debug\net10.0\Table driven 2.runtimeconfig.json
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\bin\Debug\net10.0\Table driven 2.dll
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\bin\Debug\net10.0\Table driven 2.pdb
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\obj\Debug\net10.0\Table driven 2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\obj\Debug\net10.0\Table driven 2.AssemblyInfoInputs.cache
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\obj\Debug\net10.0\Table driven 2.AssemblyInfo.cs
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\obj\Debug\net10.0\Table driven 2.csproj.CoreCompileInputs.cache
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\obj\Debug\net10.0\Table driven 2.dll
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\obj\Debug\net10.0\refint\Table driven 2.dll
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\obj\Debug\net10.0\Table driven 2.pdb
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\obj\Debug\net10.0\Table driven 2.genruntimeconfig.cache
+C:\Users\R9480\Documents\KPL\Tubes\Table Driven - Level, Nyawa, modul\Table driven 2\Table driven 2\obj\Debug\net10.0\ref\Table driven 2.dll
