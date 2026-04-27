@@ -22,10 +22,16 @@ namespace ImplemantasiGenericQuiz
 
         public bool ValidateAnswer(object answer)
         {
-            T convertedAnswer = (T)Convert.ChangeType(answer, typeof(T));
+            try
+            {
+                T convertedAnswer = (T)Convert.ChangeType(answer, typeof(T));
 
-            if (convertedAnswer is T typedAnswer) return ValidateAnswer(typedAnswer);
-
+                if (convertedAnswer is T typedAnswer) return ValidateAnswer(typedAnswer);
+            }
+            catch
+            {
+                if (typeof(T) == typeof(int)) Convert.ChangeType(answer, typeof(int));
+            }
             return false;
         }
     }
