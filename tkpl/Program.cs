@@ -1,3 +1,5 @@
+using ImplemantasiGenericQuiz;
+
 namespace tkpl
 {
     internal static class Program
@@ -12,6 +14,7 @@ namespace tkpl
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
+            TempLessonInit dummyLesson = new();
         }
     }
 }
