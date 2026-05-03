@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="API/API.csproj" Id="619d8ebc-7dcb-4457-abd2-e0c521c76eb8" />
+  <Project Path="LevelLib/LevelLib.csproj" Id="06770bb4-13ed-4576-b229-0dd389fd51be" />
+</Solution>
