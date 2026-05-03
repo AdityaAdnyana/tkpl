@@ -1,4 +1,4 @@
-using ImplemantasiGenericQuiz;
+using tkpl.Controller;
 
 namespace tkpl
 {
@@ -12,9 +12,16 @@ namespace tkpl
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+
+
             ApplicationConfiguration.Initialize();
-            Application.Run(new QuizPilihanGanda());
+
             TempLessonInit dummyLesson = new();
+            Application.Run();
+            //Application.Run(new QuizPilihanGanda());
+
+            
+
         }
     }
 }

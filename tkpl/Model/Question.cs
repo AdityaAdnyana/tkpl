@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ImplemantasiGenericQuiz
+using System.Diagnostics;
+namespace tkpl.Model
 {
     internal class Question<T> : IQuestion
     {
@@ -10,16 +7,27 @@ namespace ImplemantasiGenericQuiz
         public string QuestionText { get; set; } = string.Empty;
         public T ExpectedAnswer { get; set; } = default!; // initialized to satisfy nullable-analysis (CS8618)
 
+        
+        public List<string> GetStringOptions()
+        {
+            // Base class secara default mengembalikan list kosong.
+            // Class turunan seperti ObjectiveQuiz akan melakukan override method ini.
+            return new List<string>();
+        }
+
         public string getAnswer()
         {
             return "" + ExpectedAnswer;
         }
 
+        // Implementasi IQuestion.ValidateAnswer yang menerima parameter bertipe T.
         public bool ValidateAnswer(T answer)
         {
             return EqualityComparer<T>.Default.Equals(answer, ExpectedAnswer);
         }
 
+        // Implementasi IQuestion.ValidateAnswer yang menerima parameter object.
+        // Method konversi. Dieksekusi jika dipanggil dengan parameter bertipe object, misalnya dari UI yang menerima input sebagai string.
         public bool ValidateAnswer(object answer)
         {
             try
@@ -28,9 +36,9 @@ namespace ImplemantasiGenericQuiz
 
                 if (convertedAnswer is T typedAnswer) return ValidateAnswer(typedAnswer);
             }
-            catch
+            catch(Exception ex)
             {
-                if (typeof(T) == typeof(int)) Convert.ChangeType(answer, typeof(int));
+                Debug.WriteLine("Input tidak valid: " + ex);
             }
             return false;
         }
