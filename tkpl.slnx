@@ -1,4 +1,5 @@
 <Solution>
-  <Project Path="tkpl/tkpl.csproj" />
   <Project Path="implementasi-generic-quiz/ImplemantasiGenericQuiz.csproj" />
+  <Project Path="TestProject1/TestStateMachine.csproj" Id="4b3aa217-c23e-4513-b440-1ba3726fd5a2" />
+  <Project Path="tkpl/tkpl.csproj" />
 </Solution>

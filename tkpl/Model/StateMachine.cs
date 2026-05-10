@@ -4,29 +4,34 @@ using System.Text;
 
 namespace tkpl.Model
 {
-    internal class StateMachine : IStateMachine
+    public class StateMachine : IStateMachine
     {
-        public enum SessionState
+        public enum SessionState // membbuat state mengunakan enum
         {
             loginPage, homePage, quizPage, materiPage, userPage
         }
 
         public static SessionState currentState { get; private set; }
-        public static string stringCurentState = "";
-        public void stateToHomePgae()
+        public static string stringCurentState = ""; // untuk menampilkan state dalam bentuk string
+
+        // untuk mengubah state ke home page
+        // harap dipanghgil ketika pertamakali apk dijalankan
+        public void stateToHomePgae() 
         {
             currentState = SessionState.homePage;
         }
-        
+
+        // mengubah state sesuai dengan state yang diinginkan
         public void ChangeState(SessionState newState)
         {
             currentState = newState;
         }
 
+        //mengecek apakah sate awal(A) dapat pindah ke satete yang dipilih(B)
+
         public void TransitionState(string newState)
         {
-            while (currentState != SessionState.loginPage)
-            {
+            
                 switch (currentState)
                 {
                     case SessionState.loginPage:
@@ -50,6 +55,12 @@ namespace tkpl.Model
                             stringCurentState = "user page";
                             ChangeState(SessionState.userPage);
                         }
+                        else
+                        {
+                            Console.WriteLine("home page");
+                            stringCurentState = "home page";
+                            ChangeState(SessionState.homePage);
+                        }
                         break;
                     case SessionState.quizPage:
                         if (newState == "materi")
@@ -64,6 +75,12 @@ namespace tkpl.Model
                             stringCurentState = "home page";
                             ChangeState(SessionState.homePage);
                         }
+                        else
+                        {
+                            Console.WriteLine("quiz page");
+                            stringCurentState = "quiz page";
+                            ChangeState(SessionState.quizPage);
+                        }
                         break;
                     case SessionState.materiPage:
                         if (newState == "quiz")
@@ -77,6 +94,11 @@ namespace tkpl.Model
                             Console.WriteLine("home page");
                             ChangeState(SessionState.homePage);
                         }
+                        else
+                        {
+                            Console.WriteLine("materi page");
+                            ChangeState(SessionState.materiPage);
+                        }
                         break;
                     case SessionState.userPage:
                         if (newState == "login")
@@ -89,17 +111,21 @@ namespace tkpl.Model
                             Console.WriteLine("home page");
                             ChangeState(SessionState.homePage);
                         }
+                        else 
+                        { 
+                            Console.WriteLine("user page");
+                            ChangeState(SessionState.userPage);
+                        }
                         break;
 
                 }
-            }
         }
 
         
-
+        // untuk mengambilk state saat ini 
         public SessionState GetCurrentState()
         {
-            throw new NotImplementedException();
+            return currentState;
         }
     }
 }
