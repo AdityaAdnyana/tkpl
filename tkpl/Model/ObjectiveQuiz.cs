@@ -1,6 +1,6 @@
 namespace tkpl.Model
 {
-    internal class ObjectiveQuiz<T> : Question<T>
+    public class ObjectiveQuiz<T> : Question<T>
     {
         public List<T> Options { get; set; } = new List<T>();
 

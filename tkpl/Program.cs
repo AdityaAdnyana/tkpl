@@ -20,8 +20,6 @@ namespace tkpl
             Application.Run();
             //Application.Run(new QuizPilihanGanda());
 
-            
-
         }
     }
 }
