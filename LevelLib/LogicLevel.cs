@@ -6,9 +6,9 @@ using System;
 
 public class LogicLevel
 {
-    private int _currentModIdx = 0;
-    private int _currentLessIdx = 0;
-    private int _currentLives;
+    public int _currentModIdx { get; set; } = 0;
+    public int _currentLessIdx { get; set; } = 0;
+    public int _currentLives {  get; set; }
 
     // Konstruktor untuk inisialisasi level pertama dan nyawa awal
     public LogicLevel()
@@ -27,13 +27,12 @@ public class LogicLevel
 
     // --- DESIGN BY CONTRACT: PRE-CONDITION ---
     // Fungsi untuk memproses jawaban user
-    public void ProcessAnswer(string input)
+    public string ProcessAnswer(string input) // Ganti void jadi string
     {
         // Pre-condition: Validasi input tidak boleh kosong atau hanya spasi
         if (string.IsNullOrWhiteSpace(input))
         {
-            Console.WriteLine("Input tidak valid!");
-            return;
+            return "Input tidak valid!"; // Gunakan return
         }
 
         // Ambil data modul dan materi saat ini
@@ -43,12 +42,13 @@ public class LogicLevel
         // Logika untuk memeriksa jawaban (Post-Condition)
         if (input.ToLower() == currentLess.Answer.ToLower())
         {
-            Console.WriteLine("Sangat Bagus!");
             HandleSuccess();
+            return "Benar!";
         }
         else
         {
             HandleFailure();
+            return "Salah!";
         }
     }
 

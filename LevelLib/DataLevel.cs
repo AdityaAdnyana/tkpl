@@ -33,3 +33,4 @@ public class Module
         MaxLives = lives;
     }
 }
+

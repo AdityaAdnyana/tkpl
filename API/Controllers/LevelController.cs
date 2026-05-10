@@ -20,8 +20,6 @@ public class LevelController : Controller
         return Ok("Modul berhasil ditambahkan!");
     }
 
-
-
     [HttpPut("{id}")]
     public ActionResult UpdateModule(int id, Module updatedModule)
     {
