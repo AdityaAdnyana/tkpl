@@ -10,7 +10,7 @@ public class Lesson
     public string Answer { get; set; }
     public Lesson() { }
 
-    public Lesson(string title, string content, string question, string answer)
+    private Lesson(string title, string content, string question, string answer)
     {
         Title = title;
         Content = content;
