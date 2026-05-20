@@ -10,7 +10,7 @@ namespace tkpl.Tests
         public void ValidateAnswer_Correct_ReturnsTrue()
         {
             // Arrange
-            var essayQuiz = new EssayQuiz
+            var essayQuiz = new EssayQuiz<string>
             {
                 QuestionText = "Siapakah penemu bola lampu?",
                 ExpectedAnswer = "Thomas Alva Edison"
@@ -28,7 +28,7 @@ namespace tkpl.Tests
         public void ValidateAnswer_Incorrect_ReturnsFalse()
         {
             // Arrange
-            var essayQuiz = new EssayQuiz { ExpectedAnswer = "Thomas Alva Edison" };
+            var essayQuiz = new EssayQuiz<string> { ExpectedAnswer = "Thomas Alva Edison" };
             string inputJawaban = "Nikola Tesla";
 
             // Act
@@ -99,7 +99,7 @@ namespace tkpl.Tests
         {
             // Arrange
             var lesson = new Lesson();
-            var q1 = new EssayQuiz();
+            var q1 = new EssayQuiz<string>();
             var q2 = new ObjectiveQuiz<int>();
 
             // Act
