@@ -23,9 +23,20 @@ namespace tkpl.Model
 
                 if (convertedAnswer is T typedAnswer) return ValidateAnswer(typedAnswer);
             }
-            catch(Exception ex)
+            catch (FormatException)
             {
-                Debug.WriteLine("Input tidak valid: " + ex);
+                // Membuat dan melempar error spesifik jika format gagal dikonversi
+                string errorMsg = $"Format jawaban tidak sesuai! Harap masukkan nilai dalam bentuk {typeof(T).Name}.";
+                Debug.WriteLine(errorMsg);
+
+                // Throw digunakan agar error ini melompat naik untuk ditangkap oleh antarmuka (GUI)
+                throw new FormatException(errorMsg);
+            }
+            catch (Exception ex)
+            {
+                // Menangkap kegagalan sistem umum lainnya
+                Debug.WriteLine("Input tidak valid: " + ex.Message);
+                throw new Exception("Terjadi kesalahan sistem saat memproses jawaban: " + ex.Message);
             }
             return false;
         }

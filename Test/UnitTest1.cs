@@ -59,24 +59,6 @@ namespace tkpl.Tests
             Assert.Equal(4, stringOptions.Count);
             Assert.Contains("4", stringOptions);
         }
-
-        [Fact]
-        public void GetStringOptions_NullOption_ReturnsEmptyString()
-        {
-            // Arrange
-            var stringQuiz = new ObjectiveQuiz<string>
-            {
-                ExpectedAnswer = "A",
-                Options = new List<string> { "A", null, "C" }
-            };
-
-            // Act
-            var stringOptions = stringQuiz.GetStringOptions();
-
-            // Assert
-            Assert.Equal(3, stringOptions.Count);
-            Assert.Equal("", stringOptions[1]);
-        }
     }
 
     public class QuestionTypeConversionTests
@@ -95,19 +77,19 @@ namespace tkpl.Tests
             Assert.True(isCorrect);
         }
 
+        //Revisi: test sekarang bukan lagi cek apakah hasilnya false,
+        //tapi apakah terjadi FormatException saat mencoba mengkonversi string yang tidak valid ke int.
         [Fact]
-        public void ValidateAnswer_InvalidCast_ReturnsFalse()
+        public void ValidateAnswer_InvalidCast_ThrowsFormatException()
         {
             // Arrange
             var question = new ObjectiveQuiz<int> { ExpectedAnswer = 4 };
             object inputSalahTipe = "Bukan Angka";
-
-            // Act
-            bool isCorrect = question.ValidateAnswer(inputSalahTipe);
-
-            // Assert
-            Assert.False(isCorrect);
-        }       
+            Assert.Throws<FormatException>(() =>
+            {
+                question.ValidateAnswer(inputSalahTipe);
+            });
+        }
     }
 
     public class LessonTests

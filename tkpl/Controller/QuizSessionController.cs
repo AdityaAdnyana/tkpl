@@ -1,7 +1,7 @@
 using tkpl.Model;
 namespace tkpl.Controller
 {
-    internal class QuizSessionController
+    public class QuizSessionController
     {
         private Lesson lesson;
         private QuizView quizView;
@@ -63,7 +63,24 @@ namespace tkpl.Controller
                 Button btnSubmit = QuizView.GenerateSubmitButton();
 
                 // Menangani klik pada tombol submit. Mengirimkan jawaban yang dimasukkan ke metode validasi.
-                btnSubmit.Click += (sender, e) => HandleAnswer(essayQuiz.ValidateAnswer(txtAnswer.Text));
+                btnSubmit.Click += (sender, e) =>
+                {
+                    try
+                    {
+                        HandleAnswer(essayQuiz.ValidateAnswer(txtAnswer.Text));
+                    }
+                    catch (FormatException ex)
+                    {
+                        // Menampilkan GUI MessageBox peringatan jika konversi format (misal huruf ke angka) gagal
+                        MessageBox.Show(ex.Message, "Peringatan Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Menampilkan GUI MessageBox error untuk masalah lainnya
+                        MessageBox.Show($"Terjadi kesalahan: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                };
+
 
                 quizView.AddControl(txtAnswer);
                 quizView.AddControl(btnSubmit);

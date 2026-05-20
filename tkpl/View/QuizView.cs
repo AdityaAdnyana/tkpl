@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using tkpl.Controller;
 
 namespace tkpl
 {
@@ -23,8 +24,9 @@ namespace tkpl
 
             TextBox answerTextBox = new TextBox();
             answerTextBox.Name = "essayTextBox";
-            answerTextBox.Size = new Size(300, 30);
-            answerTextBox.Font = new Font("Arial", 12);
+            // Mengambil ukuran dan font dari konfigurasi runtime
+            answerTextBox.Size = new Size(AppConfig.UI.TextBoxWidth, AppConfig.UI.TextBoxHeight);
+            answerTextBox.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.FontSize);
 
             return answerTextBox;
         }
@@ -37,7 +39,11 @@ namespace tkpl
             Button answerButton = new Button();
             answerButton.Location = new Point(12, 12);
             answerButton.Name = "button1";
-            answerButton.Size = new Size(100, 63);
+
+            // Mengambil ukuran dari konfigurasi runtime
+            answerButton.Size = new Size(AppConfig.UI.AnswerButtonWidth, AppConfig.UI.AnswerButtonHeight);
+            answerButton.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.FontSize);
+
             answerButton.TabIndex = 1;
             answerButton.Text = answerText;
             answerButton.UseVisualStyleBackColor = true;
@@ -51,7 +57,8 @@ namespace tkpl
         {
             Button submitBtn = new Button();
             submitBtn.Text = "Submit Jawaban";
-            submitBtn.Size = new Size(120, 40);
+            submitBtn.Size = new Size(AppConfig.UI.SubmitButtonWidth, AppConfig.UI.SubmitButtonHeight);
+            submitBtn.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.FontSize);
             return submitBtn;
         }
 

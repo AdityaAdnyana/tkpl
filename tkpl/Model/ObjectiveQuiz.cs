@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace tkpl.Model
 {
     public class ObjectiveQuiz<T> : Question<T>
@@ -15,7 +17,8 @@ namespace tkpl.Model
                 }
                 else
                 {
-                    strOptions.Add("");
+                    //Jika input opsi jawaban null, maaka soal tidak akan masuk ke dalam list
+                    Debug.WriteLine("Warning: Input tidak boleh null.");
                 }
             }
             return strOptions;

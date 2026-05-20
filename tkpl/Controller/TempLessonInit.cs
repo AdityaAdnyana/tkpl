@@ -3,7 +3,9 @@ namespace tkpl.Controller
 {
     public class TempLessonInit
     {
-        public TempLessonInit() { 
+        public TempLessonInit() {
+
+            AppConfig.LoadConfig();
             Lesson currentLesson = new();
 
             // Contoh Soal Essay
