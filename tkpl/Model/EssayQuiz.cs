@@ -1,7 +1,9 @@
+using tkpl.Model.tkpl.Model;
+
 namespace tkpl.Model
 {
-    //Dibuat bertipe string karena input dari texbox di UI sudah pasti berupa string.
-    public class EssayQuiz : Question<string>
+    // Diubah menjadi generic <T> agar bisa menerima tipe data seperti int atau string.
+    public class EssayQuiz<T> : Question<T>, IEssayQuiz
     {
 
     }

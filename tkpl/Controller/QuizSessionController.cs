@@ -1,4 +1,5 @@
 using tkpl.Model;
+using tkpl.Model.tkpl.Model;
 namespace tkpl.Controller
 {
     public class QuizSessionController
@@ -43,21 +44,20 @@ namespace tkpl.Controller
             quizView.ClearControls();
 
             // Jika soal adalah ObjectiveQuiz, tampilkan opsi jawaban sebagai tombol.
-            bool isObjectiveQuiz = currentQuestion is ObjectiveQuiz<string> || currentQuestion is ObjectiveQuiz<int>;
-            if (isObjectiveQuiz)
+            if (currentQuestion is IObjectiveQuiz objectiveQuiz)
             {
-                var objectiveQuiz = currentQuestion as dynamic; // Menggunakan dynamic untuk menangani kedua jenis ObjectiveQuiz
                 foreach (var opt in objectiveQuiz.GetStringOptions())
                 {
                     Button btn = QuizView.GenerateAnswerButton(opt);
-                    
-                    // Menangani klik pada tombol jawaban. Mengirimkan jawaban yang dipilih ke metode validasi.
+
+                    // Menangani klik pada tombol jawaban.
+                    // objectiveQuiz mewarisi IQuestion, sehingga otomatis punya ValidateAnswer(object)
                     btn.Click += (sender, e) => HandleAnswer(objectiveQuiz.ValidateAnswer(opt));
                     quizView.AddControl(btn);
                 }
             }
             // Jika soal adalah EssayQuiz, tampilkan TextBox untuk jawaban dan tombol submit.
-            else if (currentQuestion is EssayQuiz essayQuiz)
+            else if (currentQuestion is IEssayQuiz)
             {
                 TextBox txtAnswer = QuizView.GenerateAnswerTextBox();
                 Button btnSubmit = QuizView.GenerateSubmitButton();
@@ -67,11 +67,11 @@ namespace tkpl.Controller
                 {
                     try
                     {
-                        HandleAnswer(essayQuiz.ValidateAnswer(txtAnswer.Text));
+                        HandleAnswer(currentQuestion.ValidateAnswer(txtAnswer.Text));
                     }
                     catch (FormatException ex)
                     {
-                        // Menampilkan GUI MessageBox peringatan jika konversi format (misal huruf ke angka) gagal
+                        // Menampilkan GUI MessageBox peringatan jika konversi format (misal: huruf ke angka) gagal
                         MessageBox.Show(ex.Message, "Peringatan Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     catch (Exception ex)

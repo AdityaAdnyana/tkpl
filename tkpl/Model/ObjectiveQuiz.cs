@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace tkpl.Model
 {
-    public class ObjectiveQuiz<T> : Question<T>
+    public class ObjectiveQuiz<T> : Question<T>, IObjectiveQuiz
     {
         public List<T> Options { get; set; } = new List<T>();
 

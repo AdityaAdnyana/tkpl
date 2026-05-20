@@ -9,7 +9,7 @@ namespace tkpl.Controller
             Lesson currentLesson = new();
 
             // Contoh Soal Essay
-            EssayQuiz question1 = new EssayQuiz 
+            EssayQuiz<string> question1 = new EssayQuiz<string>
             { 
                 QuestionText = "Siapakah penemu bola lampu?", 
                 ExpectedAnswer = "Thomas Alva Edison"
@@ -31,10 +31,10 @@ namespace tkpl.Controller
                 Options = new List<int> { 1, 2, 3, 4 }
             };
 
-            EssayQuiz question4 = new EssayQuiz
+            EssayQuiz<int> question4 = new EssayQuiz<int>
             {
                 QuestionText = "Berapakah hasil dari 1 + 2?",
-                ExpectedAnswer = "3"
+                ExpectedAnswer = 3
             };
 
             currentLesson.questions.Add(question1);
