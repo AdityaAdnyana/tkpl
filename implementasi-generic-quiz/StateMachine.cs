@@ -8,7 +8,7 @@ namespace tkpl.Model
     {
         public enum SessionState // membbuat state mengunakan enum
         {
-            loginPage, homePage, quizPage, materiPage, userPage //nesar kecil
+            loginPage, homePage, quizPage, materiPage, userPage
         }
 
         public static SessionState currentState { get; private set; }
