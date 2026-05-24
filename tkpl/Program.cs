@@ -1,5 +1,6 @@
 using ImplemantasiGenericQuiz;
 using tkpl.Model;
+using tkpl.Controller;
 
 namespace tkpl
 {
@@ -13,12 +14,11 @@ namespace tkpl
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            //ApplicationConfiguration.Initialize();
-            //Application.Run(new QuizPilihanGanda());
-            //TempLessonInit dummyLesson = new();
+            ApplicationConfiguration.Initialize();
+            Application.Run(new QuizPilihanGanda());
+            TempLessonInit dummyLesson = new();
             StateMachine stateMachine = new StateMachine();
             int a = Convert.ToInt32(Console.ReadLine());
-            stateMachine.TransitionState("quiz");
         }
     }
 }
