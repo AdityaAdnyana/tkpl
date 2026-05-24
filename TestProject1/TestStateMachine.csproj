@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\implementasi-generic-quiz\ImplemantasiGenericQuiz.csproj" />
     <ProjectReference Include="..\tkpl\tkpl.csproj" />
   </ItemGroup>
 
