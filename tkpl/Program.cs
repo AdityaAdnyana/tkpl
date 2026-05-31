@@ -1,3 +1,5 @@
+using tkpl.Controller;
+
 namespace tkpl
 {
     internal static class Program
@@ -10,8 +12,14 @@ namespace tkpl
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+
+
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+
+            TempLessonInit dummyLesson = new();
+            Application.Run();
+            //Application.Run(new QuizPilihanGanda());
+
         }
     }
 }
