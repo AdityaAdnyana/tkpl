@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-using System;
-
 public class LogicLevel
 {
     public int _currentModIdx { get; set; } = 0;
@@ -37,7 +35,7 @@ public class LogicLevel
 
         // Ambil data modul dan materi saat ini
         Module currentMod = RepoLevel.MasterTable[_currentModIdx];
-        Lesson currentLess = currentMod.Lessons[_currentLessIdx];
+        Lesson currentLess = currentMod.ReadOnlyLessons[_currentLessIdx];
 
         // Logika untuk memeriksa jawaban (Post-Condition)
         if (input.ToLower() == currentLess.Answer.ToLower())
@@ -56,7 +54,7 @@ public class LogicLevel
     private void HandleSuccess()
     {
         // Logika Perpindahan Level (Post-Condition)
-        if (_currentLessIdx < RepoLevel.MasterTable[_currentModIdx].Lessons.Count - 1)
+        if (_currentLessIdx < RepoLevel.MasterTable[_currentModIdx].ReadOnlyLessons.Count - 1)
         {
             _currentLessIdx++;
         }
@@ -105,7 +103,7 @@ public class LogicLevel
     {
         // Ambil data modul dan materi saat ini
         var mod = RepoLevel.MasterTable[_currentModIdx];
-        var les = mod.Lessons[_currentLessIdx];
+        var les = mod.ReadOnlyLessons[_currentLessIdx];
         Console.WriteLine($"[MODUL: {mod.ModuleName}] | [MATERI: {les.Title}]");
         Console.WriteLine($"Isi: {les.Content}");
         Console.WriteLine($"Tanya: {les.Question} (Nyawa: {_currentLives})");

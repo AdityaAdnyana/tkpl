@@ -51,51 +51,54 @@ public class LevelController : Controller
     public ActionResult<Lesson> GetLesson(int modulId, int lessonId)
     {
         if (modulId < RepoLevel.MasterTable.Count &&
-            lessonId < RepoLevel.MasterTable[modulId].Lessons.Count)
+            lessonId < RepoLevel.MasterTable[modulId].ReadOnlyLessons.Count)
         {
-            return Ok(RepoLevel.MasterTable[modulId].Lessons[lessonId]);
+            return Ok(RepoLevel.MasterTable[modulId].ReadOnlyLessons[lessonId]);
         }
         return NotFound();
     }
 
-    [HttpPost("{modId}/lessons")]
-    public ActionResult AddLesson(int modId, [FromBody] Lesson newLesson)
-    {
-        if (modId < 0 || modId >= RepoLevel.MasterTable.Count)
-            return NotFound("Modul tidak ditemukan");
+    //[HttpPost("{modId}/lessons")]
+    //public ActionResult AddLesson(int modId, [FromBody] Lesson newLesson)
+    //{
+    //    if (modId < 0 || modId >= RepoLevel.MasterTable.Count)
+    //        return NotFound("Modul tidak ditemukan");
 
-        RepoLevel.MasterTable[modId].Lessons.Add(newLesson);
-        return Ok($"Materi '{newLesson.Title}' berhasil ditambahkan ke modul {RepoLevel.MasterTable[modId].ModuleName}");
-    }
+    //    RepoLevel.MasterTable[modId].ReadOnlyLessons.Add(newLesson);
+    //    return Ok($"Materi '{newLesson.Title}' berhasil ditambahkan ke modul {RepoLevel.MasterTable[modId].ModuleName}");
+    //}
+    // Ini gabisa di pake gegara lesson private 
 
-    [HttpPut("{modId}/lessons/{lessId}")]
-    public ActionResult UpdateLesson(int modId, int lessId, [FromBody] Lesson updatedLesson)
-    {
-        if (modId < 0 || modId >= RepoLevel.MasterTable.Count)
-            return NotFound("Modul tidak ditemukan");
+    //[HttpPut("{modId}/lessons/{lessId}")]
+    //public ActionResult UpdateLesson(int modId, int lessId, [FromBody] Lesson updatedLesson)
+    //{
+    //    if (modId < 0 || modId >= RepoLevel.MasterTable.Count)
+    //        return NotFound("Modul tidak ditemukan");
 
-        var lessons = RepoLevel.MasterTable[modId].Lessons;
-        if (lessId < 0 || lessId >= lessons.Count)
-            return NotFound("Materi tidak ditemukan");
+    //    var lessons = RepoLevel.MasterTable[modId].ReadOnlyLessons;
+    //    if (lessId < 0 || lessId >= lessons.Count)
+    //        return NotFound("Materi tidak ditemukan");
 
-        lessons[lessId] = updatedLesson;
-    return Ok("Materi berhasil diperbarui.");
-    }
+    //    lessons[lessId] = updatedLesson;
+    //return Ok("Materi berhasil diperbarui.");
+    //}
 
-    [HttpDelete("{modId}/lessons/{lessId}")]
-    public ActionResult DeleteLesson(int modId, int lessId)
-    {
-        if (modId < 0 || modId  >= RepoLevel.MasterTable.Count)
-            return NotFound("Modul tidak ditemukan");
+    //[HttpDelete("{modId}/lessons/{lessId}")]
+    //public ActionResult DeleteLesson(int modId, int lessId)
+    //{
+    //    if (modId < 0 || modId  >= RepoLevel.MasterTable.Count)
+    //        return NotFound("Modul tidak ditemukan");
 
-        var lessons = RepoLevel.MasterTable[modId].Lessons;
-        if (lessId < 0 || lessId >= lessons.Count)
-            return NotFound("Materi tidak ditemukan");
+    //    var lessons = RepoLevel.MasterTable[modId].ReadOnlyLessons;
+    //    if (lessId < 0 || lessId >= lessons.Count)
+    //        return NotFound("Materi tidak ditemukan");
 
-        var deletedTitle = lessons[lessId].Title;
-    lessons.RemoveAt(lessId);
-    return Ok($"Materi '{deletedTitle}' berhasil dihapus.");
-    }
+    //    var deletedTitle = lessons[lessId].Title;
+    //lessons.RemoveAt(lessId);
+    //return Ok($"Materi '{deletedTitle}' berhasil dihapus.");
+    //}
+
+    // Dua ini juga sama nasib nya
 
     // =======================================
 }

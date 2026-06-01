@@ -8,6 +8,9 @@
 
         // Simulasi Alur
         Level.ProcessAnswer("const");
+
+        Level.DisplayStatus();
+
         Level.ProcessAnswer("salah");
 
         // Tiap class udah ada command isi penjelasan masing-masing untuk setiap method/fungsi,
