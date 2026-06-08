@@ -1,4 +1,3 @@
-using ImplemantasiGenericQuiz;
 using tkpl;
 using tkpl.Controller;
 using tkpl.Model;
