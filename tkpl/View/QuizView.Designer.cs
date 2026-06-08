@@ -35,7 +35,7 @@
             btSkip = new Button();
             label1 = new Label();
             panel2 = new Panel();
-            label2 = new Label();
+            health = new Label();
             button1 = new Button();
             quizSessionProgressBar = new ProgressBar();
             panel1.SuspendLayout();
@@ -107,7 +107,7 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(label2);
+            panel2.Controls.Add(health);
             panel2.Controls.Add(button1);
             panel2.Controls.Add(quizSessionProgressBar);
             panel2.Dock = DockStyle.Top;
@@ -117,16 +117,16 @@
             panel2.Size = new Size(1058, 55);
             panel2.TabIndex = 2;
             // 
-            // label2
+            // health
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.FromArgb(192, 0, 0);
-            label2.Location = new Point(958, 9);
-            label2.Name = "label2";
-            label2.Size = new Size(78, 38);
-            label2.TabIndex = 2;
-            label2.Text = "❤️ 3";
+            health.AutoSize = true;
+            health.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            health.ForeColor = Color.FromArgb(192, 0, 0);
+            health.Location = new Point(958, 9);
+            health.Name = "health";
+            health.Size = new Size(78, 38);
+            health.TabIndex = 2;
+            health.Text = "❤️ 3";
             // 
             // button1
             // 
@@ -174,7 +174,7 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Button button1;
         private ProgressBar quizSessionProgressBar;
-        private Label label2;
+        private Label health;
         private Button btSkip;
     }
 }

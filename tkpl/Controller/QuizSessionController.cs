@@ -8,6 +8,8 @@ namespace tkpl.Controller
         private QuizView quizView;
         private int currentQuestionIndex = 0;
 
+        private int currentHealth;
+
         //Meminta lesson dan view agar controller dapat mengelola sesi kuis dengan data dan tampilan yang sesuai.
         public QuizSessionController(Lesson lesson, QuizView quizView)
         {
@@ -20,6 +22,9 @@ namespace tkpl.Controller
         {
             quizView.InitProgressBar(lesson.questions.Count, 0);
             currentQuestionIndex = 0;
+
+            InitHealth();
+
             if (lesson.questions.Count > 0)
             {
                 ShowQuestion(currentQuestionIndex);
@@ -102,7 +107,20 @@ namespace tkpl.Controller
             else
             {
                 MessageBox.Show("Jawaban Anda Salah, silakan coba lagi.", "Hasil", MessageBoxButtons.OK);
+                DecreaseHealth(1);
             }
+        }
+
+        private void InitHealth()
+        {
+            currentHealth = lesson.questions.Count / 4;
+            quizView.UpdateHealthVal(currentHealth);
+        }
+
+        private void DecreaseHealth(int decreaseVal)
+        {
+            currentHealth -= decreaseVal;
+            quizView.UpdateHealthVal(currentHealth);
         }
     }
 }

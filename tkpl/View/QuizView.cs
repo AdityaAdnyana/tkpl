@@ -103,6 +103,13 @@ namespace tkpl
             quizSessionProgressBar.Value = newVal;
         }
 
+        public void UpdateHealthVal(int newVal)
+        {
+            health.Text = $"❤️ {newVal}";
+        }
+
+
+
 
 
         private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
