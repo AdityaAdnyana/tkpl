@@ -18,6 +18,7 @@ namespace tkpl.Controller
         //Mulai sesi
         public void StartSession()
         {
+            quizView.InitProgressBar(lesson.questions.Count, 0);
             currentQuestionIndex = 0;
             if (lesson.questions.Count > 0)
             {
@@ -32,6 +33,7 @@ namespace tkpl.Controller
 
         private void ShowQuestion(int index)
         {
+            quizView.UpdateProgressBarValue(index);
             if (index >= lesson.questions.Count)
             {
                 MessageBox.Show("Kuis Selesai!", "Selesai", MessageBoxButtons.OK);
