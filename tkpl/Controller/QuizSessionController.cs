@@ -7,99 +7,127 @@ namespace tkpl.Controller
         private Lesson lesson;
         private QuizView quizView;
         private int currentQuestionIndex = 0;
+        public LogicLevel gameLogic;
 
         //Meminta lesson dan view agar controller dapat mengelola sesi kuis dengan data dan tampilan yang sesuai.
-        public QuizSessionController(Lesson lesson, QuizView quizView)
+        public QuizSessionController(Lesson lesson, QuizView quizView, LogicLevel logic)
         {
             this.lesson = lesson;
             this.quizView = quizView;
+            this.gameLogic = logic;
         }
 
-        //Mulai sesi
+        // Mulai sesi
         public void StartSession()
         {
             currentQuestionIndex = 0;
-            if (lesson.questions.Count > 0)
+            if (lesson.Questions.Count > 0)
             {
                 ShowQuestion(currentQuestionIndex);
                 quizView.Show();
             }
             else
             {
-                MessageBox.Show("Tidak ada soal dalam lesson ini.");
+                MessageBox.Show("Tidak ada soal dalam lesson ini.??????");
             }
         }
-
+        // Memperlihatkan soal berdasarkan indeks saat ini. Metode ini
         private void ShowQuestion(int index)
         {
-            if (index >= lesson.questions.Count)
+            // Evaluasi Alur & Batas Akhir Bab (Navigation Guard)
+            if (index >= lesson.Questions.Count)
             {
-                MessageBox.Show("Kuis Selesai!", "Selesai", MessageBoxButtons.OK);
-                quizView.Close();
+                HandleLessonTransition();
                 return;
             }
 
-            IQuestion currentQuestion = lesson.questions[index];
+            // Mengambil data soal aktif
+            IQuestion currentQuestion = lesson.Questions[index];
             quizView.SetQuestionText(currentQuestion.QuestionText);
             quizView.ClearControls();
 
-            // Jika soal adalah ObjectiveQuiz, tampilkan opsi jawaban sebagai tombol.
+            // Delegasikan urusan rendering berdasarkan tipe soalnya
             if (currentQuestion is IObjectiveQuiz objectiveQuiz)
             {
-                foreach (var opt in objectiveQuiz.GetStringOptions())
-                {
-                    Button btn = QuizView.GenerateAnswerButton(opt);
-
-                    // Menangani klik pada tombol jawaban.
-                    // objectiveQuiz mewarisi IQuestion, sehingga otomatis punya ValidateAnswer(object)
-                    btn.Click += (sender, e) => HandleAnswer(objectiveQuiz.ValidateAnswer(opt));
-                    quizView.AddControl(btn);
-                }
+                RenderObjectiveControls(objectiveQuiz);
             }
-            // Jika soal adalah EssayQuiz, tampilkan TextBox untuk jawaban dan tombol submit.
-            else if (currentQuestion is IEssayQuiz)
+            else if (currentQuestion is IEssayQuiz essayQuiz)
             {
-                TextBox txtAnswer = QuizView.GenerateAnswerTextBox();
-                Button btnSubmit = QuizView.GenerateSubmitButton();
-
-                // Menangani klik pada tombol submit. Mengirimkan jawaban yang dimasukkan ke metode validasi.
-                btnSubmit.Click += (sender, e) =>
-                {
-                    try
-                    {
-                        HandleAnswer(currentQuestion.ValidateAnswer(txtAnswer.Text));
-                    }
-                    catch (FormatException ex)
-                    {
-                        // Menampilkan GUI MessageBox peringatan jika konversi format (misal: huruf ke angka) gagal
-                        MessageBox.Show(ex.Message, "Peringatan Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Menampilkan GUI MessageBox error untuk masalah lainnya
-                        MessageBox.Show($"Terjadi kesalahan: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                };
-
-
-                quizView.AddControl(txtAnswer);
-                quizView.AddControl(btnSubmit);
+                RenderEssayControls(essayQuiz);
             }
         }
 
-        //Dipanggil oleh event handler tombol jawaban atau submit. Metode ini memvalidasi jawaban dan memberikan umpan balik kepada pengguna.
+        // Metode ini menangani transisi antar soal, dan jika sudah mencapai akhir bab,
+        private void HandleLessonTransition()
+        {
+            int currentLessonIdx = gameLogic._currentLessIdx;
+            int currentModIdx = gameLogic._currentModIdx;
+            int totalLessonsInCurrentModule = RepoLevel.MasterTable[currentModIdx].ReadOnlyLessons.Count;
+
+            if (currentModIdx == 0 && currentLessonIdx == totalLessonsInCurrentModule - 1)
+            {
+                MessageBox.Show($"Selamat! Anda telah menyelesaikan seluruh bab di modul {RepoLevel.MasterTable[currentModIdx].ModuleName}. Program akan dihentikan.", "MODUL SELESAI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                quizView.Close();
+                Application.Exit();
+                return;
+            }
+
+            gameLogic.ForceAdvanceLevel();
+
+            var nextMod = RepoLevel.MasterTable[gameLogic._currentModIdx];
+            this.lesson = nextMod.ReadOnlyLessons[gameLogic._currentLessIdx];
+
+            currentQuestionIndex = 0;
+            ShowQuestion(currentQuestionIndex);
+        }
+
+        // Metode ini bertanggung jawab untuk merender kontrol jawaban untuk soal objektif. Untuk setiap opsi jawaban yang tersedia,
+        // metode ini membuat tombol dan menambahkan event handler yang memanggil metode HandleAnswer dengan hasil validasi jawaban.
+        private void RenderObjectiveControls(IObjectiveQuiz objectiveQuiz)
+        {
+            foreach (var opt in objectiveQuiz.GetStringOptions())
+            {
+                Button btn = QuizView.GenerateAnswerButton(opt);
+                btn.Click += (sender, e) => HandleAnswer(objectiveQuiz.ValidateAnswer(opt));
+                quizView.AddControl(btn);
+            }
+        }
+
+        // Metode ini bertanggung jawab untuk merender kontrol jawaban untuk soal esai. Metode ini membuat TextBox untuk input jawaban dan tombol submit.
+        private void RenderEssayControls(IEssayQuiz essayQuiz)
+        {
+            TextBox txtAnswer = QuizView.GenerateAnswerTextBox();
+            Button btnSubmit = QuizView.GenerateSubmitButton();
+
+            btnSubmit.Click += (sender, e) => HandleAnswer(essayQuiz.ValidateAnswer(txtAnswer.Text));
+
+            quizView.AddControl(txtAnswer);
+            quizView.AddControl(btnSubmit);
+        }
+        // Dipanggil oleh event handler tombol jawaban atau submit. Metode ini menerima hasil validasi
+        // (sudah dilakukan pada event handler) dan memberikan umpan balik kepada pengguna.
         private void HandleAnswer(bool isCorrect)
         {
-            //Jika jawaban benar, lanjutkan ke soal berikutnya. Jika salah, coba lagi.
             if (isCorrect)
             {
                 MessageBox.Show("Jawaban Anda Benar!", "Hasil", MessageBoxButtons.OK);
+
                 currentQuestionIndex++;
                 ShowQuestion(currentQuestionIndex);
             }
             else
             {
-                MessageBox.Show("Jawaban Anda Salah, silakan coba lagi.", "Hasil", MessageBoxButtons.OK);
+                gameLogic._currentLives--;
+
+                MessageBox.Show($"Jawaban Anda Salah, silakan coba lagi. Sisa Nyawa: {gameLogic._currentLives}", "Hasil", MessageBoxButtons.OK);
+
+                if (gameLogic._currentLives <= 0)
+                {
+                    MessageBox.Show("Sesi kuis ditutup karena nyawa Anda habis.", "Game Over", MessageBoxButtons.OK);
+
+                    gameLogic.ProcessAnswer("salah_konsekuensi_nyawa_habis");
+                    quizView.Close();
+                }
             }
         }
     }

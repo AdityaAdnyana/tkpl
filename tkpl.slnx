@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="API/API.csproj" />
   <Project Path="Test/Test.csproj" Id="d26f5937-7fbd-4436-9e91-3058d3d01b69" />
+  <Project Path="TestLevelProjects/TestLevelProjects.csproj" />
   <Project Path="tkpl/tkpl.csproj" />
 </Solution>

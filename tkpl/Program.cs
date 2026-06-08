@@ -15,8 +15,15 @@ namespace tkpl
 
 
             ApplicationConfiguration.Initialize();
+            LogicLevel levelManager = new LogicLevel();
 
-            TempLessonInit dummyLesson = new();
+            Module currentMod = RepoLevel.MasterTable[levelManager._currentModIdx];
+            Lesson activeLesson = currentMod.ReadOnlyLessons[levelManager._currentLessIdx];
+
+            QuizView quizView = new QuizView();
+            QuizSessionController sessionController = new QuizSessionController(activeLesson, quizView, levelManager);
+
+            sessionController.StartSession();
             Application.Run();
             //Application.Run(new QuizPilihanGanda());
 
