@@ -15,11 +15,6 @@ namespace tkpl
         public QuizView()
         {
             InitializeComponent();
-
-            // Ketika Form kuis ini ditutup oleh user, matikan seluruh proses background aplikasi sampai bersih
-            this.FormClosed += (sender, e) => {
-                Application.Exit();
-            };
         }
 
         // Method untuk menghasilkan TextBox untuk soal essay.
@@ -82,7 +77,7 @@ namespace tkpl
         {
             Debug.WriteLine("ADD CONTROL EXECUTED");
 
-
+            
             flowLayoutPanel1.Controls.Add(ctrl);
         }
 
@@ -94,10 +89,6 @@ namespace tkpl
             label1.Text = text;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 
 }

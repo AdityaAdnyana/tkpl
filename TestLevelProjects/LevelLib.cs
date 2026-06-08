@@ -11,8 +11,8 @@
             Assert.AreEqual("Title", lesson.Title);
             Assert.AreEqual("Answer", lesson.Answer);
 
-            Module module = new Module("Dasar", new List<Lesson> { lesson });
-            Assert.HasCount(1, module.ReadOnlyLessons);
+            Module module = new Module("Dasar", new List<Lesson> { lesson }, 3);
+            Assert.HasCount(1, module.Lessons);
             Assert.AreEqual(3, module.MaxLives);
         }
 
@@ -120,7 +120,7 @@
             // Cek spesifik modul pertama
             var firstMod = RepoLevel.MasterTable[0];
             Assert.AreEqual("Dasar C#", firstMod.ModuleName);
-            Assert.AreEqual(2, firstMod.ReadOnlyLessons.Count);
+            Assert.AreEqual(2, firstMod.Lessons.Count);
         }
 
         [TestMethod]

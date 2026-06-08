@@ -1,15 +1,16 @@
+using System;
+using System.Windows.Forms;
 using tkpl.Model;
-using tkpl.Model.tkpl.Model;
+
 namespace tkpl.Controller
 {
     public class QuizSessionController
     {
         private Lesson lesson;
         private QuizView quizView;
+        private LogicLevel gameLogic;
         private int currentQuestionIndex = 0;
-        public LogicLevel gameLogic;
 
-        //Meminta lesson dan view agar controller dapat mengelola sesi kuis dengan data dan tampilan yang sesuai.
         public QuizSessionController(Lesson lesson, QuizView quizView, LogicLevel logic)
         {
             this.lesson = lesson;
@@ -17,7 +18,6 @@ namespace tkpl.Controller
             this.gameLogic = logic;
         }
 
-        // Mulai sesi
         public void StartSession()
         {
             currentQuestionIndex = 0;
@@ -28,25 +28,25 @@ namespace tkpl.Controller
             }
             else
             {
-                MessageBox.Show("Tidak ada soal dalam lesson ini.??????");
+                MessageBox.Show("Tidak ada soal dalam lesson ini.", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        // Memperlihatkan soal berdasarkan indeks saat ini. Metode ini
+
+        // Metode ini menampilkan soal berdasarkan indeks saat ini, dengan
         private void ShowQuestion(int index)
         {
-            // Evaluasi Alur & Batas Akhir Bab (Navigation Guard)
+            // Pengecekan Batas Akhir Bab & Tamat Modul Pertama
             if (index >= lesson.Questions.Count)
             {
                 HandleLessonTransition();
                 return;
             }
 
-            // Mengambil data soal aktif
             IQuestion currentQuestion = lesson.Questions[index];
             quizView.SetQuestionText(currentQuestion.QuestionText);
             quizView.ClearControls();
 
-            // Delegasikan urusan rendering berdasarkan tipe soalnya
+            // Delegasi rendering kontrol UI visual (SRP)
             if (currentQuestion is IObjectiveQuiz objectiveQuiz)
             {
                 RenderObjectiveControls(objectiveQuiz);
@@ -57,13 +57,14 @@ namespace tkpl.Controller
             }
         }
 
-        // Metode ini menangani transisi antar soal, dan jika sudah mencapai akhir bab,
+        // Bagian ini menangani transisi antar bab dan modul, termasuk logika tamat untuk Bab 3 Modul 1
         private void HandleLessonTransition()
         {
             int currentLessonIdx = gameLogic._currentLessIdx;
             int currentModIdx = gameLogic._currentModIdx;
             int totalLessonsInCurrentModule = RepoLevel.MasterTable[currentModIdx].ReadOnlyLessons.Count;
 
+            // KUNCI TAMAT: Otomatis memotong program saat Bab 3 Modul 1 (Mekanika Klasik) Selesai
             if (currentModIdx == 0 && currentLessonIdx == totalLessonsInCurrentModule - 1)
             {
                 MessageBox.Show($"Selamat! Anda telah menyelesaikan seluruh bab di modul {RepoLevel.MasterTable[currentModIdx].ModuleName}. Program akan dihentikan.", "MODUL SELESAI", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -74,6 +75,7 @@ namespace tkpl.Controller
 
             gameLogic.ForceAdvanceLevel();
 
+            // Refresh data pelajaran ke bab baru setelah dimajukan
             var nextMod = RepoLevel.MasterTable[gameLogic._currentModIdx];
             this.lesson = nextMod.ReadOnlyLessons[gameLogic._currentLessIdx];
 
@@ -81,8 +83,7 @@ namespace tkpl.Controller
             ShowQuestion(currentQuestionIndex);
         }
 
-        // Metode ini bertanggung jawab untuk merender kontrol jawaban untuk soal objektif. Untuk setiap opsi jawaban yang tersedia,
-        // metode ini membuat tombol dan menambahkan event handler yang memanggil metode HandleAnswer dengan hasil validasi jawaban.
+        // Render kontrol untuk soal objektif dengan Button untuk setiap opsi
         private void RenderObjectiveControls(IObjectiveQuiz objectiveQuiz)
         {
             foreach (var opt in objectiveQuiz.GetStringOptions())
@@ -93,7 +94,7 @@ namespace tkpl.Controller
             }
         }
 
-        // Metode ini bertanggung jawab untuk merender kontrol jawaban untuk soal esai. Metode ini membuat TextBox untuk input jawaban dan tombol submit.
+        // Render kontrol untuk soal essay dengan TextBox dan Button Submit
         private void RenderEssayControls(IEssayQuiz essayQuiz)
         {
             TextBox txtAnswer = QuizView.GenerateAnswerTextBox();
@@ -104,29 +105,27 @@ namespace tkpl.Controller
             quizView.AddControl(txtAnswer);
             quizView.AddControl(btnSubmit);
         }
-        // Dipanggil oleh event handler tombol jawaban atau submit. Metode ini menerima hasil validasi
-        // (sudah dilakukan pada event handler) dan memberikan umpan balik kepada pengguna.
+
+
+        // Logika penanganan jawaban dengan feedback dan pengurangan nyawa
         private void HandleAnswer(bool isCorrect)
         {
             if (isCorrect)
             {
-                MessageBox.Show("Jawaban Anda Benar!", "Hasil", MessageBoxButtons.OK);
-
+                MessageBox.Show("Jawaban Anda Benar!", "Hasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 currentQuestionIndex++;
                 ShowQuestion(currentQuestionIndex);
             }
             else
             {
                 gameLogic._currentLives--;
-
-                MessageBox.Show($"Jawaban Anda Salah, silakan coba lagi. Sisa Nyawa: {gameLogic._currentLives}", "Hasil", MessageBoxButtons.OK);
+                MessageBox.Show($"Jawaban Anda Salah.\nSisa Nyawa: {gameLogic._currentLives}", "Hasil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 if (gameLogic._currentLives <= 0)
                 {
-                    MessageBox.Show("Sesi kuis ditutup karena nyawa Anda habis.", "Game Over", MessageBoxButtons.OK);
-
-                    gameLogic.ProcessAnswer("salah_konsekuensi_nyawa_habis");
+                    MessageBox.Show("NYAWA HABIS! Jendela kuis akan ditutup.", "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     quizView.Close();
+                    Application.Exit();
                 }
             }
         }
