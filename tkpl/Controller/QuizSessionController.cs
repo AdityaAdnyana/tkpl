@@ -20,6 +20,7 @@ namespace tkpl.Controller
 
         public void StartSession()
         {
+            quizView.InitProgressBar(lesson.questions.Count, 0);
             currentQuestionIndex = 0;
             if (lesson.Questions.Count > 0)
             {
@@ -35,8 +36,13 @@ namespace tkpl.Controller
         // Metode ini menampilkan soal berdasarkan indeks saat ini, dengan
         private void ShowQuestion(int index)
         {
+<<<<<<< HEAD
             // Pengecekan Batas Akhir Bab & Tamat Modul Pertama
             if (index >= lesson.Questions.Count)
+=======
+            quizView.UpdateProgressBarValue(index);
+            if (index >= lesson.questions.Count)
+>>>>>>> 4c32809ec46ab2b446569c15c969ae2f9f2371c8
             {
                 HandleLessonTransition();
                 return;
