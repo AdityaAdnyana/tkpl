@@ -8,10 +8,20 @@ namespace tkpl.Controller
         public int _currentModIdx { get; private set; } = 0;
         public int _currentLessIdx { get; private set; } = 0;
         public int _currentLives { get; set; }
+        private static LogicLevel _instance;
 
-        public LogicLevel()
+        private LogicLevel()
         {
             _currentLives = CalculateInitialLives();
+        }
+
+        public static LogicLevel Instance()
+        {
+            if (_instance == null)
+            {
+                _instance = new LogicLevel();
+            }
+            return _instance;
         }
 
         private int CalculateInitialLives()
@@ -37,7 +47,7 @@ namespace tkpl.Controller
 
         public void ProcessAnswer(string input)
         {
-            ForceAdvanceLevel(); // Fallback pemancing sukses
+            ForceAdvanceLevel();
         }
     }
 }
