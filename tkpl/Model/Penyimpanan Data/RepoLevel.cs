@@ -6,7 +6,7 @@ public static class RepoLevel
 {
     public static List<Module> MasterTable = new List<Module>
     {
-        // MODUL 1: Mekanika Klasik (Modul Utama)
+        // MODUL 1: Mekanika Klasik
         new Module("Mekanika Klasik", new List<Lesson>
         {
             // Bab 1: Kinematika
@@ -32,7 +32,7 @@ public static class RepoLevel
                     new EssayQuiz<string> { QuestionText = "Jika pohon tersenyum hal itu disebut?", ExpectedAnswer = "gila" }
                 }
             },
-            // Bab 3: Hukum Newton II (Bab Terakhir Modul 1)
+            // Bab 3: Hukum Newton II
             new Lesson("Hukum Newton II", "Percepatan sebanding dengan gaya dan berbanding terbalik dengan massa (F=ma).")
             {
                 Questions = new List<IQuestion>
@@ -128,7 +128,7 @@ public static class RepoLevel
             }
         }),
 
-        // MODUL 2: Gelombang & Optik (Modul Tambahan)
+        // MODUL 2: Gelombang & Optik
         new Module("Gelombang & Optik", new List<Lesson>
         {
             new Lesson("Frekuensi", "Jumlah getaran yang terjadi dalam satu detik.")
