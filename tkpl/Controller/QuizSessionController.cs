@@ -131,5 +131,17 @@ namespace tkpl.Controller
                 }
             }
         }
+
+        private void InitHealth()
+        {
+            currentHealth = lesson.questions.Count / 4;
+            quizView.UpdateHealthVal(currentHealth);
+        }
+
+        private void DecreaseHealth(int decreaseVal)
+        {
+            currentHealth -= decreaseVal;
+            quizView.UpdateHealthVal(currentHealth);
+        }
     }
 }
