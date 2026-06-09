@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LevelLib\LevelLib.csproj" />
+    <ProjectReference Include="..\tkpl\tkpl.csproj" />
   </ItemGroup>
 
 </Project>

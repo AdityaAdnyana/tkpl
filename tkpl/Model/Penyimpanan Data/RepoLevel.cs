@@ -126,7 +126,6 @@ public static class RepoLevel
                     }
                 }
             }
-
         }),
 
         // MODUL 2: Gelombang & Optik (Modul Tambahan)
