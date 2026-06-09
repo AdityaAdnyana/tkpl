@@ -1,4 +1,4 @@
-using tkpl.Model.tkpl.Model;
+using tkpl.Model;
 
 namespace tkpl.Model
 {
