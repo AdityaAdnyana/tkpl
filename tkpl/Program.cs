@@ -3,6 +3,10 @@ using System.Windows.Forms;
 using tkpl.Controller;
 using tkpl.Model;
 using tkpl.View;
+using System;
+using System.Windows.Forms;
+using tkpl.Controller;
+using tkpl.Model;
 
 namespace tkpl
 {
@@ -24,6 +28,10 @@ namespace tkpl
 
             QuizView quizView = new QuizView();
             Homepage menuHomepage = new Homepage();
+            Module currentMod = RepoLevel.MasterTable[levelManager._currentModIdx];
+            Lesson activeLesson = currentMod.ReadOnlyLessons[levelManager._currentLessIdx];
+
+            QuizView quizView = new QuizView();
 
             QuizSessionController sessionController = new QuizSessionController(activeLesson, quizView, levelManager);
 

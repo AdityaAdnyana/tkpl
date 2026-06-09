@@ -37,6 +37,8 @@ namespace tkpl.Controller
         {
             // Pengecekan Batas Akhir Bab & Tamat Modul Pertama
             if (index >= lesson.Questions.Count)
+            // Pengecekan Batas Akhir Bab & Tamat Modul Pertama
+            if (index >= lesson.Questions.Count)
             {
                 HandleLessonTransition();
                 return;
