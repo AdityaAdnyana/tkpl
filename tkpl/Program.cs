@@ -1,4 +1,10 @@
-using tkpl;
+using System;
+using System.Windows.Forms;
+using tkpl.Controller;
+using tkpl.Model;
+using tkpl.View;
+using System;
+using System.Windows.Forms;
 using tkpl.Controller;
 using tkpl.Model;
 
@@ -6,24 +12,32 @@ namespace tkpl
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
 
+            AppConfig.LoadConfig();
 
-            ApplicationConfiguration.Initialize();
+            LogicLevel levelManager = new LogicLevel();
 
-            TempLessonInit dummyLesson = new();
-            StateMachine stateMachine = new StateMachine();
-            int a = Convert.ToInt32(Console.ReadLine());
-            Application.Run();
-            //Application.Run(new QuizPilihanGanda());
+            Module currentMod = RepoLevel.MasterTable[levelManager._currentModIdx];
+            Lesson activeLesson = currentMod.ReadOnlyLessons[levelManager._currentLessIdx];
 
+            QuizView quizView = new QuizView();
+            Homepage menuHomepage = new Homepage();
+            Module currentMod = RepoLevel.MasterTable[levelManager._currentModIdx];
+            Lesson activeLesson = currentMod.ReadOnlyLessons[levelManager._currentLessIdx];
+
+            QuizView quizView = new QuizView();
+
+            QuizSessionController sessionController = new QuizSessionController(activeLesson, quizView, levelManager);
+
+            sessionController.StartSession();
+
+            Application.Run(menuHomepage);
         }
     }
 }

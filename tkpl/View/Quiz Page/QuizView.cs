@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using tkpl.Controller;
 
 namespace tkpl
@@ -78,7 +77,7 @@ namespace tkpl
         {
             Debug.WriteLine("ADD CONTROL EXECUTED");
 
-
+            
             flowLayoutPanel1.Controls.Add(ctrl);
         }
 
@@ -90,37 +89,6 @@ namespace tkpl
             label1.Text = text;
         }
 
-
-        public void InitProgressBar(int maxVal, int curVal)
-        {
-            quizSessionProgressBar.Maximum = maxVal;
-            UpdateProgressBarValue(curVal);
-
-        }
-
-        public void UpdateProgressBarValue(int newVal)
-        {
-            quizSessionProgressBar.Value = newVal;
-        }
-
-        public void UpdateHealthVal(int newVal)
-        {
-            health.Text = $"❤️ {newVal}";
-        }
-
-
-
-
-
-        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void QuizView_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 
 }

@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using tkpl.Model;
 
 public class Lesson
 {
     public string Title { get; set; }
     public string Content { get; set; }
-    public string Question { get; set; }
-    public string Answer { get; set; }
+    public List<IQuestion> Questions { get; set; } = new List<IQuestion>();
     public Lesson() { }
 
-    public Lesson(string title, string content, string question, string answer)
+    public Lesson(string title, string content)
     {
         Title = title;
         Content = content;
-        Question = question;
-        Answer = answer;
     }
 }
 

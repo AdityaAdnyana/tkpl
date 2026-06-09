@@ -103,11 +103,11 @@ namespace tkpl.Tests
             var q2 = new ObjectiveQuiz<int>();
 
             // Act
-            lesson.questions.Add(q1);
-            lesson.questions.Add(q2);
+            lesson.Questions.Add(q1);
+            lesson.Questions.Add(q2);
 
             // Assert
-            Assert.Equal(2, lesson.questions.Count);
+            Assert.Equal(2, lesson.Questions.Count);
         }
     }
 }
