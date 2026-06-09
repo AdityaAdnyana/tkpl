@@ -156,6 +156,7 @@
             Margin = new Padding(2);
             Name = "QuizView";
             Text = "Quiz";
+            Load += QuizView_Load;
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);

@@ -95,7 +95,7 @@ namespace tkpl
         {
             quizSessionProgressBar.Maximum = maxVal;
             UpdateProgressBarValue(curVal);
-         
+
         }
 
         public void UpdateProgressBarValue(int newVal)
@@ -113,6 +113,11 @@ namespace tkpl
 
 
         private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void QuizView_Load(object sender, EventArgs e)
         {
 
         }
