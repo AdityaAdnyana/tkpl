@@ -1,10 +1,10 @@
 ﻿{
-  "AnswerButtonWidth": 300,
-  "AnswerButtonHeight": 100,
+  "AnswerButtonWidth": 150,
+  "AnswerButtonHeight": 50,
   "TextBoxWidth": 400,
   "TextBoxHeight": 35,
   "SubmitButtonWidth": 150,
   "SubmitButtonHeight": 45,
   "FontFamily": "Segoe UI",
-  "FontSize": 12.0
+  "FontSize": 15.0
 }
