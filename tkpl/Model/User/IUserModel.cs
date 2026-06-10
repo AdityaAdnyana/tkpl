@@ -20,5 +20,7 @@ namespace tkpl.Model.User
         string GetPassword();
 
         void SetPassword(string password);
+
+        
     }
 }
