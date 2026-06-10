@@ -37,8 +37,6 @@ namespace tkpl.Controller
         {
             // Pengecekan Batas Akhir Bab & Tamat Modul Pertama
             if (index >= lesson.Questions.Count)
-            // Pengecekan Batas Akhir Bab & Tamat Modul Pertama
-            if (index >= lesson.Questions.Count)
             {
                 HandleLessonTransition();
                 return;
@@ -130,18 +128,6 @@ namespace tkpl.Controller
                     Application.Exit();
                 }
             }
-        }
-
-        private void InitHealth()
-        {
-            currentHealth = lesson.questions.Count / 4;
-            quizView.UpdateHealthVal(currentHealth);
-        }
-
-        private void DecreaseHealth(int decreaseVal)
-        {
-            currentHealth -= decreaseVal;
-            quizView.UpdateHealthVal(currentHealth);
         }
     }
 }

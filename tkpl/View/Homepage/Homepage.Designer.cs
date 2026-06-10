@@ -65,7 +65,6 @@
             btnResultQuiz.TabIndex = 2;
             btnResultQuiz.Text = "Result";
             btnResultQuiz.UseVisualStyleBackColor = true;
-            btnResultQuiz.Click += this.btnResultQuiz_Click;
             // 
             // BtnUser
             // 
@@ -75,7 +74,6 @@
             BtnUser.TabIndex = 3;
             BtnUser.Text = "User";
             BtnUser.UseVisualStyleBackColor = true;
-            BtnUser.Click += this.BtnUser_Click;
             // 
             // btnStartLevel2
             // 
@@ -85,7 +83,7 @@
             btnStartLevel2.TabIndex = 4;
             btnStartLevel2.Text = "Level2";
             btnStartLevel2.UseVisualStyleBackColor = true;
-            btnStartLevel2.Click += this.btnStartLevel2_Click;
+            this.btnStartLevel2.Click += new System.EventHandler(this.btnStartLevel2_Click);
             // 
             // btnStartLevel3
             // 
@@ -95,6 +93,7 @@
             btnStartLevel3.TabIndex = 5;
             btnStartLevel3.Text = "Level3";
             btnStartLevel3.UseVisualStyleBackColor = true;
+            this.btnStartLevel3.Click += new System.EventHandler(this.btnStartLevel3_Click); // <-- TAMBAHKAN BARIS INI
             // 
             // btnToMateri
             // 
@@ -104,7 +103,6 @@
             btnToMateri.TabIndex = 6;
             btnToMateri.Text = "Materi";
             btnToMateri.UseVisualStyleBackColor = true;
-            btnToMateri.Click += this.btnToMateri_Click;
             // 
             // Homepage
             // 
@@ -132,5 +130,7 @@
         private Button btnStartLevel2;
         private Button btnStartLevel3;
         private Button btnToMateri;
+
+
     }
 }
