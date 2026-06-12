@@ -15,6 +15,7 @@ namespace tkpl.Model.User
             user.password = password;
             user.id = idStart ++; 
             RepoUser.UserTable.Add(user);
+            
         }
         public void Login(string username, string password)
         {
@@ -41,6 +42,8 @@ namespace tkpl.Model.User
         public string GetUserName() { return user.userName; }
         public void SetUsername(string username) { user.userName = username; }
         public string GetPassword() { return user.password; }
+
+        
         public void SetPassword(string password) { user.password = password; }
     }
 }

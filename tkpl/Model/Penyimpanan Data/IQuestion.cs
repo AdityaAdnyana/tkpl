@@ -5,5 +5,6 @@ namespace tkpl.Model
     {
         public string QuestionText { get; set; }
         public bool ValidateAnswer(object answer);
+        string GetExpectedAnswerAsString();
     }
 }

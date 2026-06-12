@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using tkpl.Model;
+using tkpl.Model.User;
 
 namespace tkpl.Controller
 {
@@ -9,6 +10,8 @@ namespace tkpl.Controller
         private Lesson lesson;
         private QuizView quizView;
         private LogicLevel gameLogic;
+        private UserModel userModel;
+        private int userId;
         private int currentQuestionIndex = 0;
 
         public QuizSessionController(Lesson lesson, QuizView quizView, LogicLevel logic)
@@ -16,6 +19,7 @@ namespace tkpl.Controller
             this.lesson = lesson;
             this.quizView = quizView;
             this.gameLogic = logic;
+            userId = userModel.GetUserId();
         }
 
         public void StartSession()
@@ -55,6 +59,8 @@ namespace tkpl.Controller
             {
                 RenderEssayControls(essayQuiz);
             }
+
+            
         }
 
         // Bagian ini menangani transisi antar bab dan modul, termasuk logika tamat untuk Bab 3 Modul 1
@@ -128,6 +134,8 @@ namespace tkpl.Controller
                     Application.Exit();
                 }
             }
+            
+            ReportQuiz.QuizItems.Add(new ReportQuizItem(userId, lesson, currentQuestionIndex,isCorrect));
         }
     }
 }
