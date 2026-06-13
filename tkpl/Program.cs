@@ -25,6 +25,8 @@ namespace tkpl
             QuizView quizView = new QuizView();
             Homepage menuHomepage = new Homepage();
 
+            //QuizView quizView = new QuizView();
+
             QuizSessionController sessionController = new QuizSessionController(activeLesson, quizView, levelManager);
 
             sessionController.StartSession();
