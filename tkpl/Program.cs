@@ -26,7 +26,6 @@ namespace tkpl
             Homepage menuHomepage = new Homepage();
 
             //QuizView quizView = new QuizView();
->>>>>>>>> Temporary merge branch 2
 
             QuizSessionController sessionController = new QuizSessionController(activeLesson, quizView, levelManager);
 
