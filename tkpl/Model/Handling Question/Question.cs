@@ -4,6 +4,7 @@ namespace tkpl.Model
     public class Question<T> : IQuestion
     {
 
+        public int diffcult { get; set; }
         public string QuestionText { get; set; } = string.Empty;
         public T ExpectedAnswer { get; set; } = default!; // initialized to satisfy nullable-analysis (CS8618)
 
