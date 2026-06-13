@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace tkpl.Model
+namespace tkpl.Model.PenyimpananData
 {
     internal interface IStateMachine
     {

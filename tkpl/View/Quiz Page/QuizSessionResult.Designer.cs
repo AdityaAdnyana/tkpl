@@ -1,4 +1,4 @@
-﻿namespace tkpl.View
+namespace tkpl.View
 {
     partial class QuizSessionResult
     {
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             panel4 = new Panel();
-            button1 = new Button();
-            btSkip = new Button();
+            btReview = new Button();
+            btContinue = new Button();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             panelResult = new FlowLayoutPanel();
@@ -52,23 +52,23 @@
             lbSkippedVal = new Label();
             progressValue = new ProgressBar();
             lbProgressValue = new Label();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            panel5 = new Panel();
-            button4 = new Button();
-            label11 = new Label();
-            label10 = new Label();
-            panel3 = new Panel();
-            button3 = new Button();
-            label5 = new Label();
-            label4 = new Label();
+            fLScore = new FlowLayoutPanel();
             panel2 = new Panel();
-            btCheckAndCloseAnswer = new Button();
-            label2 = new Label();
             label3 = new Label();
+            label2 = new Label();
+            btCheckAndCloseAnswer = new Button();
+            panel3 = new Panel();
+            label4 = new Label();
+            label5 = new Label();
+            button3 = new Button();
+            panel5 = new Panel();
+            label10 = new Label();
+            label11 = new Label();
+            button4 = new Button();
             button2 = new Button();
             label12 = new Label();
             label13 = new Label();
-            panel1 = new Panel();
+            panelScoreCard = new Panel();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelResult.SuspendLayout();
@@ -80,17 +80,17 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             skippedPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            flowLayoutPanel1.SuspendLayout();
-            panel5.SuspendLayout();
-            panel3.SuspendLayout();
+            fLScore.SuspendLayout();
             panel2.SuspendLayout();
-            panel1.SuspendLayout();
+            panel3.SuspendLayout();
+            panel5.SuspendLayout();
+            panelScoreCard.SuspendLayout();
             SuspendLayout();
             // 
             // panel4
             // 
-            panel4.Controls.Add(button1);
-            panel4.Controls.Add(btSkip);
+            panel4.Controls.Add(btReview);
+            panel4.Controls.Add(btContinue);
             panel4.Dock = DockStyle.Bottom;
             panel4.Location = new Point(0, 605);
             panel4.Margin = new Padding(2);
@@ -98,23 +98,23 @@
             panel4.Size = new Size(1058, 59);
             panel4.TabIndex = 3;
             // 
-            // button1
+            // btReview
             // 
-            button1.Location = new Point(12, 13);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 2;
-            button1.Text = "REVIEW";
-            button1.UseVisualStyleBackColor = true;
+            btReview.Location = new Point(12, 13);
+            btReview.Name = "btReview";
+            btReview.Size = new Size(112, 34);
+            btReview.TabIndex = 2;
+            btReview.Text = "REVIEW";
+            btReview.UseVisualStyleBackColor = true;
             // 
-            // btSkip
+            // btContinue
             // 
-            btSkip.Location = new Point(924, 13);
-            btSkip.Name = "btSkip";
-            btSkip.Size = new Size(112, 34);
-            btSkip.TabIndex = 1;
-            btSkip.Text = "CONTINUE";
-            btSkip.UseVisualStyleBackColor = true;
+            btContinue.Location = new Point(924, 13);
+            btContinue.Name = "btContinue";
+            btContinue.Size = new Size(112, 34);
+            btContinue.TabIndex = 1;
+            btContinue.Text = "CONTINUE";
+            btContinue.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
@@ -307,95 +307,16 @@
             lbProgressValue.Text = "0%";
             lbProgressValue.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // flowLayoutPanel1
+            // fLScore
             // 
-            flowLayoutPanel1.Controls.Add(panel2);
-            flowLayoutPanel1.Controls.Add(panel3);
-            flowLayoutPanel1.Controls.Add(panel5);
-            flowLayoutPanel1.Location = new Point(18, 105);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(757, 465);
-            flowLayoutPanel1.TabIndex = 9;
-            // 
-            // panel5
-            // 
-            panel5.BackColor = Color.LightGray;
-            panel5.Controls.Add(label10);
-            panel5.Controls.Add(label11);
-            panel5.Controls.Add(button4);
-            panel5.Location = new Point(411, 3);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(198, 175);
-            panel5.TabIndex = 2;
-            // 
-            // button4
-            // 
-            button4.BackColor = Color.Silver;
-            button4.Location = new Point(3, 132);
-            button4.Name = "button4";
-            button4.Size = new Size(192, 43);
-            button4.TabIndex = 0;
-            button4.Text = "Check Answer";
-            button4.UseVisualStyleBackColor = false;
-            // 
-            // label11
-            // 
-            label11.Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new Point(6, 11);
-            label11.Name = "label11";
-            label11.Size = new Size(156, 118);
-            label11.TabIndex = 1;
-            label11.Text = "Question QuestionMyQuestionIsMyQuestionWithoutAnswer";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.ForeColor = Color.DimGray;
-            label10.Location = new Point(157, 8);
-            label10.Name = "label10";
-            label10.Size = new Size(37, 25);
-            label10.TabIndex = 2;
-            label10.Text = "⏹️";
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.RosyBrown;
-            panel3.Controls.Add(label4);
-            panel3.Controls.Add(label5);
-            panel3.Controls.Add(button3);
-            panel3.Location = new Point(207, 3);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(198, 175);
-            panel3.TabIndex = 1;
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.FromArgb(128, 64, 64);
-            button3.Location = new Point(3, 132);
-            button3.Name = "button3";
-            button3.Size = new Size(192, 43);
-            button3.TabIndex = 0;
-            button3.Text = "Check Answer";
-            button3.UseVisualStyleBackColor = false;
-            // 
-            // label5
-            // 
-            label5.Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(6, 11);
-            label5.Name = "label5";
-            label5.Size = new Size(156, 118);
-            label5.TabIndex = 1;
-            label5.Text = "Question QuestionMyQuestionIsMyQuestionWithoutAnswer";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.ForeColor = Color.Maroon;
-            label4.Location = new Point(157, 8);
-            label4.Name = "label4";
-            label4.Size = new Size(37, 25);
-            label4.TabIndex = 2;
-            label4.Text = "❎";
+            fLScore.AutoScroll = true;
+            fLScore.Controls.Add(panel2);
+            fLScore.Controls.Add(panel3);
+            fLScore.Controls.Add(panel5);
+            fLScore.Location = new Point(18, 105);
+            fLScore.Name = "fLScore";
+            fLScore.Size = new Size(757, 465);
+            fLScore.TabIndex = 9;
             // 
             // panel2
             // 
@@ -408,15 +329,15 @@
             panel2.Size = new Size(198, 175);
             panel2.TabIndex = 0;
             // 
-            // btCheckAndCloseAnswer
+            // label3
             // 
-            btCheckAndCloseAnswer.BackColor = Color.Green;
-            btCheckAndCloseAnswer.Location = new Point(3, 132);
-            btCheckAndCloseAnswer.Name = "btCheckAndCloseAnswer";
-            btCheckAndCloseAnswer.Size = new Size(192, 43);
-            btCheckAndCloseAnswer.TabIndex = 0;
-            btCheckAndCloseAnswer.Text = "Check Answer";
-            btCheckAndCloseAnswer.UseVisualStyleBackColor = false;
+            label3.AutoSize = true;
+            label3.ForeColor = Color.FromArgb(0, 64, 0);
+            label3.Location = new Point(157, 8);
+            label3.Name = "label3";
+            label3.Size = new Size(37, 25);
+            label3.TabIndex = 2;
+            label3.Text = "✅";
             // 
             // label2
             // 
@@ -427,15 +348,95 @@
             label2.TabIndex = 1;
             label2.Text = "Question QuestionMyQuestionIsMyQuestionWithoutAnswer";
             // 
-            // label3
+            // btCheckAndCloseAnswer
             // 
-            label3.AutoSize = true;
-            label3.ForeColor = Color.FromArgb(0, 64, 0);
-            label3.Location = new Point(157, 8);
-            label3.Name = "label3";
-            label3.Size = new Size(37, 25);
-            label3.TabIndex = 2;
-            label3.Text = "✅";
+            btCheckAndCloseAnswer.BackColor = Color.Green;
+            btCheckAndCloseAnswer.Location = new Point(3, 132);
+            btCheckAndCloseAnswer.Name = "btCheckAndCloseAnswer";
+            btCheckAndCloseAnswer.Size = new Size(192, 43);
+            btCheckAndCloseAnswer.TabIndex = 0;
+            btCheckAndCloseAnswer.Text = "Check Answer";
+            btCheckAndCloseAnswer.UseVisualStyleBackColor = false;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.RosyBrown;
+            panel3.Controls.Add(label4);
+            panel3.Controls.Add(label5);
+            panel3.Controls.Add(button3);
+            panel3.Location = new Point(207, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(198, 175);
+            panel3.TabIndex = 1;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = Color.Maroon;
+            label4.Location = new Point(157, 8);
+            label4.Name = "label4";
+            label4.Size = new Size(37, 25);
+            label4.TabIndex = 2;
+            label4.Text = "❎";
+            // 
+            // label5
+            // 
+            label5.Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(6, 11);
+            label5.Name = "label5";
+            label5.Size = new Size(156, 118);
+            label5.TabIndex = 1;
+            label5.Text = "Question QuestionMyQuestionIsMyQuestionWithoutAnswer";
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.FromArgb(128, 64, 64);
+            button3.Location = new Point(3, 132);
+            button3.Name = "button3";
+            button3.Size = new Size(192, 43);
+            button3.TabIndex = 0;
+            button3.Text = "Check Answer";
+            button3.UseVisualStyleBackColor = false;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.LightGray;
+            panel5.Controls.Add(label10);
+            panel5.Controls.Add(label11);
+            panel5.Controls.Add(button4);
+            panel5.Location = new Point(411, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(198, 175);
+            panel5.TabIndex = 2;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.ForeColor = Color.DimGray;
+            label10.Location = new Point(157, 8);
+            label10.Name = "label10";
+            label10.Size = new Size(37, 25);
+            label10.TabIndex = 2;
+            label10.Text = "⏹️";
+            // 
+            // label11
+            // 
+            label11.Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.Location = new Point(6, 11);
+            label11.Name = "label11";
+            label11.Size = new Size(156, 118);
+            label11.TabIndex = 1;
+            label11.Text = "Question QuestionMyQuestionIsMyQuestionWithoutAnswer";
+            // 
+            // button4
+            // 
+            button4.BackColor = Color.Silver;
+            button4.Location = new Point(3, 132);
+            button4.Name = "button4";
+            button4.Size = new Size(192, 43);
+            button4.TabIndex = 0;
+            button4.Text = "Check Answer";
+            button4.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
@@ -465,26 +466,25 @@
             label13.TabIndex = 11;
             label13.Text = "Klik Kotak-Kotak Dibawah Untuk Melihat Solusinya";
             // 
-            // panel1
+            // panelScoreCard
             // 
-            panel1.BackColor = SystemColors.ControlLight;
-            panel1.Controls.Add(label13);
-            panel1.Controls.Add(label12);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(flowLayoutPanel1);
-            panel1.Enabled = false;
-            panel1.Location = new Point(131, 12);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(792, 588);
-            panel1.TabIndex = 10;
-            panel1.Hide();
+            panelScoreCard.BackColor = SystemColors.ControlLight;
+            panelScoreCard.Controls.Add(label13);
+            panelScoreCard.Controls.Add(label12);
+            panelScoreCard.Controls.Add(button2);
+            panelScoreCard.Controls.Add(fLScore);
+            panelScoreCard.Enabled = false;
+            panelScoreCard.Location = new Point(131, 12);
+            panelScoreCard.Name = "panelScoreCard";
+            panelScoreCard.Size = new Size(792, 588);
+            panelScoreCard.TabIndex = 10;
             // 
             // QuizSessionResult
-            //
+            // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1058, 664);
-            Controls.Add(panel1);
+            Controls.Add(panelScoreCard);
             Controls.Add(lbProgressValue);
             Controls.Add(progressValue);
             Controls.Add(panelResult);
@@ -505,15 +505,15 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             skippedPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            flowLayoutPanel1.ResumeLayout(false);
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
+            fLScore.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panelScoreCard.ResumeLayout(false);
+            panelScoreCard.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -521,7 +521,7 @@
         #endregion
 
         private Panel panel4;
-        private Button btSkip;
+        private Button btContinue;
         private PictureBox pictureBox1;
         private Label label1;
         private FlowLayoutPanel panelResult;
@@ -543,8 +543,8 @@
         private Label label7;
         private Label label8;
         private Label label9;
-        private Button button1;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private Button btReview;
+        private FlowLayoutPanel fLScore;
         private Panel panel2;
         private Label label3;
         private Label label2;
@@ -560,6 +560,6 @@
         private Button button2;
         private Label label12;
         private Label label13;
-        private Panel panel1;
+        private Panel panelScoreCard;
     }
 }
