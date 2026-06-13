@@ -9,15 +9,18 @@ namespace tkpl
     internal static class Program
     {
         [STAThread]
-        static void Main()
+        static async Task Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
 
-            AppConfig.LoadConfig();
+            ApplicationConfiguration.Initialize();
 
             LogicLevel levelManager = LogicLevel.Instance();
+            AppConfig.LoadConfig();
+
+            await RepoLevel.FetchLevelsFromApiAsync();
 
             Module currentMod = RepoLevel.MasterTable[levelManager._currentModIdx];
             Lesson activeLesson = currentMod.ReadOnlyLessons[levelManager._currentLessIdx];
@@ -26,8 +29,6 @@ namespace tkpl
             Homepage menuHomepage = new Homepage();
 
             QuizSessionController sessionController = new QuizSessionController(activeLesson, quizView, levelManager);
-
-            sessionController.StartSession();
 
             Application.Run(menuHomepage);
         }

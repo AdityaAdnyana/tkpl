@@ -14,124 +14,119 @@ public class LevelController : Controller
         _context = context;
     }
 
+    // =========================================================================
+    // 1. READ (GET ALL) - Mengambil Semua Modul Lengkap dengan Level & Materi
+    // =========================================================================
     [HttpGet]
     public async Task<ActionResult> GetAllModules()
     {
-        var modules = await _context.Moduls.Include(m => m.Lessons).ToListAsync();
+        // Menggunakan .Include dan .ThenInclude untuk menarik data berantai dari SQL
+        var modules = await _context.Moduls
+            .Include(m => m.Lessons)
+                .ThenInclude(l => l.Quizzes)
+            .Include(m => m.ReadingMaterials)
+                .ThenInclude(r => r.Images)
+            .ToListAsync();
+
         return Ok(modules);
     }
 
-    // 2. POST ADD NEW MODULE KE DATABASE SQL
+    // =========================================================================
+    // 2. READ (GET BY ID) - Mengambil Satu Modul Spesifik Berdasarkan ID
+    // =========================================================================
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetModuleById(int id)
+    {
+        var module = await _context.Moduls
+            .Include(m => m.Lessons)
+            .Include(m => m.ReadingMaterials)
+            .FirstOrDefaultAsync(m => m.Module_ID == id);
+
+        if (module == null)
+        {
+            return NotFound($"Modul dengan ID {id} tidak ditemukan.");
+        }
+
+        return Ok(module);
+    }
+
+    // =========================================================================
+    // 3. CREATE (POST) - Menambahkan Modul Baru (Bisa Sepaket dengan Level)
+    // =========================================================================
     [HttpPost]
     public async Task<ActionResult> AddModule(ModuleModels newModule)
     {
+        if (newModule == null)
+        {
+            return BadRequest("Data modul tidak valid.");
+        }
+
         _context.Moduls.Add(newModule);
-        await _context.SaveChangesAsync(); // Menyimpan perubahan ke SQL asli
-        return Ok("Modul baru berhasil disimpan ke database SQL!");
+        await _context.SaveChangesAsync(); // Menyimpan data murni ke MySQL
+
+        return Ok(new { message = "Modul baru berhasil disimpan ke database SQL!", data = newModule });
     }
 
-    //// ======================================
-    //// ============= CRUD Modul =============
+    // =========================================================================
+    // 4. UPDATE (PUT) - Memperbarui Nama Modul Berdasarkan ID
+    // =========================================================================
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateModule(int id, ModuleModels updatedModule)
+    {
+        var existingModule = await _context.Moduls.FindAsync(id);
+        if (existingModule == null)
+        {
+            return NotFound($"Gagal update. Modul dengan ID {id} tidak ditemukan.");
+        }
 
-    //[HttpGet]
-    //public ActionResult<Module[]> GetAllModules()
-    //{
-    //    return Ok(RepoLevel.MasterTable);
-    //}
+        // Memperbarui nilai properti nama modul
+        existingModule.module_name = updatedModule.module_name;
 
-    //[HttpPost]
-    //public ActionResult AddModule(Module newModule)
-    //{
-    //    RepoLevel.MasterTable.Add(newModule);
-    //    return Ok("Modul berhasil ditambahkan!");
-    //}
+        _context.Moduls.Update(existingModule);
+        await _context.SaveChangesAsync();
 
-    //[HttpPut("{id}")]
-    //public ActionResult UpdateModule(int id, Module updatedModule)
-    //{
-    //    if (id < 0 || id >= RepoLevel.MasterTable.Count)
-    //    {
-    //        return NotFound("Indeks modul tidak ditemukan");
-    //    }
+        return Ok($"Modul dengan ID {id} berhasil diperbarui di database.");
+    }
 
-    //    RepoLevel.MasterTable[id] = updatedModule;
-    //    return Ok($"Modul pada indeks {id} berhasil diupdate");
-    //}
+    // =========================================================================
+    // 5. DELETE (DELETE) - Menghapus Modul Berdasarkan ID
+    // =========================================================================
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteModule(int id)
+    {
+        var module = await _context.Moduls
+            .Include(m => m.ReadingMaterials)
+            .Include(m => m.Lessons)
+                .ThenInclude(l => l.Quizzes)
+            .FirstOrDefaultAsync(m => m.Module_ID == id);
 
-    //[HttpDelete("{id}")]
-    //public ActionResult DeleteModule(int id)
-    //{
-    //    if (id < 0 || id >= RepoLevel.MasterTable.Count)
-    //    {
-    //        return NotFound("Indeks tidak valid");
-    //    }
+        if (module == null)
+        {
+            return NotFound($"Gagal hapus. Modul dengan ID {id} tidak ditemukan.");
+        }
 
-    //    RepoLevel.MasterTable.RemoveAt(id);
-    //    return Ok("Modul berhasil dihapus");
-    //}
+        if (module.ReadingMaterials != null && module.ReadingMaterials.Count > 0)
+        {
+            _context.ReadingMaterials.RemoveRange(module.ReadingMaterials);
+        }
 
-    //// =======================================
-    //// ============= CRUD Lesson =============
+        if (module.Lessons != null && module.Lessons.Count > 0)
+        {
+            foreach (var lesson in module.Lessons)
+            {
+                if (lesson.Quizzes != null && lesson.Quizzes.Count > 0)
+                {
+                    _context.Quizzes.RemoveRange(lesson.Quizzes);
+                }
+            }
 
-    //[HttpGet("{ModulId}/lessons")]
-    //public ActionResult<Lesson> GetAllLesson(int modulId)
-    //{
-    //    if (modulId < RepoLevel.MasterTable.Count)
-    //    {
-    //        return Ok(RepoLevel.MasterTable[modulId].ReadOnlyLessons);
-    //    }
-    //    return NotFound();
-    //}
+            _context.Lessons.RemoveRange(module.Lessons);
+        }
 
-    //[HttpGet("{ModulId}/lessons/{LessonId}")]
-    //public ActionResult<Lesson> GetLesson(int modulId, int lessonId)
-    //{
-    //    if (modulId < RepoLevel.MasterTable.Count &&
-    //        lessonId < RepoLevel.MasterTable[modulId].ReadOnlyLessons.Count)
-    //    {
-    //        return Ok(RepoLevel.MasterTable[modulId].ReadOnlyLessons[lessonId]);
-    //    }
-    //    return NotFound();
-    //}
+        _context.Moduls.Remove(module);
 
-    //[HttpPost("{modId}/lessons")]
-    //public ActionResult AddLesson(int modId, [FromBody] Lesson newLesson)
-    //{
-    //    if (modId < 0 || modId >= RepoLevel.MasterTable.Count)
-    //        return NotFound("Modul tidak ditemukan");
+        await _context.SaveChangesAsync();
 
-    //    RepoLevel.MasterTable[modId].AddNewLesson(newLesson);
-
-    //    return Ok($"Materi '{newLesson.Title}' berhasil ditambahkan ke modul {RepoLevel.MasterTable[modId].ModuleName}");
-    //}
-
-    //[HttpPut("{modId}/lessons/{lessId}")]
-    //public ActionResult UpdateLesson(int modId, int lessId, [FromBody] Lesson updatedLesson)
-    //{
-    //    if (modId < 0 || modId >= RepoLevel.MasterTable.Count)
-    //        return NotFound("Modul tidak ditemukan");
-
-    //    bool isSuccess = RepoLevel.MasterTable[modId].UpdateExistingLesson(lessId, updatedLesson);
-
-    //    if (!isSuccess)
-    //        return NotFound("Materi tidak ditemukan");
-
-    //    return Ok("Materi berhasil diperbarui.");
-    //}
-
-    //[HttpDelete("{modId}/lessons/{lessId}")]
-    //public ActionResult DeleteLesson(int modId, int lessId)
-    //{
-    //    if (modId < 0 || modId >= RepoLevel.MasterTable.Count)
-    //        return NotFound("Modul tidak ditemukan");
-
-    //    string deletedTitle = RepoLevel.MasterTable[modId].DeleteExistingLesson(lessId);
-
-    //    if (deletedTitle == null)
-    //        return NotFound("Materi tidak ditemukan");
-
-    //    return Ok($"Materi '{deletedTitle}' berhasil dihapus.");
-    //}
-
-    // =======================================
+        return Ok($"Modul '{module.module_name}' (ID: {id}) beserta seluruh bab, materi, dan kuis di dalamnya berhasil dihapus.");
+    }
 }
