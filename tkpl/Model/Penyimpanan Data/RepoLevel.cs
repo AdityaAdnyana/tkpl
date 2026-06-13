@@ -25,18 +25,16 @@ public static class RepoLevel
 
                 foreach (var apiMod in modulesFromApi)
                 {
-                    List<Lesson> tempLessons = new List<Lesson>();
+                    var newModule = new Module(apiMod.Module_Name);
 
                     foreach (var apiLess in apiMod.Lessons)
                     {
-                        // Membuat objek Lesson berdasarkan data dari database SQL
                         var newLesson = new Lesson(apiLess.Lesson_Name, "Materi Pembelajaran Aktif");
 
-                        tempLessons.Add(newLesson);
+                        newModule.AddComponent(newLesson);
                     }
 
-                    // Memasukkan modul hasil unduhan database ke dalam MasterTable utama
-                    MasterTable.Add(new Module(apiMod.Module_Name, tempLessons));
+                    MasterTable.Add(newModule);
                 }
             }
         }
@@ -48,21 +46,19 @@ public static class RepoLevel
         }
     }
 
-    /// <summary>
-    /// Mengisi data dummy lokal jika koneksi ke API gagal (Offline Mode).
-    /// </summary>
+    // Inisialisasi data fallback untuk memastikan aplikasi tetap memiliki data level meskipun API tidak tersedia
     private static void InitializeFallbackData()
     {
         if (MasterTable.Count == 0)
         {
-            MasterTable.Add(new Module("Mekanika Klasik (Offline Mode)", new List<Lesson>
-            {
-                new Lesson("Kinematika", "Studi tentang gerak benda tanpa mempedulikan penyebabnya.")
-            }));
+            var fallbackModule = new Module("Mekanika Klasik (Offline Mode)");
+            fallbackModule.AddComponent(new Lesson("Kinematika", "Studi tentang gerak benda tanpa mempedulikan penyebabnya."));
+            MasterTable.Add(fallbackModule);
         }
     }
 }
 
+// Kelas-kelas ini merepresentasikan struktur data yang diterima dari API. Mereka digunakan untuk deserialisasi JSON dan kemudian diubah menjadi objek-objek level yang sesuai dalam MasterTable.
 public class ModuleFromApi
 {
     public int Module_ID { get; set; }
@@ -70,6 +66,7 @@ public class ModuleFromApi
     public List<LessonFromApi> Lessons { get; set; } = new List<LessonFromApi>();
 }
 
+// Kelas ini merepresentasikan data pelajaran yang diterima dari API. Setiap pelajaran memiliki ID dan nama, yang kemudian akan digunakan untuk membuat objek Lesson dalam MasterTable.
 public class LessonFromApi
 {
     public int Lesson_ID { get; set; }
