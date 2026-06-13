@@ -23,13 +23,18 @@ namespace tkpl
             Lesson activeLesson = currentMod.ReadOnlyLessons[levelManager._currentLessIdx];
 
             QuizView quizView = new QuizView();
+            //Homepage menuHomepage = new Homepage();
+            //Module currentMod = RepoLevel.MasterTable[levelManager._currentModIdx];
+            //Lesson activeLesson = currentMod.ReadOnlyLessons[levelManager._currentLessIdx];
+
+            //QuizView quizView = new QuizView();
             Homepage menuHomepage = new Homepage();
 
             QuizSessionController sessionController = new QuizSessionController(activeLesson, quizView, levelManager);
 
             sessionController.StartSession();
-
-            Application.Run(menuHomepage);
+            Application.Run();
+            //Application.Run(menuHomepage);
         }
     }
 }
