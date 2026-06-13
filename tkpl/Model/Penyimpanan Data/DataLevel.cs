@@ -28,13 +28,42 @@ public class Module
     {
         ModuleName = name;
         Lessons = lessons;
-
-        // Math.Ceiling() agar pembagian menghasilkan pembulatan ke atas
-        // (misal jika ada 1 atau 2 lesson, user tetap mendapatkan minimal 1 nyawa, bukan 0 akibat pembulatan integer biasa)
-        MaxLives = (int)Math.Ceiling(Lessons.Count / 3.0);
+        RecalculateLives();
     }
 
-    // Properti Read-Only untuk mengakses data lesson dari luar class
     public IReadOnlyList<Lesson> ReadOnlyLessons => Lessons;
+
+    // Fungsi Tambah Lesson
+    public void AddNewLesson(Lesson newLesson)
+    {
+        Lessons.Add(newLesson);
+        RecalculateLives();
+    }
+
+    // Fungsi Update Lesson
+    public bool UpdateExistingLesson(int index, Lesson updatedLesson)
+    {
+        if (index < 0 || index >= Lessons.Count) return false;
+
+        Lessons[index] = updatedLesson;
+        return true;
+    }
+
+    // Fungsi Delete Lesson
+    public string DeleteExistingLesson(int index)
+    {
+        if (index < 0 || index >= Lessons.Count) return null;
+
+        var deletedTitle = Lessons[index].Title;
+        Lessons.RemoveAt(index);
+        RecalculateLives();
+        return deletedTitle;
+    }
+
+    // Helper privat untuk hitung ulang nyawa agar tidak DRY
+    private void RecalculateLives()
+    {
+        MaxLives = (int)Math.Ceiling(Lessons.Count / 3.0);
+    }
 }
 
