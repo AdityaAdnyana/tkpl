@@ -47,6 +47,9 @@ namespace tkpl.Controller
             // Mendaftarkan Observer (QuizView) ke Publisher (LogicLevel)
             gameLogic.Subscribe(quizView);
 
+            // Reset nyawa berdasarkan jumlah soal pada sesi ini (integer div 3)
+            gameLogic.ResetLives(lesson.Questions.Count);
+
             // Inisialisasi GUI nyawa awal
             quizView.UpdateHealthVal(gameLogic._currentLives);
 
@@ -65,14 +68,14 @@ namespace tkpl.Controller
             }
         }
 
-        // Metode ini menampilkan soal berdasarkan indeks saat ini, dengan
+        // Metode ini menampilkan soal berdasarkan indeks saat ini
         private void ShowQuestion(int index)
         {
-            // Pengecekan Batas Akhir Bab & Tamat Modul Pertama
+            // Pengecekan Batas Akhir Kuis
             if (index >= lesson.Questions.Count)
             {
                 quizView.UpdateProgressBarValue(lesson.Questions.Count);
-                HandleLessonTransition();
+                ShowSessionResult();
                 return;
             }
 
@@ -112,31 +115,7 @@ namespace tkpl.Controller
             creator.RenderControls(quizView);
         }
 
-        // Bagian ini menangani transisi antar bab dan modul, termasuk logika tamat untuk Bab 3 Modul 1
-        private void HandleLessonTransition()
-        {
-            int currentLessonIdx = gameLogic._currentLessIdx;
-            int currentModIdx = gameLogic._currentModIdx;
-            int totalLessonsInCurrentModule = RepoLevel.MasterTable[currentModIdx].ReadOnlyComponents.Count;
 
-            // KUNCI TAMAT: Menampilkan QuizSessionResult saat Bab 3 Modul 1 (Mekanika Klasik) Selesai
-            if (currentModIdx == 0 && currentLessonIdx == totalLessonsInCurrentModule - 1)
-            {
-                //ShowSessionResult();
-                return;
-            }
-
-            gameLogic.ForceAdvanceLevel();
-
-            // Refresh data pelajaran ke bab baru setelah dimajukan
-            var nextMod = RepoLevel.MasterTable[gameLogic._currentModIdx];
-            this.lesson = (Lesson)nextMod.ReadOnlyComponents[gameLogic._currentLessIdx];
-
-            currentQuestionIndex = 0;
-            //_answerRecords.Clear();
-            quizView.InitProgressBar(lesson.Questions.Count, currentQuestionIndex);
-            ShowQuestion(currentQuestionIndex);
-        }
 
         // Logika penanganan jawaban dengan feedback, pelacakan hasil, dan pengurangan nyawa
         private void HandleAnswer(bool isCorrect, string userAnswer)
