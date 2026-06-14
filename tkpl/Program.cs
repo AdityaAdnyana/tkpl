@@ -9,18 +9,22 @@ namespace tkpl
     internal static class Program
     {
         [STAThread]
-        static void Main()
+        static async Task Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
 
-            AppConfig.LoadConfig();
+            ApplicationConfiguration.Initialize();
 
             LogicLevel levelManager = LogicLevel.Instance();
+            AppConfig.LoadConfig();
+
+            await RepoLevel.FetchLevelsFromApiAsync();
 
             Module currentMod = RepoLevel.MasterTable[levelManager._currentModIdx];
-            Lesson activeLesson = currentMod.ReadOnlyLessons[levelManager._currentLessIdx];
+            Lesson activeLesson = currentMod.ReadOnlyComponents[levelManager._currentLessIdx] as Lesson;
+            if (activeLesson == null) throw new InvalidOperationException("Selected component is not a Lesson.");
 
             QuizView quizView = new QuizView();
             Homepage menuHomepage = new Homepage();
@@ -29,9 +33,7 @@ namespace tkpl
 
             QuizSessionController sessionController = new QuizSessionController(activeLesson, quizView, levelManager);
 
-            sessionController.StartSession();
-            Application.Run();
-            //Application.Run(menuHomepage);
+            Application.Run(menuHomepage);
         }
     }
 }
