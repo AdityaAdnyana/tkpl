@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using tkpl.View.User_Page;
@@ -9,6 +9,12 @@ namespace tkpl.Model.User
     {
         UserModel model;
         UserPage userPage;
+
+        public UserMenuFacade(UserModel model, UserPage userPage)
+        {
+            this.model = model;
+            this.userPage = userPage;
+        }
 
         public void ViewUserInfo() {
             userPage.GeneratLabel("Nama: " + model.GetUserName(), new System.Drawing.Point(24, 9), 12);

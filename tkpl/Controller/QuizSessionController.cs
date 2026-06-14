@@ -24,6 +24,7 @@ namespace tkpl.Controller
             this.lesson = lesson;
             this.quizView = quizView;
             this.gameLogic = logic;
+            this.userModel = new UserModel();
             userId = userModel.GetUserId();
         }
 

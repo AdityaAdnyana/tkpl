@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using tkpl.Controller;
 using tkpl.Model;
@@ -10,7 +10,10 @@ namespace tkpl.View
         public Homepage()
         {
             InitializeComponent();
+        
         }
+
+        
 
         private void btnStartQuiq_Click(object sender, EventArgs e)
         {
@@ -33,8 +36,8 @@ namespace tkpl.View
         private void LoadQuizSession(int moduleIdx, int lessonIdx)
         {
             try
-            { 
-            
+            {
+
                 Module targetModule = RepoLevel.MasterTable[moduleIdx];
                 Lesson targetLesson = (Lesson)targetModule.ReadOnlyComponents[lessonIdx];
 
@@ -62,6 +65,11 @@ namespace tkpl.View
             {
                 Application.Exit();
             }
+        }
+
+        private void BtnUser_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

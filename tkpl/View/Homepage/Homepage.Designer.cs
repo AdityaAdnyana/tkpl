@@ -74,6 +74,7 @@
             BtnUser.TabIndex = 3;
             BtnUser.Text = "User";
             BtnUser.UseVisualStyleBackColor = true;
+            BtnUser.Click += BtnUser_Click_1;
             // 
             // btnStartLevel2
             // 
@@ -93,7 +94,7 @@
             btnStartLevel3.TabIndex = 5;
             btnStartLevel3.Text = "Level3";
             btnStartLevel3.UseVisualStyleBackColor = true;
-            this.btnStartLevel3.Click += btnStartLevel3_Click;
+            btnStartLevel3.Click += btnStartLevel3_Click;
             // 
             // btnToMateri
             // 

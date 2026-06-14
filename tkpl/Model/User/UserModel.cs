@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -8,42 +8,50 @@ namespace tkpl.Model.User
     internal class UserModel : IUserModel
     {
         private User user;
-        int idStart = RepoUser.idStart;
+        private bool isLoggedIn = false;
+        private static int idStart = RepoUser.idStart;
+
+        public static User? CurrentUser { get; set; }
+
+        public UserModel()
+        {
+            user = CurrentUser ?? new User();
+        }
+
         public void SingUp(string username, string password)
         {
-            user.userName = username;
-            user.password = password;
-            user.id = idStart ++; 
+            user = new User(username, password);
+            user.id = ++idStart;
             RepoUser.UserTable.Add(user);
-            
         }
-        public void Login(string username, string password)
+
+        public bool Login(string username, string password)
         {
-            foreach (var user in RepoUser.UserTable) {
-                if (user.userName == username) {
-                    if (user.password.Equals(password))
+            foreach (var u in RepoUser.UserTable) {
+                if (u.userName == username) {
+                    if (u.password.Equals(password))
                     {
-                        user.userName = username;
-                        user.password = password;
-                        user.id = user.id;
+                        user = u;
+                        CurrentUser = u;
+                        isLoggedIn = true;
+                        return isLoggedIn;
                     }
                 }
             }
+            return false;
         }       
 
         public void Logout() 
         {
-            user.userName = string.Empty;
-            user.password = string.Empty;
-            user.id = 0;
+            user = new User();
+            CurrentUser = null;
+            isLoggedIn = false;
         }
 
-        public int GetUserId() { return user.id; }
-        public string GetUserName() { return user.userName; }
-        public void SetUsername(string username) { user.userName = username; }
-        public string GetPassword() { return user.password; }
-
-        
-        public void SetPassword(string password) { user.password = password; }
+        public int GetUserId() { return user?.id ?? 0; }
+        public string GetUserName() { return user?.userName ?? string.Empty; }
+        public void SetUsername(string username) { if (user != null) user.userName = username; }
+        public string GetPassword() { return user?.password ?? string.Empty; }
+        public void SetPassword(string password) { if (user != null) user.password = password; }
     }
 }
