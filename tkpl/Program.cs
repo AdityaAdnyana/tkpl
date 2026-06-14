@@ -23,10 +23,13 @@ namespace tkpl
             await RepoLevel.FetchLevelsFromApiAsync();
 
             Module currentMod = RepoLevel.MasterTable[levelManager._currentModIdx];
-            Lesson activeLesson = currentMod.ReadOnlyLessons[levelManager._currentLessIdx];
+            Lesson activeLesson = currentMod.ReadOnlyComponents[levelManager._currentLessIdx] as Lesson;
+            if (activeLesson == null) throw new InvalidOperationException("Selected component is not a Lesson.");
 
             QuizView quizView = new QuizView();
             Homepage menuHomepage = new Homepage();
+
+            //QuizView quizView = new QuizView();
 
             QuizSessionController sessionController = new QuizSessionController(activeLesson, quizView, levelManager);
 
