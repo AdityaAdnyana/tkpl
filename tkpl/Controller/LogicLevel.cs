@@ -17,7 +17,6 @@ namespace tkpl.Controller
         public int _currentLives { get; private set; }
         private static LogicLevel _instance;
 
-        // Daftar observer yang terdaftar untuk menerima notifikasi perubahan nyawa
         private readonly List<ILivesObserver> _observers = new();
 
         private LogicLevel()
@@ -33,10 +32,6 @@ namespace tkpl.Controller
             }
             return _instance;
         }
-
-        // =====================================================================
-        // Observer Pattern — Subscription Management
-        // =====================================================================
 
         /// <summary>
         /// Mendaftarkan observer baru ke daftar subscriber.
@@ -67,10 +62,6 @@ namespace tkpl.Controller
                 observer.Update(_currentLives);
             }
         }
-
-        // =====================================================================
-        // Business Logic
-        // =====================================================================
 
         /// <summary>
         /// Mengurangi nyawa sebanyak 1 dan memberitahu semua observer.
