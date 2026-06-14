@@ -25,9 +25,10 @@ namespace tkpl.Controller
 
         public void StartSession()
         {
-            // Mendaftarkan Observer (event OnLivesChanged)
-            //gameLogic.OnLivesChanged += UpdateGUIHealth;
-            // Inisialisasi GUI nyawa
+            // Mendaftarkan Observer (QuizView) ke Publisher (LogicLevel)
+            gameLogic.Subscribe(quizView);
+
+            // Inisialisasi GUI nyawa awal
             quizView.UpdateHealthVal(gameLogic._currentLives);
 
             currentQuestionIndex = 0;
@@ -126,8 +127,10 @@ namespace tkpl.Controller
             else
             {
                 _answerRecords.Add((questionText, userAnswer, "Wrong"));
-                gameLogic._currentLives--;
-                quizView.UpdateHealthVal(gameLogic._currentLives);
+                
+                // Mengurangi nyawa via Publisher, Observer (QuizView) akan otomatis di-update
+                gameLogic.DecreaseLives();
+                
                 MessageBox.Show($"Jawaban Anda Salah.\nSisa Nyawa: {gameLogic._currentLives}", "Hasil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 if (gameLogic._currentLives <= 0)
