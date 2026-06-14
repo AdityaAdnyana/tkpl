@@ -14,6 +14,12 @@ namespace tkpl.Controller
         public HomepageController(Homepage homepageView)
         {
             _homepageView = homepageView;
+
+            // Mendaftarkan event listener ke tombol-tombol yang ada di View
+            _homepageView.GetBtnStartLevel1().Click += (sender, e) => LoadLevelSession(1);
+            _homepageView.GetBtnStartLevel2().Click += (sender, e) => LoadLevelSession(2);
+            _homepageView.GetBtnStartLevel3().Click += (sender, e) => LoadLevelSession(3);
+            _homepageView.GetBtnExit().Click += (sender, e) => ExitApplication();
         }
 
         public void LoadLevelSession(int level)
@@ -42,31 +48,6 @@ namespace tkpl.Controller
             catch (Exception ex)
             {
                 MessageBox.Show($"Gagal memuat kuis level {level}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        public void LoadQuizSession(int moduleIndex, int lessonIndex)
-        {
-            try
-            { 
-                Module targetModule = RepoLevel.MasterTable[moduleIndex];
-                Lesson targetLesson = (Lesson)targetModule.ReadOnlyComponents[lessonIndex];
-
-                QuizView quizWindow = new QuizView();
-
-                // Ambil objek Singleton LogicLevel untuk mengontrol status level game
-                QuizSessionController session = new QuizSessionController(targetLesson, quizWindow, LogicLevel.Instance());
-
-                _homepageView.Hide();
-
-                // Jika jendela kuis ditutup, munculkan kembali Homepage ini secara otomatis dan termasuk penerapan DRY
-                quizWindow.FormClosed += (s, args) => _homepageView.Show();
-
-                session.StartSession();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Gagal memuat kuis: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

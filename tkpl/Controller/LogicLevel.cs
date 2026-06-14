@@ -12,8 +12,6 @@ namespace tkpl.Controller
     /// </summary>
     public class LogicLevel : ILivesSubject
     {
-        public int _currentModIdx { get; private set; } = 0;
-        public int _currentLessIdx { get; private set; } = 0;
         public int _currentLives { get; private set; }
         private static LogicLevel _instance;
 
@@ -21,7 +19,7 @@ namespace tkpl.Controller
 
         private LogicLevel()
         {
-            _currentLives = CalculateInitialLives();
+            _currentLives = 3; // Default sementara, akan direset saat StartSession
         }
 
         public static LogicLevel Instance()
@@ -73,45 +71,10 @@ namespace tkpl.Controller
             NotifyObservers();
         }
 
-        private int CalculateInitialLives()
+        public void ResetLives(int totalQuestions)
         {
-            // Rumus adaptif menghitung nyawa awal berdasarkan total materi
-            try
-            {
-                if (RepoLevel.MasterTable == null || RepoLevel.MasterTable.Count == 0)
-                {
-                    throw new InvalidOperationException("MasterTable belum diinisialisasi.");
-                }
-                int totalLessons = RepoLevel.MasterTable[0].ReadOnlyComponents.Count;
-                return (int)Math.Ceiling(totalLessons / 3.0);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error calculating initial lives: {ex.Message}");
-                // Fallback ke nilai default jika terjadi error
-                return 5;
-            }
-            
-        }
-
-        public void ForceAdvanceLevel()
-        {
-            // Maju bab internal state
-            if (_currentLessIdx < RepoLevel.MasterTable[_currentModIdx].ReadOnlyComponents.Count - 1)
-            {
-                _currentLessIdx++;
-            }
-            else
-            {
-                _currentModIdx++;
-                _currentLessIdx = 0;
-            }
-        }
-
-        public void ProcessAnswer(string input)
-        {
-            ForceAdvanceLevel();
+            _currentLives = Math.Max(1, totalQuestions / 3);
+            NotifyObservers();
         }
     }
 }       

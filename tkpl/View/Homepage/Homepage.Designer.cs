@@ -45,7 +45,6 @@ namespace tkpl.View
             btnStartLevel1.TabIndex = 0;
             btnStartLevel1.Text = "Level1";
             btnStartLevel1.UseVisualStyleBackColor = true;
-            btnStartLevel1.Click += btnStartLevel1_Click;
             // 
             // btnExit
             // 
@@ -55,7 +54,6 @@ namespace tkpl.View
             btnExit.TabIndex = 1;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
-            btnExit.Click += btnExit_Click;
             // 
             // btnResultQuiz
             // 
@@ -83,7 +81,6 @@ namespace tkpl.View
             btnStartLevel2.TabIndex = 4;
             btnStartLevel2.Text = "Level2";
             btnStartLevel2.UseVisualStyleBackColor = true;
-            btnStartLevel2.Click += btnStartLevel2_Click;
             // 
             // btnStartLevel3
             // 
@@ -93,7 +90,6 @@ namespace tkpl.View
             btnStartLevel3.TabIndex = 5;
             btnStartLevel3.Text = "Level3";
             btnStartLevel3.UseVisualStyleBackColor = true;
-            this.btnStartLevel3.Click += btnStartLevel3_Click;
             // 
             // btnToMateri
             // 
