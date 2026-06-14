@@ -189,7 +189,7 @@ namespace tkpl.Controller
             resultView.SetResult(correctCount, _answerRecords.Count);
             quizView.Hide();
             resultView.Show();
-            quizView.Close();
+            quizView.Hide();
             //Application.Exit();
         }
 
@@ -197,6 +197,9 @@ namespace tkpl.Controller
         {
             resultView.GetBtReview().Click += (Sender, e) => resultView.ToglePanelScoreCard();
             resultView.GetBtClose().Click += (Sender, e) => resultView.ToglePanelScoreCard();
+            resultView.GetBtContinue().Click += (Sender, e) => quizView.Close();
+            resultView.GetBtContinue().Click += (Sender, e) => resultView.Close();
+
         }
     }
 }

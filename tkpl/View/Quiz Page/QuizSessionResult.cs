@@ -49,15 +49,14 @@ namespace tkpl.View
             panelScoreCard.Enabled = true;
         }
 
-        public Button GetBtReview()
-        {
-            return btReview;
-        }
+        public Button GetBtReview() => btReview;
 
-        public Button GetBtClose()
-        {
-            return btClose;
-        }
+
+        public Button GetBtClose() => btClose;
+
+
+        public Button GetBtContinue() => btContinue;
+        
 
         public void ToglePanelScoreCard()
         {
