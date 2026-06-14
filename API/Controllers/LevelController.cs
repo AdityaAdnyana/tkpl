@@ -1,4 +1,4 @@
-﻿using API.Controllers;
+using API.Controllers;
 using API.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +24,14 @@ public class LevelController : Controller
         var modules = await _context.Moduls
             .Include(m => m.Lessons)
                 .ThenInclude(l => l.Quizzes)
+                    .ThenInclude(q => q.EssayQuizzes)
+            .Include(m => m.Lessons)
+                .ThenInclude(l => l.Quizzes)
+                    .ThenInclude(q => q.ObjectiveQuizzes)
+                        .ThenInclude(oq => oq.Options)
+            .Include(m => m.Lessons)
+                .ThenInclude(l => l.Quizzes)
+                    .ThenInclude(q => q.QuizImages)
             .Include(m => m.ReadingMaterials)
                 .ThenInclude(r => r.Images)
             .ToListAsync();

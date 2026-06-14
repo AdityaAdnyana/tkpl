@@ -12,17 +12,14 @@ namespace tkpl.Controller
     /// </summary>
     public class LogicLevel : ILivesSubject
     {
-        public int _currentModIdx { get; private set; } = 0;
-        public int _currentLessIdx { get; private set; } = 0;
         public int _currentLives { get; private set; }
         private static LogicLevel _instance;
 
-        // Daftar observer yang terdaftar untuk menerima notifikasi perubahan nyawa
         private readonly List<ILivesObserver> _observers = new();
 
         private LogicLevel()
         {
-            _currentLives = CalculateInitialLives();
+            _currentLives = 3; // Default sementara, akan direset saat StartSession
         }
 
         public static LogicLevel Instance()
@@ -33,10 +30,6 @@ namespace tkpl.Controller
             }
             return _instance;
         }
-
-        // =====================================================================
-        // Observer Pattern — Subscription Management
-        // =====================================================================
 
         /// <summary>
         /// Mendaftarkan observer baru ke daftar subscriber.
@@ -68,10 +61,6 @@ namespace tkpl.Controller
             }
         }
 
-        // =====================================================================
-        // Business Logic
-        // =====================================================================
-
         /// <summary>
         /// Mengurangi nyawa sebanyak 1 dan memberitahu semua observer.
         /// Enkapsulasi state change agar mutasi hanya terjadi lewat method ini.
@@ -82,30 +71,10 @@ namespace tkpl.Controller
             NotifyObservers();
         }
 
-        private int CalculateInitialLives()
+        public void ResetLives(int totalQuestions)
         {
-            // Rumus adaptif menghitung nyawa awal berdasarkan total materi
-            int totalLessons = RepoLevel.MasterTable[0].ReadOnlyComponents.Count;
-            return (int)Math.Ceiling(totalLessons / 3.0);
-        }
-
-        public void ForceAdvanceLevel()
-        {
-            // Maju bab internal state
-            if (_currentLessIdx < RepoLevel.MasterTable[_currentModIdx].ReadOnlyComponents.Count - 1)
-            {
-                _currentLessIdx++;
-            }
-            else
-            {
-                _currentModIdx++;
-                _currentLessIdx = 0;
-            }
-        }
-
-        public void ProcessAnswer(string input)
-        {
-            ForceAdvanceLevel();
+            _currentLives = Math.Max(1, totalQuestions / 3);
+            NotifyObservers();
         }
     }
 }       

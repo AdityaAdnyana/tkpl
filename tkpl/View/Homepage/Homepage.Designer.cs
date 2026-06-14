@@ -1,4 +1,4 @@
-﻿namespace tkpl.View
+namespace tkpl.View
 {
     partial class Homepage
     {
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             btnStartLevel1 = new Button();
-            BtnExit = new Button();
+            btnExit = new Button();
             btnResultQuiz = new Button();
-            BtnUser = new Button();
+            btnUser = new Button();
             btnStartLevel2 = new Button();
             btnStartLevel3 = new Button();
             btnToMateri = new Button();
@@ -45,17 +45,15 @@
             btnStartLevel1.TabIndex = 0;
             btnStartLevel1.Text = "Level1";
             btnStartLevel1.UseVisualStyleBackColor = true;
-            btnStartLevel1.Click += btnStartQuiq_Click;
             // 
-            // BtnExit
+            // btnExit
             // 
-            BtnExit.Location = new Point(877, 879);
-            BtnExit.Name = "BtnExit";
-            BtnExit.Size = new Size(150, 46);
-            BtnExit.TabIndex = 1;
-            BtnExit.Text = "Exit";
-            BtnExit.UseVisualStyleBackColor = true;
-            BtnExit.Click += button1_Click;
+            btnExit.Location = new Point(877, 879);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(150, 46);
+            btnExit.TabIndex = 1;
+            btnExit.Text = "Exit";
+            btnExit.UseVisualStyleBackColor = true;
             // 
             // btnResultQuiz
             // 
@@ -66,7 +64,7 @@
             btnResultQuiz.Text = "Result";
             btnResultQuiz.UseVisualStyleBackColor = true;
             // 
-            // BtnUser
+            // btnUser
             // 
             BtnUser.Location = new Point(21, 879);
             BtnUser.Name = "BtnUser";
@@ -75,6 +73,12 @@
             BtnUser.Text = "User";
             BtnUser.UseVisualStyleBackColor = true;
             BtnUser.Click += BtnUser_Click_1;
+            btnUser.Location = new Point(21, 879);
+            btnUser.Name = "btnUser";
+            btnUser.Size = new Size(150, 46);
+            btnUser.TabIndex = 3;
+            btnUser.Text = "User";
+            btnUser.UseVisualStyleBackColor = true;
             // 
             // btnStartLevel2
             // 
@@ -84,7 +88,6 @@
             btnStartLevel2.TabIndex = 4;
             btnStartLevel2.Text = "Level2";
             btnStartLevel2.UseVisualStyleBackColor = true;
-            btnStartLevel2.Click += btnStartLevel2_Click;
             // 
             // btnStartLevel3
             // 
@@ -113,9 +116,9 @@
             Controls.Add(btnToMateri);
             Controls.Add(btnStartLevel3);
             Controls.Add(btnStartLevel2);
-            Controls.Add(BtnUser);
+            Controls.Add(btnUser);
             Controls.Add(btnResultQuiz);
-            Controls.Add(BtnExit);
+            Controls.Add(btnExit);
             Controls.Add(btnStartLevel1);
             Name = "Homepage";
             Text = "Form2";
@@ -125,9 +128,9 @@
         #endregion
 
         private Button btnStartLevel1;
-        private Button BtnExit;
+        private Button btnExit;
         private Button btnResultQuiz;
-        private Button BtnUser;
+        private Button btnUser;
         private Button btnStartLevel2;
         private Button btnStartLevel3;
         private Button btnToMateri;

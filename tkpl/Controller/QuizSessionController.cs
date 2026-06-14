@@ -26,12 +26,34 @@ namespace tkpl.Controller
             this.gameLogic = logic;
             this.userModel = new UserModel();
             userId = userModel.GetUserId();
+
+            SetupGuiQuizViewEvent();
+        }
+
+        private void SetupGuiQuizViewEvent()
+        {
+            quizView.GetBtSkip().Click += HandleSkipQuestion;
+        }
+
+        private void HandleSkipQuestion(object sender, EventArgs e)
+        {
+            if (currentQuestionIndex >= lesson.Questions.Count) return;
+
+            string questionText = lesson.Questions[currentQuestionIndex].QuestionText;
+            _answerRecords.Add((questionText, "-", "Skipped"));
+
+            quizView.UpdateProgressBarValue(currentQuestionIndex + 1);
+            currentQuestionIndex++;
+            ShowQuestion(currentQuestionIndex);
         }
 
         public void StartSession()
         {
             // Mendaftarkan Observer (QuizView) ke Publisher (LogicLevel)
             gameLogic.Subscribe(quizView);
+
+            // Reset nyawa berdasarkan jumlah soal pada sesi ini (integer div 3)
+            gameLogic.ResetLives(lesson.Questions.Count);
 
             // Inisialisasi GUI nyawa awal
             quizView.UpdateHealthVal(gameLogic._currentLives);
@@ -51,14 +73,14 @@ namespace tkpl.Controller
             }
         }
 
-        // Metode ini menampilkan soal berdasarkan indeks saat ini, dengan
+        // Metode ini menampilkan soal berdasarkan indeks saat ini
         private void ShowQuestion(int index)
         {
-            // Pengecekan Batas Akhir Bab & Tamat Modul Pertama
+            // Pengecekan Batas Akhir Kuis
             if (index >= lesson.Questions.Count)
             {
                 quizView.UpdateProgressBarValue(lesson.Questions.Count);
-                HandleLessonTransition();
+                ShowSessionResult();
                 return;
             }
 
@@ -66,6 +88,14 @@ namespace tkpl.Controller
             IQuestion currentQuestion = lesson.Questions[index];
             quizView.SetQuestionText(currentQuestion.QuestionText);
             quizView.ClearControls();
+
+            // Menggunakan Factory untuk gambar jika soal memiliki gambar
+            if (!string.IsNullOrEmpty(currentQuestion.ImagePath))
+            {
+                tkpl.View.Factory.ImageControl.ImageControlCreator imageCreator = new tkpl.View.Factory.ImageControl.QuestionImageCreator();
+                Control imgControl = imageCreator.CreateImageControl(currentQuestion.ImagePath);
+                quizView.AddControl(imgControl);
+            }
 
             // Menggunakan Factory Method Pattern untuk membuat kontrol UI quiz.
             // Client code bekerja dengan Creator melalui base interface (QuizControlCreator),
@@ -90,31 +120,7 @@ namespace tkpl.Controller
             creator.RenderControls(quizView);
         }
 
-        // Bagian ini menangani transisi antar bab dan modul, termasuk logika tamat untuk Bab 3 Modul 1
-        private void HandleLessonTransition()
-        {
-            int currentLessonIdx = gameLogic._currentLessIdx;
-            int currentModIdx = gameLogic._currentModIdx;
-            int totalLessonsInCurrentModule = RepoLevel.MasterTable[currentModIdx].ReadOnlyComponents.Count;
 
-            // KUNCI TAMAT: Menampilkan QuizSessionResult saat Bab 3 Modul 1 (Mekanika Klasik) Selesai
-            if (currentModIdx == 0 && currentLessonIdx == totalLessonsInCurrentModule - 1)
-            {
-                //ShowSessionResult();
-                return;
-            }
-
-            gameLogic.ForceAdvanceLevel();
-
-            // Refresh data pelajaran ke bab baru setelah dimajukan
-            var nextMod = RepoLevel.MasterTable[gameLogic._currentModIdx];
-            this.lesson = (Lesson)nextMod.ReadOnlyComponents[gameLogic._currentLessIdx];
-
-            currentQuestionIndex = 0;
-            //_answerRecords.Clear();
-            quizView.InitProgressBar(lesson.Questions.Count, currentQuestionIndex);
-            ShowQuestion(currentQuestionIndex);
-        }
 
         // Logika penanganan jawaban dengan feedback, pelacakan hasil, dan pengurangan nyawa
         private void HandleAnswer(bool isCorrect, string userAnswer)
@@ -190,7 +196,7 @@ namespace tkpl.Controller
             resultView.SetResult(correctCount, _answerRecords.Count);
             quizView.Hide();
             resultView.Show();
-            quizView.Close();
+            quizView.Hide();
             //Application.Exit();
         }
 
@@ -198,6 +204,9 @@ namespace tkpl.Controller
         {
             resultView.GetBtReview().Click += (Sender, e) => resultView.ToglePanelScoreCard();
             resultView.GetBtClose().Click += (Sender, e) => resultView.ToglePanelScoreCard();
+            resultView.GetBtContinue().Click += (Sender, e) => quizView.Close();
+            resultView.GetBtContinue().Click += (Sender, e) => resultView.Close();
+
         }
     }
 }

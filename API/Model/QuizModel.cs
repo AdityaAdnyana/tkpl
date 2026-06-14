@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -28,6 +28,7 @@ namespace API.Model
 
             public List<EssayQuizModels> EssayQuizzes { get; set; } = new List<EssayQuizModels>();
             public List<ObjectiveQuizModels> ObjectiveQuizzes { get; set; } = new List<ObjectiveQuizModels>();
+            public List<ReadingMaterial.QuizImageModels> QuizImages { get; set; } = new List<ReadingMaterial.QuizImageModels>();
         }
 
         [Table("essay_quiz")]

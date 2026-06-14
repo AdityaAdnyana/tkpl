@@ -78,9 +78,10 @@ namespace tkpl
             UpdateHealthVal(currentLives);
         }
 
-
-
-
+        public Button GetBtSkip()
+        {
+            return btSkip;
+        }
 
         private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
         {
