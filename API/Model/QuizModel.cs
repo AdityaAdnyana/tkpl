@@ -82,5 +82,7 @@ namespace API.Model
             [ForeignKey("Objective_Quiz_ID")]
             public ObjectiveQuizModels? ObjectiveQuiz { get; set; }
         }
+
+
     }
 }

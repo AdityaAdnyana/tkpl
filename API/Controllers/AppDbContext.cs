@@ -17,6 +17,7 @@ namespace API.Controllers
         public DbSet<ObjectiveQuizOptionsModels> ObjectiveQuizOptions { get; set; }
         public DbSet<ReadingMaterialModels> ReadingMaterials { get; set; }
         public DbSet<ReadingMaterialImageModels> ReadingMaterialImages { get; set; }
+        public DbSet<QuizImageModels> QuizImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -57,6 +58,13 @@ namespace API.Controllers
                 .HasOne(r => r.Module)
                 .WithMany(m => m.ReadingMaterials)
                 .HasForeignKey(r => r.Module_ID);
+
+            // ReadingMaterialImage -> ReadingMaterial
+            modelBuilder.Entity<QuizImageModels>()
+                .HasOne(qi => qi.Quiz)
+                .WithMany()
+                .HasForeignKey(qi => qi.Quiz_ID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
