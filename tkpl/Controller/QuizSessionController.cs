@@ -21,6 +21,25 @@ namespace tkpl.Controller
             this.lesson = lesson;
             this.quizView = quizView;
             this.gameLogic = logic;
+
+            SetupGuiQuizViewEvent();
+        }
+
+        private void SetupGuiQuizViewEvent()
+        {
+            quizView.GetBtSkip().Click += HandleSkipQuestion;
+        }
+
+        private void HandleSkipQuestion(object sender, EventArgs e)
+        {
+            if (currentQuestionIndex >= lesson.Questions.Count) return;
+
+            string questionText = lesson.Questions[currentQuestionIndex].QuestionText;
+            _answerRecords.Add((questionText, "-", "Skipped"));
+
+            quizView.UpdateProgressBarValue(currentQuestionIndex + 1);
+            currentQuestionIndex++;
+            ShowQuestion(currentQuestionIndex);
         }
 
         public void StartSession()
@@ -61,6 +80,14 @@ namespace tkpl.Controller
             IQuestion currentQuestion = lesson.Questions[index];
             quizView.SetQuestionText(currentQuestion.QuestionText);
             quizView.ClearControls();
+
+            // Menggunakan Factory untuk gambar jika soal memiliki gambar
+            if (!string.IsNullOrEmpty(currentQuestion.ImagePath))
+            {
+                tkpl.View.Factory.ImageControl.ImageControlCreator imageCreator = new tkpl.View.Factory.ImageControl.QuestionImageCreator();
+                Control imgControl = imageCreator.CreateImageControl(currentQuestion.ImagePath);
+                quizView.AddControl(imgControl);
+            }
 
             // Menggunakan Factory Method Pattern untuk membuat kontrol UI quiz.
             // Client code bekerja dengan Creator melalui base interface (QuizControlCreator),

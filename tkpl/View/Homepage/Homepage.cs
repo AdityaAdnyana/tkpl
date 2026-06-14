@@ -1,67 +1,37 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using tkpl.Controller;
-using tkpl.Model;
 
 namespace tkpl.View
 {
     public partial class Homepage : Form
     {
+        private readonly HomepageController _controller;
+
         public Homepage()
         {
             InitializeComponent();
+            _controller = new HomepageController(this);
         }
 
-        private void btnStartQuiq_Click(object sender, EventArgs e)
+        private void btnStartLevel1_Click(object sender, EventArgs e)
         {
-            // Ambil objek Singleton LogicLevel untuk mengontrol status level game
-            LogicLevel gameLogic = LogicLevel.Instance();
-
-            LoadQuizSession(0, 0);
+            _controller.LoadQuizSession(0, 0);
         }
 
         private void btnStartLevel2_Click(object sender, EventArgs e)
         {
-            LoadQuizSession(0, 1);
+            _controller.LoadQuizSession(0, 1);
         }
 
         private void btnStartLevel3_Click(object sender, EventArgs e)
         {
-            LoadQuizSession(0, 2);
+            _controller.LoadQuizSession(0, 2);
         }
 
-        private void LoadQuizSession(int moduleIdx, int lessonIdx)
+        private void btnExit_Click(object sender, EventArgs e)
         {
-            try
-            { 
-            
-                Module targetModule = RepoLevel.MasterTable[moduleIdx];
-                Lesson targetLesson = (Lesson)targetModule.ReadOnlyComponents[lessonIdx];
-
-                QuizView quizWindow = new QuizView();
-
-                QuizSessionController session = new QuizSessionController(targetLesson, quizWindow, LogicLevel.Instance());
-
-                this.Hide();
-
-                // Jika jendela kuis ditutup, munculkan kembali Homepage ini secara otomatis dan termasuk penerapan DRY
-                quizWindow.FormClosed += (s, args) => this.Show();
-
-                session.StartSession();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Gagal memuat kuis: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Apakah Anda yakin ingin keluar dari aplikasi?", "Konfirmasi Keluar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            _controller.ExitApplication();
         }
     }
 }

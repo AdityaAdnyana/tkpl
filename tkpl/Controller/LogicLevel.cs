@@ -85,8 +85,23 @@ namespace tkpl.Controller
         private int CalculateInitialLives()
         {
             // Rumus adaptif menghitung nyawa awal berdasarkan total materi
-            int totalLessons = RepoLevel.MasterTable[0].ReadOnlyComponents.Count;
-            return (int)Math.Ceiling(totalLessons / 3.0);
+            try
+            {
+                if (RepoLevel.MasterTable == null || RepoLevel.MasterTable.Count == 0)
+                {
+                    throw new InvalidOperationException("MasterTable belum diinisialisasi.");
+                }
+                int totalLessons = RepoLevel.MasterTable[0].ReadOnlyComponents.Count;
+                return (int)Math.Ceiling(totalLessons / 3.0);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error calculating initial lives: {ex.Message}");
+                // Fallback ke nilai default jika terjadi error
+                return 5;
+            }
+            
         }
 
         public void ForceAdvanceLevel()

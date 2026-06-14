@@ -1,4 +1,4 @@
-﻿using API.Model;
+using API.Model;
 using Microsoft.EntityFrameworkCore;
 using static API.Model.QuizModel;
 using static API.Model.ReadingMaterial;
@@ -60,9 +60,16 @@ namespace API.Controllers
                 .HasForeignKey(r => r.Module_ID);
 
             // ReadingMaterialImage -> ReadingMaterial
+            modelBuilder.Entity<ReadingMaterialImageModels>()
+                .HasOne(ri => ri.ReadingMaterial)
+                .WithMany(r => r.Images)
+                .HasForeignKey(ri => ri.Reading_Material_ID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // QuizImage -> Quiz
             modelBuilder.Entity<QuizImageModels>()
                 .HasOne(qi => qi.Quiz)
-                .WithMany()
+                .WithMany(q => q.QuizImages)
                 .HasForeignKey(qi => qi.Quiz_ID)
                 .OnDelete(DeleteBehavior.Cascade);
         }
