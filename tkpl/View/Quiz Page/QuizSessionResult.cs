@@ -54,6 +54,11 @@ namespace tkpl.View
             return btReview;
         }
 
+        public Button GetBtClose()
+        {
+            return btClose;
+        }
+
         public void ToglePanelScoreCard()
         {
             panelScoreCard.Visible = !panelScoreCard.Visible;

@@ -190,6 +190,7 @@ namespace tkpl.Controller
         public void SetupGuiSessionResultEvent(QuizSessionResult resultView)
         {
             resultView.GetBtReview().Click += (Sender, e) => resultView.ToglePanelScoreCard();
+            resultView.GetBtClose().Click += (Sender, e) => resultView.ToglePanelScoreCard();
         }
     }
 }
