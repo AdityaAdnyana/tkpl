@@ -89,7 +89,7 @@ namespace tkpl.Controller
         {
             int currentLessonIdx = gameLogic._currentLessIdx;
             int currentModIdx = gameLogic._currentModIdx;
-            int totalLessonsInCurrentModule = RepoLevel.MasterTable[currentModIdx].ReadOnlyLessons.Count;
+            int totalLessonsInCurrentModule = RepoLevel.MasterTable[currentModIdx].ReadOnlyComponents.Count;
 
             // KUNCI TAMAT: Menampilkan QuizSessionResult saat Bab 3 Modul 1 (Mekanika Klasik) Selesai
             if (currentModIdx == 0 && currentLessonIdx == totalLessonsInCurrentModule - 1)
@@ -102,7 +102,7 @@ namespace tkpl.Controller
 
             // Refresh data pelajaran ke bab baru setelah dimajukan
             var nextMod = RepoLevel.MasterTable[gameLogic._currentModIdx];
-            this.lesson = nextMod.ReadOnlyLessons[gameLogic._currentLessIdx];
+            this.lesson = (Lesson)nextMod.ReadOnlyComponents[gameLogic._currentLessIdx];
 
             currentQuestionIndex = 0;
             //_answerRecords.Clear();

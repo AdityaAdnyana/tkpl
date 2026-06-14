@@ -27,14 +27,14 @@ namespace tkpl.Controller
         private int CalculateInitialLives()
         {
             // Rumus adaptif menghitung nyawa awal berdasarkan total materi
-            int totalLessons = RepoLevel.MasterTable[0].ReadOnlyLessons.Count;
+            int totalLessons = RepoLevel.MasterTable[0].ReadOnlyComponents.Count;
             return (int)Math.Ceiling(totalLessons / 3.0);
         }
 
         public void ForceAdvanceLevel()
         {
             // Maju bab internal state
-            if (_currentLessIdx < RepoLevel.MasterTable[_currentModIdx].ReadOnlyLessons.Count - 1)
+            if (_currentLessIdx < RepoLevel.MasterTable[_currentModIdx].ReadOnlyComponents.Count - 1)
             {
                 _currentLessIdx++;
             }
