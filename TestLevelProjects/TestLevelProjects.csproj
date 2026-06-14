@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Reference Include="LevelLib">
-      <HintPath>..\LevelLib\obj\Release\net10.0\LevelLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 
