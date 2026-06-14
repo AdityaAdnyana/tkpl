@@ -83,7 +83,7 @@
             btnStartLevel2.TabIndex = 4;
             btnStartLevel2.Text = "Level2";
             btnStartLevel2.UseVisualStyleBackColor = true;
-            this.btnStartLevel2.Click += new System.EventHandler(this.btnStartLevel2_Click);
+            btnStartLevel2.Click += btnStartLevel2_Click;
             // 
             // btnStartLevel3
             // 
@@ -93,7 +93,7 @@
             btnStartLevel3.TabIndex = 5;
             btnStartLevel3.Text = "Level3";
             btnStartLevel3.UseVisualStyleBackColor = true;
-            this.btnStartLevel3.Click += new System.EventHandler(this.btnStartLevel3_Click); // <-- TAMBAHKAN BARIS INI
+            this.btnStartLevel3.Click += btnStartLevel3_Click;
             // 
             // btnToMateri
             // 
