@@ -8,10 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using tkpl.Controller;
+using tkpl.Model.Observer;
 
 namespace tkpl
 {
-    public partial class QuizView : Form
+    public partial class QuizView : Form, ILivesObserver
     {
         public QuizView()
         {
@@ -69,6 +70,12 @@ namespace tkpl
         public void UpdateHealthVal(int newVal)
         {
             health.Text = $"❤️ {newVal}";
+        }
+
+        // Implementasi ILivesObserver: bereaksi ketika ada notifikasi dari publisher
+        public void Update(int currentLives)
+        {
+            UpdateHealthVal(currentLives);
         }
 
 

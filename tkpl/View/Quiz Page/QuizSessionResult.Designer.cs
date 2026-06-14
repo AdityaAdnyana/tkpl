@@ -65,7 +65,7 @@ namespace tkpl.View
             label10 = new Label();
             label11 = new Label();
             button4 = new Button();
-            button2 = new Button();
+            btClose = new Button();
             label12 = new Label();
             label13 = new Label();
             panelScoreCard = new Panel();
@@ -438,15 +438,15 @@ namespace tkpl.View
             button4.Text = "Check Answer";
             button4.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btClose
             // 
-            button2.BackColor = Color.FromArgb(0, 0, 0, 0);
-            button2.Location = new Point(725, 13);
-            button2.Name = "button2";
-            button2.Size = new Size(50, 50);
-            button2.TabIndex = 0;
-            button2.Text = "X";
-            button2.UseVisualStyleBackColor = false;
+            btClose.BackColor = Color.FromArgb(0, 0, 0, 0);
+            btClose.Location = new Point(725, 13);
+            btClose.Name = "btClose";
+            btClose.Size = new Size(50, 50);
+            btClose.TabIndex = 0;
+            btClose.Text = "X";
+            btClose.UseVisualStyleBackColor = false;
             // 
             // label12
             // 
@@ -471,13 +471,14 @@ namespace tkpl.View
             panelScoreCard.BackColor = SystemColors.ControlLight;
             panelScoreCard.Controls.Add(label13);
             panelScoreCard.Controls.Add(label12);
-            panelScoreCard.Controls.Add(button2);
+            panelScoreCard.Controls.Add(btClose);
             panelScoreCard.Controls.Add(fLScore);
             panelScoreCard.Enabled = false;
             panelScoreCard.Location = new Point(131, 12);
             panelScoreCard.Name = "panelScoreCard";
             panelScoreCard.Size = new Size(792, 588);
             panelScoreCard.TabIndex = 10;
+            panelScoreCard.Hide();
             // 
             // QuizSessionResult
             // 
@@ -557,7 +558,7 @@ namespace tkpl.View
         private Label label10;
         private Label label11;
         private Button button4;
-        private Button button2;
+        private Button btClose;
         private Label label12;
         private Label label13;
         private Panel panelScoreCard;
