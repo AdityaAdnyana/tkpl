@@ -7,5 +7,6 @@ namespace tkpl.Model
         public string QuestionText { get; set; }
         public string ImagePath { get; set; }
         public bool ValidateAnswer(object answer);
+        string GetExpectedAnswerAsString();
     }
 }

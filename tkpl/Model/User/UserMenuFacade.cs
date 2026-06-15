@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using tkpl.View;
 using tkpl.View.User_Page;
 
 namespace tkpl.Model.User
@@ -9,28 +8,23 @@ namespace tkpl.Model.User
     internal class UserMenuFacade
     {
         UserModel model;
-        ReportQuiz  reportQuiz;
-        public string username;
-        public string password;
-        public int userid;
-        //UserMenuView userMenuView;
-        public void UserInformation()
+        UserPage userPage;
+
+        public UserMenuFacade(UserModel model, UserPage userPage)
         {
-            username = model.GetUserName();
-            password = model.GetPassword();
-            userid = model.GetUserId();
-            UserMenuView.GenerateLabel(username);
-            UserMenuView.GenerateLabel(password);
-            UserMenuView.GenerateLabel(Convert.ToString(userid));
-
-
+            this.model = model;
+            this.userPage = userPage;
         }
 
-        public void ViewReport()
-        {
-
+        public void ViewUserInfo() {
+            userPage.GeneratLabel("Nama: " + model.GetUserName(), new System.Drawing.Point(24, 9), 12);
+            userPage.GeneratLabel("Password: " + model.GetPassword(), new System.Drawing.Point(24, 54), 12);
+            userPage.GeneratLabel("ID: " + model.GetUserId(), new System.Drawing.Point(24, 105), 12);
         }
-
-        //add.ReportQuiz(lesson,isCorrect,curenQuestionIndex)
+        public void ViewUserLevelProgres() {
+            
+        }
+    
     }
 }
+   

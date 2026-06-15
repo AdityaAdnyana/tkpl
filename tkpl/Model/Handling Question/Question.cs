@@ -42,5 +42,11 @@ namespace tkpl.Model
             }
             return false;
         }
+
+        public string GetExpectedAnswerAsString()
+        {
+            return ExpectedAnswer?.ToString() ?? string.Empty;
+
+        }
     }
 }

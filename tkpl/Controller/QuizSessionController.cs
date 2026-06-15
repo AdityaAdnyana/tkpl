@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using tkpl.Model;
+using tkpl.Model.User;
 using tkpl.View;
 using tkpl.View.Factory.QuizControl;
 using tkpl.View.Factory.ScoreCard;
@@ -13,6 +14,8 @@ namespace tkpl.Controller
         private Lesson lesson;
         private QuizView quizView;
         private LogicLevel gameLogic;
+        private UserModel userModel;
+        private int userId;
         private int currentQuestionIndex = 0;
         private readonly List<(string QuestionText, string UserAnswer, string Status)> _answerRecords = new();
 
@@ -21,6 +24,8 @@ namespace tkpl.Controller
             this.lesson = lesson;
             this.quizView = quizView;
             this.gameLogic = logic;
+            this.userModel = new UserModel();
+            userId = userModel.GetUserId();
 
             SetupGuiQuizViewEvent();
         }
@@ -145,6 +150,8 @@ namespace tkpl.Controller
                     ShowSessionResult();
                 }
             }
+            
+            ReportQuiz.QuizItems.Add(new ReportQuizItem(userId, lesson, currentQuestionIndex,isCorrect));
         }
 
         /// <summary>

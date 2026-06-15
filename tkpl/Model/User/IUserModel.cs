@@ -8,7 +8,7 @@ namespace tkpl.Model.User
     {
 
         void SingUp(string username, string password);
-        void Login(string username, string password);
+        bool Login(string username, string password);
 
         void Logout();
 

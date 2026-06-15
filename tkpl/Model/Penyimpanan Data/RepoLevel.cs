@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using tkpl.Model;
+using tkpl.Model.User;
 using tkpl.Utils;
 
 public static class RepoLevel
@@ -16,7 +17,8 @@ public static class RepoLevel
         BaseAddress = new Uri("https://localhost:7021/")
     };
 
-    // Mengambil data level dari API dan mengisi MasterTable. Jika gagal, gunakan data lokal sebagai fallback.
+   
+
     public static async Task FetchLevelsFromApiAsync()
     {
         try
@@ -139,6 +141,16 @@ public class LessonFromApi
 {
     public int Lesson_ID { get; set; }
     public string Lesson_Name { get; set; }
+
+}
+
+public class UserFromAPI
+{ 
+    public int User_ID { get; set; }
+    public string User_Name { get; set; }
+    public string password { get; set; } 
+
+
     public List<QuizFromApi> Quizzes { get; set; } = new List<QuizFromApi>();
 }
 
@@ -172,4 +184,5 @@ public class ObjectiveQuizOptionFromApi
 {
     public string? Answer_Text { get; set; }
     public sbyte? Is_Correct { get; set; }
+
 }
