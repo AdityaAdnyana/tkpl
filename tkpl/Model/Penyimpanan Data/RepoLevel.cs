@@ -138,7 +138,7 @@ public class LessonFromApi
 {
     public int Lesson_ID { get; set; }
     public string Lesson_Name { get; set; }
-<<<<<<< HEAD
+
 }
 
 public class UserFromAPI
@@ -147,7 +147,7 @@ public class UserFromAPI
     public string User_Name { get; set; }
     public string password { get; set; } 
 
-=======
+
     public List<QuizFromApi> Quizzes { get; set; } = new List<QuizFromApi>();
 }
 
@@ -181,5 +181,5 @@ public class ObjectiveQuizOptionFromApi
 {
     public string? Answer_Text { get; set; }
     public sbyte? Is_Correct { get; set; }
->>>>>>> 4e48c639581de3de6d87c2b92d6739de7222db4d
+
 }

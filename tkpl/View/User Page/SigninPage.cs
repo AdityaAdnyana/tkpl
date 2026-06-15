@@ -40,8 +40,55 @@ namespace tkpl.View.User_Page
             }
         }
 
-        private void BtSignIn_Click(object sender, EventArgs e)
+        private async void BtSignIn_Click(object sender, EventArgs e)
         {
+           
+            
+            string inputUsername = TbUsername.Text;
+            string inputPassword = TbPassword.Text;
+            string inputConfirm = TbConPass.Text;
+
+            
+            // Cek apakah ada kolom yang kosong
+            if (string.IsNullOrWhiteSpace(inputUsername) || string.IsNullOrWhiteSpace(inputPassword))
+            {
+                MessageBox.Show("Username dan Password tidak boleh kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Hentikan proses
+            }
+
+            // Cek apakah konfirmasi password cocok
+            if (inputPassword != inputConfirm)
+            {
+                MessageBox.Show("Konfirmasi password tidak cocok! Silakan periksa kembali.", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Hentikan proses
+            }
+
+           
+            // Ubah teks tombol sementara agar user tahu aplikasi sedang loading
+            BtSignIn.Text = "Menyimpan...";
+            BtSignIn.Enabled = false;
+
+            // Panggil metode dari RepoUser
+            bool isSuccess = await RepoUser.RegisterUserAsync(inputUsername, inputPassword);
+
+            // 4. HASILNYA
+            if (isSuccess)
+            {
+                MessageBox.Show("Pendaftaran berhasil! Silakan Login.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Opsional: Bersihkan form atau langsung pindah ke halaman Home
+                TbUsername.Clear();
+                TbPassword.Clear();
+                TbConPass.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Pendaftaran gagal. Server API mungkin sedang mati atau username sudah dipakai.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            // Kembalikan tombol seperti semula
+            BtSignIn.Text = "Sign In";
+            BtSignIn.Enabled = true;
             homepage.FormClosed += (s, args) => this.Close();
             homepage.Show();
             this.Hide();

@@ -49,6 +49,30 @@ using tkpl.Model;
             InitializeFallbackData();
         }
     }
+
+    public static async Task<bool> SaveReportsToApiAsync()
+    {
+        try
+        {
+            // Ubah BindingList menjadi List biasa
+            List<ReportQuizItem> dataToSave = QuizItems.ToList();
+
+            // Jika list kosong, tidak perlu mengirim apa-apa
+            if (dataToSave.Count == 0) return true;
+
+            // Kirim data ke API menggunakan metode POST
+            
+            var response = await _httpClient.PostAsJsonAsync("api/ReportQuiz", dataToSave);
+
+            // Kembalikan nilai true jika server merespon sukses (kode 200 OK)
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Gagal menyimpan report ke database: {ex.Message}");
+            return false;
+        }
+    }
 }
 
 public class ReportQuizItem

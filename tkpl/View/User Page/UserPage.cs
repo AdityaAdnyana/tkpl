@@ -19,6 +19,7 @@ namespace tkpl.View.User_Page
             InitializeComponent();
             SetupTabelDinamis();
 
+
             // Initialize Model and Facade
             userModel = new UserModel();
             userMenuFacade = new UserMenuFacade(userModel, this);
@@ -30,6 +31,7 @@ namespace tkpl.View.User_Page
 
             // Generate user details labels dynamically
             userMenuFacade.ViewUserInfo();
+            uploadReport(); 
 
             // Create Logout Button programmatically
             Button btnLogout = new Button();
@@ -47,6 +49,24 @@ namespace tkpl.View.User_Page
 
             // Wire up navigation/exit button
             this.BtnExit.Click += (s, e) => this.Close();
+        }
+
+        private async void uploadReport() 
+        {
+            bool isSaved = await ReportQuiz.SaveReportsToApiAsync();
+
+            if (isSaved)
+            {
+                MessageBox.Show("Hasil kuis berhasil disimpan ke database!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        
+                ReportQuiz.QuizItems.Clear();
+
+            }
+            else
+            {
+                MessageBox.Show("Gagal menyimpan hasil kuis. Periksa koneksi internet atau server API Anda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

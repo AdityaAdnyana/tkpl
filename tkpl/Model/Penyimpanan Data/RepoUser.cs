@@ -6,6 +6,8 @@ using tkpl.Model.User;
 using System.Collections.Generic;
 using System.Net.Http.Json;
 using tkpl.Model;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 public static class RepoUser
 {
@@ -59,7 +61,30 @@ public static class RepoUser
         }
     }
 
-    
+    public static async Task<bool> RegisterUserAsync(string username, string password)
+    {
+        try
+        {
+            
+            var newUser = new
+            {
+                User_Name = username,
+                password = password
+            };
+
+          
+            // blm selesai
+            var response = await _httpClient.PostAsJsonAsync("api/User/Register", newUser);
+
+           
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Gagal mengirim data pendaftaran: {ex.Message}");
+            return false;
+        }
+    }
 
     public class UserFromAPI
     {
