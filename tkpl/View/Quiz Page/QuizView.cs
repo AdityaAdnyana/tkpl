@@ -8,59 +8,15 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using tkpl.Controller;
+using tkpl.Model.Observer;
 
 namespace tkpl
 {
-    public partial class QuizView : Form
+    public partial class QuizView : Form, ILivesObserver
     {
         public QuizView()
         {
             InitializeComponent();
-        }
-
-        // Method untuk menghasilkan TextBox untuk soal essay.
-        public static TextBox GenerateAnswerTextBox()
-        {
-            Debug.WriteLine("GENERATE ANSWER TEXTBOX EXECUTED");
-
-            TextBox answerTextBox = new TextBox();
-            answerTextBox.Name = "essayTextBox";
-            // Mengambil ukuran dan font dari konfigurasi runtime
-            answerTextBox.Size = new Size(AppConfig.UI.TextBoxWidth, AppConfig.UI.TextBoxHeight);
-            answerTextBox.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.FontSize);
-
-            return answerTextBox;
-        }
-
-        // Method untuk menghasilkan tombol jawaban untuk soal pilihan ganda.
-        public static Button GenerateAnswerButton(string answerText)
-        {
-            Debug.WriteLine("GENERETE ANSWER EXECUTED");
-
-            Button answerButton = new Button();
-            answerButton.Location = new Point(12, 12);
-            answerButton.Name = "button1";
-
-            // Mengambil ukuran dari konfigurasi runtime
-            answerButton.Size = new Size(AppConfig.UI.AnswerButtonWidth, AppConfig.UI.AnswerButtonHeight);
-            answerButton.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.FontSize);
-
-            answerButton.TabIndex = 1;
-            answerButton.Text = answerText;
-            answerButton.UseVisualStyleBackColor = true;
-            answerButton.Visible = true;
-
-            return answerButton;
-        }
-
-        // Method untuk menghasilkan tombol submit untuk soal essay.
-        public static Button GenerateSubmitButton()
-        {
-            Button submitBtn = new Button();
-            submitBtn.Text = "Submit Jawaban";
-            submitBtn.Size = new Size(AppConfig.UI.SubmitButtonWidth, AppConfig.UI.SubmitButtonHeight);
-            submitBtn.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.FontSize);
-            return submitBtn;
         }
 
         // Method untuk membersihkan kontrol yang ada di dalam FlowLayoutPanel.
@@ -100,7 +56,15 @@ namespace tkpl
 
         public void UpdateProgressBarValue(int newVal)
         {
-            quizSessionProgressBar.Value = newVal;
+            if (newVal <= quizSessionProgressBar.Maximum)
+            {
+                quizSessionProgressBar.Value = newVal;
+                if (newVal > 0)
+                {
+                    quizSessionProgressBar.Value = newVal - 1;
+                    quizSessionProgressBar.Value = newVal;
+                }
+            }
         }
 
         public void UpdateHealthVal(int newVal)
@@ -108,9 +72,16 @@ namespace tkpl
             health.Text = $"❤️ {newVal}";
         }
 
+        // Implementasi ILivesObserver: bereaksi ketika ada notifikasi dari publisher
+        public void Update(int currentLives)
+        {
+            UpdateHealthVal(currentLives);
+        }
 
-
-
+        public Button GetBtSkip()
+        {
+            return btSkip;
+        }
 
         private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
         {

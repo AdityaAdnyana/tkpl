@@ -1,144 +1,175 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Json;
+using System.Text.RegularExpressions;
 using tkpl.Model;
+using tkpl.Utils;
 
 public static class RepoLevel
 {
-    public static List<Module> MasterTable = new List<Module>
+    public static List<Module> MasterTable { get; set; } = new List<Module>();
+    public static Dictionary<int, int> LevelToModuleMap { get; set; } = new Dictionary<int, int>();
+
+    private static readonly HttpClient _httpClient = new HttpClient
     {
-        // MODUL 1: Mekanika Klasik (Modul Utama)
-        new Module("Mekanika Klasik", new List<Lesson>
-        {
-            // Bab 1: Kinematika
-            new Lesson("Kinematika", "Studi tentang gerak benda tanpa mempedulikan penyebabnya.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new EssayQuiz<string> { QuestionText = "Satuan internasional dari kecepatan?", ExpectedAnswer = "m/s" }
-                }
-            },
-            // Bab 2: Hukum Newton I
-            new Lesson("Hukum Newton I", "Benda cenderung mempertahankan keadaannya (Inersia).")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new EssayQuiz<string> { QuestionText = "Sifat kecenderungan benda mempertahankan posisinya disebut?", ExpectedAnswer = "inersia" }
-                }
-            },
-            new Lesson("Hukum Dummy I", "Benda cenderung mempertahankan senyumannya.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new EssayQuiz<string> { QuestionText = "Jika pohon tersenyum hal itu disebut?", ExpectedAnswer = "gila" }
-                }
-            },
-            // Bab 3: Hukum Newton II (Bab Terakhir Modul 1)
-            new Lesson("Hukum Newton II", "Percepatan sebanding dengan gaya dan berbanding terbalik dengan massa (F=ma).")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new ObjectiveQuiz<int> 
-                    { 
-                        QuestionText = "Gaya yang diperlukan untuk menggerakkan 1kg benda sebesar 1m/s² adalah ... Newton", 
-                        ExpectedAnswer = 1, 
-                        Options = new List<int> { 1, 2, 3, 4 } 
-                    }
-                }
-            },
-            // Dummy dulu kehabisan bahan soal w
-            new Lesson("Dummy Lesson", "Ini adalah pelajaran dummy untuk memastikan program tetap berjalan setelah Bab 3 Modul 1 selesai.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new ObjectiveQuiz<string> { QuestionText = "Soal dummy untuk memastikan program tetap berjalan setelah Bab 3 Modul 1 selesai.", 
-                        ExpectedAnswer = "dummy",
-                        Options = new List<string> { "dummy", "test", "placeholder", "sample" }
-                    }
-                }
-            },
-            new Lesson("Hukum Dummy I", "Benda cenderung mempertahankan senyumannya.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new ObjectiveQuiz<string> { QuestionText = "Jika pohon tersenyum hal itu disebut?",
-                        ExpectedAnswer = "gila",
-                        Options = new List<string>{"gila","aneh","luar bisa","tidak manuk akal"}
-                    }
-                }
-            },
-            new Lesson("Hukum Dummy I", "Benda cenderung mempertahankan senyumannya.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new ObjectiveQuiz<string> { QuestionText = "Jika kursi tersenyum hal itu disebut?",
-                        ExpectedAnswer = "gila",
-                        Options = new List<string>{"gila","aneh","luar bisa","tidak manuk akal"}
-                    }
-                }
-            },
-            new Lesson("Hukum Dummy I", "Benda cenderung mempertahankan senyumannya.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new ObjectiveQuiz<string> { QuestionText = "Jika ada pohon yang mengejar anda sambil tersenyum apa yang harus dilakukan?",
-                        ExpectedAnswer = "keren",
-                        Options = new List<string>{"Tersenyum balik","Lompat","ngoding","keren"}
-                    }
-                }
-            },
-            new Lesson("Hukum Dummy I", "Benda cenderung mempertahankan senyumannya.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new ObjectiveQuiz<string> { QuestionText = "Seberapa cepat pohon yang tersenyum dapat berlari?",
-                        ExpectedAnswer = "cepat",
-                        Options = new List<string>{"gila","1/aneh","3/luar bisa","cepat"}
-                    }
-                }
-            },
-            new Lesson("Hukum Dummy I", "Benda cenderung mempertahankan senyumannya.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new ObjectiveQuiz<string> { QuestionText = "Seberapa besar gaya kinetik yang diperlukan untuk membuat pohon tersenyum?",
-                        ExpectedAnswer = "Yang penting usaha",
-                        Options = new List<string>{"gila","Yang penting usaha","banyak","Sebanyak banyaknya"}
-                    }
-                }
-            },
-            new Lesson("Hukum Dummy I", "Benda cenderung mempertahankan senyumannya.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new ObjectiveQuiz<string> { QuestionText = "Pohon back flip jika tersenyum?",
-                        ExpectedAnswer = "bisa saja",
-                        Options = new List<string>{"Keren","hah???","bisa saja","tidak manuk akal"}
-                    }
-                }
-            },
-            new Lesson("Hukum Dummy I", "Benda cenderung mempertahankan senyumannya.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new ObjectiveQuiz<string> { QuestionText = "Jika pohon tetap diam hal itu disebut?",
-                        ExpectedAnswer = "gila",
-                        Options = new List<string>{"gila","aneh","luar bisa","tidak manuk akal"}
-                    }
-                }
-            }
-
-        }),
-
-        // MODUL 2: Gelombang & Optik (Modul Tambahan)
-        new Module("Gelombang & Optik", new List<Lesson>
-        {
-            new Lesson("Frekuensi", "Jumlah getaran yang terjadi dalam satu detik.")
-            {
-                Questions = new List<IQuestion>
-                {
-                    new EssayQuiz<string> { QuestionText = "Satuan internasional dari frekuensi?", ExpectedAnswer = "hertz" }
-                }
-            }
-        })
+        BaseAddress = new Uri("https://localhost:7021/")
     };
+
+    // Mengambil data level dari API dan mengisi MasterTable. Jika gagal, gunakan data lokal sebagai fallback.
+    public static async Task FetchLevelsFromApiAsync()
+    {
+        try
+        {
+            var modulesFromApi = await _httpClient.GetFromJsonAsync<List<ModuleFromApi>>("Level");
+
+            if (modulesFromApi != null)
+            {
+                MasterTable.Clear();
+
+                foreach (var apiMod in modulesFromApi)
+                {
+                    var newModule = new Module(apiMod.Module_ID, apiMod.Module_Name);
+
+                    foreach (var apiLess in apiMod.Lessons)
+                    {
+                        var newLesson = new Lesson(apiLess.Lesson_Name ?? "Unknown Lesson", "Materi Pembelajaran Aktif");
+
+                        if (apiLess.Quizzes != null)
+                        {
+                            foreach (var apiQuiz in apiLess.Quizzes)
+                            {
+                                int difficulty = apiQuiz.Quiz_Difficulty ?? 1;
+
+                                // Ambil URL gambar pertama jika ada, lalu konversi jika itu link Google Drive
+                                string rawImageUrl = apiQuiz.QuizImages?.FirstOrDefault()?.Image_Url ?? "";
+                                string directImageUrl = rawImageUrl.ToDirectDriveLink();
+
+                                if (apiQuiz.EssayQuizzes != null)
+                                {
+                                    foreach (var eq in apiQuiz.EssayQuizzes)
+                                    {
+                                        var essay = new EssayQuiz<string>
+                                        {
+                                            Difficulty = difficulty,
+                                            QuestionText = eq.Quiz_Text ?? "",
+                                            ExpectedAnswer = eq.Correct_Answer ?? "",
+                                            ImagePath = directImageUrl
+                                        };
+                                        newLesson.Questions.Add(essay);
+                                    }
+                                }
+
+                                if (apiQuiz.ObjectiveQuizzes != null)
+                                {
+                                    foreach (var oq in apiQuiz.ObjectiveQuizzes)
+                                    {
+                                        var objective = new ObjectiveQuiz<string>
+                                        {
+                                            Difficulty = difficulty,
+                                            QuestionText = oq.Quiz_Text ?? "",
+                                            ImagePath = directImageUrl
+                                        };
+
+                                        string expectedAns = "";
+                                        if (oq.Options != null)
+                                        {
+                                            foreach (var opt in oq.Options)
+                                            {
+                                                objective.Options.Add(opt.Answer_Text ?? "");
+                                                if (opt.Is_Correct == 1)
+                                                {
+                                                    expectedAns = opt.Answer_Text ?? "";
+                                                }
+                                            }
+                                        }
+                                        objective.ExpectedAnswer = expectedAns;
+
+                                        newLesson.Questions.Add(objective);
+                                    }
+                                }
+                            }
+                        }
+
+                        newModule.AddComponent(newLesson);
+                    }
+
+                    MasterTable.Add(newModule);
+                }
+            }
+
+            var detailsFromApi = await _httpClient.GetFromJsonAsync<List<LevelModuleDetailFromApi>>("Level/LevelModuleDetail");
+            if (detailsFromApi != null)
+            {
+                LevelToModuleMap.Clear();
+                foreach (var detail in detailsFromApi)
+                {
+                    LevelToModuleMap[detail.LevelId] = detail.ModuleId;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Jika server API mati, tampilkan log pesan error dan biarkan MasterTable kosong
+            Console.WriteLine($"Gagal sinkronisasi ke server API: {ex.Message}");
+        }
+    }
+}
+public class LevelModuleDetailFromApi
+{
+    [System.Text.Json.Serialization.JsonPropertyName("detailId")]
+    public int DetailId { get; set; }
+    
+    [System.Text.Json.Serialization.JsonPropertyName("moduleId")]
+    public int ModuleId { get; set; }
+    
+    [System.Text.Json.Serialization.JsonPropertyName("levelId")]
+    public int LevelId { get; set; }
+}
+
+// Kelas-kelas ini merepresentasikan struktur data yang diterima dari API. Mereka digunakan untuk deserialisasi JSON dan kemudian diubah menjadi objek-objek level yang sesuai dalam MasterTable.
+public class ModuleFromApi
+{
+    public int Module_ID { get; set; }
+    public string Module_Name { get; set; }
+    public List<LessonFromApi> Lessons { get; set; } = new List<LessonFromApi>();
+}
+
+public class LessonFromApi
+{
+    public int Lesson_ID { get; set; }
+    public string Lesson_Name { get; set; }
+    public List<QuizFromApi> Quizzes { get; set; } = new List<QuizFromApi>();
+}
+
+public class QuizFromApi
+{
+    public int Quiz_ID { get; set; }
+    public int? Quiz_Difficulty { get; set; }
+    public List<EssayQuizFromApi> EssayQuizzes { get; set; } = new List<EssayQuizFromApi>();
+    public List<ObjectiveQuizFromApi> ObjectiveQuizzes { get; set; } = new List<ObjectiveQuizFromApi>();
+    public List<QuizImageFromApi> QuizImages { get; set; } = new List<QuizImageFromApi>();
+}
+
+public class QuizImageFromApi
+{
+    public string? Image_Url { get; set; }
+}
+
+public class EssayQuizFromApi
+{
+    public string? Quiz_Text { get; set; }
+    public string? Correct_Answer { get; set; }
+}
+
+public class ObjectiveQuizFromApi
+{
+    public string? Quiz_Text { get; set; }
+    public List<ObjectiveQuizOptionFromApi> Options { get; set; } = new List<ObjectiveQuizOptionFromApi>();
+}
+
+public class ObjectiveQuizOptionFromApi
+{
+    public string? Answer_Text { get; set; }
+    public sbyte? Is_Correct { get; set; }
 }

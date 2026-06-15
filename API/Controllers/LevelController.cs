@@ -1,104 +1,150 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using API.Controllers;
+using API.Model;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("[controller]")]
 public class LevelController : Controller
 {
-    // ======================================
-    // ============= CRUD Modul =============
+    private readonly AppDbContext _context;
 
+    public LevelController(AppDbContext context)
+    {
+        _context = context;
+    }
+
+    // =========================================================================
+    // 1. READ (GET ALL) - Mengambil Semua Modul Lengkap dengan Level & Materi
+    // =========================================================================
     [HttpGet]
-    public ActionResult<Module[]> GetAllModules()
+    public async Task<ActionResult> GetAllModules()
     {
-        return Ok(RepoLevel.MasterTable);
+        // Menggunakan .Include dan .ThenInclude untuk menarik data berantai dari SQL
+        var modules = await _context.Moduls
+            .Include(m => m.Lessons)
+                .ThenInclude(l => l.Quizzes)
+                    .ThenInclude(q => q.EssayQuizzes)
+            .Include(m => m.Lessons)
+                .ThenInclude(l => l.Quizzes)
+                    .ThenInclude(q => q.ObjectiveQuizzes)
+                        .ThenInclude(oq => oq.Options)
+            .Include(m => m.Lessons)
+                .ThenInclude(l => l.Quizzes)
+                    .ThenInclude(q => q.QuizImages)
+            .Include(m => m.ReadingMaterials)
+                .ThenInclude(r => r.Images)
+            .ToListAsync();
+
+        return Ok(modules);
     }
 
+    // =========================================================================
+    // 2. READ (GET BY ID) - Mengambil Satu Modul Spesifik Berdasarkan ID
+    // =========================================================================
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetModuleById(int id)
+    {
+        var module = await _context.Moduls
+            .Include(m => m.Lessons)
+            .Include(m => m.ReadingMaterials)
+            .FirstOrDefaultAsync(m => m.Module_ID == id);
+
+        if (module == null)
+        {
+            return NotFound($"Modul dengan ID {id} tidak ditemukan.");
+        }
+
+        return Ok(module);
+    }
+
+    // =========================================================================
+    // 3. CREATE (POST) - Menambahkan Modul Baru (Bisa Sepaket dengan Level)
+    // =========================================================================
     [HttpPost]
-    public ActionResult AddModule(Module newModule)
+    public async Task<ActionResult> AddModule(ModuleModels newModule)
     {
-        RepoLevel.MasterTable.Add(newModule);
-        return Ok("Modul berhasil ditambahkan!");
+        if (newModule == null)
+        {
+            return BadRequest("Data modul tidak valid.");
+        }
+
+        _context.Moduls.Add(newModule);
+        await _context.SaveChangesAsync(); // Menyimpan data murni ke MySQL
+
+        return Ok(new { message = "Modul baru berhasil disimpan ke database SQL!", data = newModule });
     }
 
+    // =========================================================================
+    // 4. UPDATE (PUT) - Memperbarui Nama Modul Berdasarkan ID
+    // =========================================================================
     [HttpPut("{id}")]
-    public ActionResult UpdateModule(int id, Module updatedModule)
+    public async Task<ActionResult> UpdateModule(int id, ModuleModels updatedModule)
     {
-        if (id < 0 || id >= RepoLevel.MasterTable.Count)
+        var existingModule = await _context.Moduls.FindAsync(id);
+        if (existingModule == null)
         {
-            return NotFound("Indeks modul tidak ditemukan");
+            return NotFound($"Gagal update. Modul dengan ID {id} tidak ditemukan.");
         }
 
-        RepoLevel.MasterTable[id] = updatedModule;
-        return Ok($"Modul pada indeks {id} berhasil diupdate");
+        // Memperbarui nilai properti nama modul
+        existingModule.module_name = updatedModule.module_name;
+
+        _context.Moduls.Update(existingModule);
+        await _context.SaveChangesAsync();
+
+        return Ok($"Modul dengan ID {id} berhasil diperbarui di database.");
     }
 
+    // =========================================================================
+    // 5. DELETE (DELETE) - Menghapus Modul Berdasarkan ID
+    // =========================================================================
     [HttpDelete("{id}")]
-    public ActionResult DeleteModule(int id)
+    public async Task<ActionResult> DeleteModule(int id)
     {
-        if (id < 0 || id >= RepoLevel.MasterTable.Count)
+        var module = await _context.Moduls
+            .Include(m => m.ReadingMaterials)
+            .Include(m => m.Lessons)
+                .ThenInclude(l => l.Quizzes)
+            .FirstOrDefaultAsync(m => m.Module_ID == id);
+
+        if (module == null)
         {
-            return NotFound("Indeks tidak valid");
+            return NotFound($"Gagal hapus. Modul dengan ID {id} tidak ditemukan.");
         }
 
-        RepoLevel.MasterTable.RemoveAt(id);
-        return Ok("Modul berhasil dihapus");
-    }
-
-    // =======================================
-    // ============= CRUD Lesson =============
-
-    [HttpGet("{ModulId}/lessons/{LessonId}")]
-    public ActionResult<Lesson> GetLesson(int modulId, int lessonId)
-    {
-        if (modulId < RepoLevel.MasterTable.Count &&
-            lessonId < RepoLevel.MasterTable[modulId].ReadOnlyLessons.Count)
+        if (module.ReadingMaterials != null && module.ReadingMaterials.Count > 0)
         {
-            return Ok(RepoLevel.MasterTable[modulId].ReadOnlyLessons[lessonId]);
+            _context.ReadingMaterials.RemoveRange(module.ReadingMaterials);
         }
-        return NotFound();
+
+        if (module.Lessons != null && module.Lessons.Count > 0)
+        {
+            foreach (var lesson in module.Lessons)
+            {
+                if (lesson.Quizzes != null && lesson.Quizzes.Count > 0)
+                {
+                    _context.Quizzes.RemoveRange(lesson.Quizzes);
+                }
+            }
+
+            _context.Lessons.RemoveRange(module.Lessons);
+        }
+
+        _context.Moduls.Remove(module);
+
+        await _context.SaveChangesAsync();
+
+        return Ok($"Modul '{module.module_name}' (ID: {id}) beserta seluruh bab, materi, dan kuis di dalamnya berhasil dihapus.");
     }
 
-    //[HttpPost("{modId}/lessons")]
-    //public ActionResult AddLesson(int modId, [FromBody] Lesson newLesson)
-    //{
-    //    if (modId < 0 || modId >= RepoLevel.MasterTable.Count)
-    //        return NotFound("Modul tidak ditemukan");
-
-    //    RepoLevel.MasterTable[modId].ReadOnlyLessons.Add(newLesson);
-    //    return Ok($"Materi '{newLesson.Title}' berhasil ditambahkan ke modul {RepoLevel.MasterTable[modId].ModuleName}");
-    //}
-    // Ini gabisa di pake gegara lesson private 
-
-    //[HttpPut("{modId}/lessons/{lessId}")]
-    //public ActionResult UpdateLesson(int modId, int lessId, [FromBody] Lesson updatedLesson)
-    //{
-    //    if (modId < 0 || modId >= RepoLevel.MasterTable.Count)
-    //        return NotFound("Modul tidak ditemukan");
-
-    //    var lessons = RepoLevel.MasterTable[modId].ReadOnlyLessons;
-    //    if (lessId < 0 || lessId >= lessons.Count)
-    //        return NotFound("Materi tidak ditemukan");
-
-    //    lessons[lessId] = updatedLesson;
-    //return Ok("Materi berhasil diperbarui.");
-    //}
-
-    //[HttpDelete("{modId}/lessons/{lessId}")]
-    //public ActionResult DeleteLesson(int modId, int lessId)
-    //{
-    //    if (modId < 0 || modId  >= RepoLevel.MasterTable.Count)
-    //        return NotFound("Modul tidak ditemukan");
-
-    //    var lessons = RepoLevel.MasterTable[modId].ReadOnlyLessons;
-    //    if (lessId < 0 || lessId >= lessons.Count)
-    //        return NotFound("Materi tidak ditemukan");
-
-    //    var deletedTitle = lessons[lessId].Title;
-    //lessons.RemoveAt(lessId);
-    //return Ok($"Materi '{deletedTitle}' berhasil dihapus.");
-    //}
-
-    // Dua ini juga sama nasib nya
-
-    // =======================================
+    // =========================================================================
+    // 6. READ (GET ALL) - Mengambil Data Level Module Detail
+    // =========================================================================
+    [HttpGet("LevelModuleDetail")]
+    public async Task<ActionResult> GetLevelModuleDetails()
+    {
+        var details = await _context.LevelModuleDetails.ToListAsync();
+        return Ok(details);
+    }
 }
