@@ -18,6 +18,7 @@ namespace API.Controllers
         public DbSet<ReadingMaterialModels> ReadingMaterials { get; set; }
         public DbSet<ReadingMaterialImageModels> ReadingMaterialImages { get; set; }
         public DbSet<QuizImageModels> QuizImages { get; set; }
+        public DbSet<LevelModuleDetailModels> LevelModuleDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

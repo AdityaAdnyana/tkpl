@@ -8,7 +8,8 @@ using tkpl.Utils;
 
 public static class RepoLevel
 {
-    public static List<Module> MasterTable = new List<Module>();
+    public static List<Module> MasterTable { get; set; } = new List<Module>();
+    public static Dictionary<int, int> LevelToModuleMap { get; set; } = new Dictionary<int, int>();
 
     private static readonly HttpClient _httpClient = new HttpClient
     {
@@ -28,7 +29,7 @@ public static class RepoLevel
 
                 foreach (var apiMod in modulesFromApi)
                 {
-                    var newModule = new Module(apiMod.Module_Name);
+                    var newModule = new Module(apiMod.Module_ID, apiMod.Module_Name);
 
                     foreach (var apiLess in apiMod.Lessons)
                     {
@@ -96,32 +97,34 @@ public static class RepoLevel
                     MasterTable.Add(newModule);
                 }
             }
+
+            var detailsFromApi = await _httpClient.GetFromJsonAsync<List<LevelModuleDetailFromApi>>("Level/LevelModuleDetail");
+            if (detailsFromApi != null)
+            {
+                LevelToModuleMap.Clear();
+                foreach (var detail in detailsFromApi)
+                {
+                    LevelToModuleMap[detail.LevelId] = detail.ModuleId;
+                }
+            }
         }
         catch (Exception ex)
         {
-            // Fallback (Opsi Cadangan): Jika server API mati, gunakan data lokal agar aplikasi tidak crash
+            // Jika server API mati, tampilkan log pesan error dan biarkan MasterTable kosong
             Console.WriteLine($"Gagal sinkronisasi ke server API: {ex.Message}");
-            InitializeFallbackData();
         }
     }
-
-    // Inisialisasi data fallback untuk memastikan aplikasi tetap memiliki data level meskipun API tidak tersedia
-    private static void InitializeFallbackData()
-    {
-        if (MasterTable.Count == 0)
-        {
-            var fallbackModule = new Module("Mekanika Klasik (Offline Mode)");
-            var fallbackLesson = new Lesson("Kinematika", "Studi tentang gerak benda tanpa mempedulikan penyebabnya.");
-            
-            // Tambahkan beberapa soal dummy agar fitur quiz tetap bisa diuji saat offline
-            fallbackLesson.Questions.Add(new ObjectiveQuiz<string> { Difficulty = 1, QuestionText = "Dummy Mudah 1", ExpectedAnswer = "A", Options = new List<string> { "A", "B" } });
-            fallbackLesson.Questions.Add(new ObjectiveQuiz<string> { Difficulty = 2, QuestionText = "Dummy Medium 1", ExpectedAnswer = "A", Options = new List<string> { "A", "B" } });
-            fallbackLesson.Questions.Add(new ObjectiveQuiz<string> { Difficulty = 3, QuestionText = "Dummy Sulit 1", ExpectedAnswer = "A", Options = new List<string> { "A", "B" } });
-
-            fallbackModule.AddComponent(fallbackLesson);
-            MasterTable.Add(fallbackModule);
-        }
-    }
+}
+public class LevelModuleDetailFromApi
+{
+    [System.Text.Json.Serialization.JsonPropertyName("detailId")]
+    public int DetailId { get; set; }
+    
+    [System.Text.Json.Serialization.JsonPropertyName("moduleId")]
+    public int ModuleId { get; set; }
+    
+    [System.Text.Json.Serialization.JsonPropertyName("levelId")]
+    public int LevelId { get; set; }
 }
 
 // Kelas-kelas ini merepresentasikan struktur data yang diterima dari API. Mereka digunakan untuk deserialisasi JSON dan kemudian diubah menjadi objek-objek level yang sesuai dalam MasterTable.

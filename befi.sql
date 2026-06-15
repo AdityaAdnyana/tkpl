@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jun 2026 pada 14.05
+-- Waktu pembuatan: 15 Jun 2026 pada 09.24
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -45,7 +45,14 @@ INSERT INTO `essay_quiz` (`Essay_Quiz_ID`, `Quiz_ID`, `quiz`, `correct_answer`) 
 (4, 5, 'Dua vektor perpindahan sama besar yaitu S meter. Jika resultan kedua vektor perpindahan tersebut besarnya juga S meter, berapakah sudut antara kedua vektor tersebut?', '120°'),
 (5, 8, 'Dua gaya masing-masing besarnya 20 N dan 10 N. Jika resultan kedua gaya tersebut 10√7 N, tentukan sudut apit kedua gaya!', '60°'),
 (6, 10, 'Di titik P terdapat dua vektor medan magnet yang besarnya masing-masing B1 = 8 tesla dan B2 = 5 tesla. Tentukan resultan medan magnet tersebut!', '5 tesla'),
-(7, 11, 'Sebuah vektor F membentuk sudut a terhadap sumbu y positif seperti pada gambar. Komponen vektor itu dapat ditentukan dengan persamaan apa?', 'Fx = F sin a dan Fy = F cos a');
+(7, 11, 'Sebuah vektor F membentuk sudut a terhadap sumbu y positif seperti pada gambar. Komponen vektor itu dapat ditentukan dengan persamaan apa?', 'Fx = F sin a dan Fy = F cos a'),
+(8, 26, 'Sebutkan besaran yang merupakan besaran pokok berdasarkan Standar Internasional!', 'Panjang, jumlah zat, dan intensitas cahaya'),
+(9, 27, 'Tuliskan data 0,0001350 kg dalam dua angka penting dan sesuai aturan penulisan notasi ilmiah yang benar!', '1,4 x 10^-4 kg'),
+(10, 28, 'Satu mikro farad sama dengan berapa kF?', '10^-9 kF'),
+(11, 29, 'Dua buah benda saat ditimbang masing-masing bermassa 20,45 kg dan 15,2 kg. Jika dua benda tersebut dijadikan satu, berapakah masanya?', '35,6 kg'),
+(12, 30, 'Sebuah tongkat panjangnya 12,25 cm. Jika 15 tongkat sejenis disambung, maka panjang hasil sambungannya sesuai aturan perhitungan angka penting adalah ....', '673,8 cm'),
+(13, 31, 'Alat ukur yang baik harus memiliki kemampuan untuk memberikan hasil yang sama dari pengukuran yang dilakukan berulang-ulang dengan cara yang sama. Kemampuan itu disebut....', 'Ketepatan / Presisi'),
+(14, 32, 'Keramik lantai memiliki panjang 50,25 cm dan lebar 20,1 cm. Jika terdapat 25 buah keramik ditata untuk menutup lantai, luas lantai yang tertutup keramik sesuai angka penting adalah....', '2,52 x 10^4 cm2');
 
 -- --------------------------------------------------------
 
@@ -66,7 +73,11 @@ CREATE TABLE `lesson` (
 INSERT INTO `lesson` (`Lesson_ID`, `Module_ID`, `lesson_name`) VALUES
 (1, 1, 'Lesson 2: Penjumlahan Vektor'),
 (2, 1, 'Lesson 3: Mengurai Vektor'),
-(3, 1, 'Lesson 4: Menjumlahkan Vektor dengan Metode Urai Vektor');
+(3, 1, 'Lesson 4: Menjumlahkan Vektor dengan Metode Urai Vektor'),
+(4, 2, 'Lesson 1: Besaran, Dimensi, dan Sistem Satuan'),
+(5, 2, 'Lesson 2: Satuan Sistem Internasional (SI) dan Notasi Ilmiah'),
+(6, 2, 'Lesson 3: Pengukuran'),
+(7, 2, 'Lesson 4: Angka Penting');
 
 -- --------------------------------------------------------
 
@@ -79,6 +90,16 @@ CREATE TABLE `level` (
   `level_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `level`
+--
+
+INSERT INTO `level` (`Level_ID`, `level_name`) VALUES
+(1, 'level 1'),
+(2, 'level 2'),
+(3, 'level 3'),
+(4, 'level 4');
+
 -- --------------------------------------------------------
 
 --
@@ -90,6 +111,16 @@ CREATE TABLE `level_module_detail` (
   `Module_ID` int(11) DEFAULT NULL,
   `Level_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `level_module_detail`
+--
+
+INSERT INTO `level_module_detail` (`Detail_ID`, `Module_ID`, `Level_ID`) VALUES
+(1, 2, 1),
+(2, 2, 2),
+(3, 1, 3),
+(4, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -107,7 +138,8 @@ CREATE TABLE `module` (
 --
 
 INSERT INTO `module` (`Module_ID`, `module_name`) VALUES
-(1, 'Fisika Kelas X: Vektor');
+(1, 'Fisika Kelas X: Vektor'),
+(2, 'Fisika Kelas X: Besaran dan Pengukuran');
 
 -- --------------------------------------------------------
 
@@ -155,7 +187,25 @@ INSERT INTO `objective_quiz` (`Objective_Quiz_ID`, `Quiz_ID`, `quiz`) VALUES
 (15, 22, 'Tiga vektor perpindahan seperti pada gambar. Jika tiap persegi luasnya 4 m², resultan vektor tersebut adalah....'),
 (16, 23, 'Tiga buah vektor besar dan arahnya ditunjukkan seperti gambar berikut. Resultan ketiga vektor tersebut adalah'),
 (17, 24, 'Seorang anak bermain mobil remote. Sambil duduk, mobil yang semula diam didekat kakinya digerakkan ke timur sejauh 5 m, kemudian dibelokkan ke selatan sejauh 5√3 m dan akhirnya dibelokkan ke barat sejauh 10 m. Perpindahan mobil remote tersebut dari tempat duduk anak sejauh....'),
-(18, 25, 'Sebuah benda dikenai gaya seperti seperti pada gambar. Besar dan arah gaya yang dialami benda tersebut adalah');
+(18, 25, 'Sebuah benda dikenai gaya seperti seperti pada gambar. Besar dan arah gaya yang dialami benda tersebut adalah'),
+(19, 33, 'Pasangan besaran dan lambang dimensi yang benar pada tabel berikut adalah'),
+(20, 34, 'Besarnya daya listrik pada suatu resistor R dapat dirumuskan dengan persamaan P = R. I^2. Dimana P = daya (watt = joule/sekon) dan I = kuat arus (amper). Lambang dimensi dari resiston R adalah'),
+(21, 35, 'Berdasarkan analisis dimensi pasangan besaran dan rumus yang benar pada tabel di bawah ini adalah'),
+(22, 36, 'Perhatikan gambar skala utama dan skala nonius yang dimiliki oleh sebuah jangka sorong berikut! Nilai skala terkecil jangka sorong tersebut adalah....'),
+(23, 37, 'Hasil pengukuran diameter pipa kecil dengan menggunakan mikrometer sekrup ditunjukkan seperti gambar di bawah ini. Hasil pengukurannya adalah....'),
+(24, 38, 'Perhatikan hasil pengukuran panjang sisi kubus berikut! Hasilnya pengukuran adalah....'),
+(25, 39, 'Massa jenis minyak adalah 0,8 g/cm3. Jika dinyatakan dalam SI nilainya sama dengan....'),
+(26, 40, 'Dari hasil sekali pengukuran panjang balok dituliskan dengan (2,460 ± 0,005) cm. Penulisan ini memiliki arti:'),
+(27, 41, 'Sekelompok peserta didik bermaksud mengukur massa jenis suatu bahan. Kubus dari bahan tersebut, panjang sisinya diukur dengan jangka sorong dan massanya dengan neraca. Massa jenis bahan kubus tersebut adalah'),
+(28, 42, 'Hasil pengukuran di bawah ini memiliki 3 angka penting, kecuali ...'),
+(29, 43, 'Hasil pengukuran kubus didapatkan panjang 25,0 cm, lebar 10,0 cm dan tingginya 2,0 cm. Volume kubus tersebut (sesuai aturan angka penting) adalah....'),
+(30, 44, 'Perhatikan pernyataan berikut! 1) Mengukur tebal buku menggunakan mistar. 2) Mengukur volume batu dengan gelas ukur. 3) Mengukur volume balok dengan jangka sorong. 4) Mengukur kecepatan lari seseorang dengan meteran dan stopwatch. Yang termasuk pengukuran tidak langsung adalah....'),
+(31, 45, 'Pengukuran berulang dilakukan dengan alasan: 1) Pengukuran tunggal memberikan hasil yang kurang teliti. 2) Hasil pengukuran berulang lebih mendekati nilai yang sebenarnya. 3) Ketidakpastian pengukuran berulang lebih kecil dari pengukuran tunggal. Pernyataan yang benar adalah....'),
+(32, 46, 'Penulisan data 0,0001350 kg dalam dua angka penting dan sesuai aturan penulisan notasi ilmiah yang benar adalah ....'),
+(33, 47, 'Seseorang bermaksud mengukur luas segitiga dan didapatkan data, panjang alasnya 12,55 cm dan tinnginya 3,50 cm. Luas segitiga tersebut adalah....'),
+(34, 48, 'Seseorang bermaksud mengetahui massa jenis zat. Menggunakan bantuan alat ukur panjang dan neraca ia memperoleh data volume zat tersebut (20,50 ± 0,25) cm³ dan massanya (125,80 ± 0,05) gram. Pelaporan hasil pengukuran massa jenis zat tersebut berikut ketidakpastiannya yang tepat adalah.....'),
+(35, 49, 'Hasil pengukuran panjang dan lebar persegi panjang, panjang = (15,50 ± 0,05) cm dan lebar = (2,352 ± 0,005) cm. Keliling persegi panjang tersebut adalah....'),
+(36, 50, 'Pengukuran Pada sebuah percobaan pengukuran suhu diperolah data sebagai berikut: 34,5 °C, 34,6 °C, 34,4 °C, 34,7 °C, 34,3 °C, 34,4 °C, 34,5 °C, 34,5 °C, 34,8 °C, 34,4 °C, dan 34,5 °C. Hasil pengukuran tersebut adalah....');
 
 -- --------------------------------------------------------
 
@@ -264,7 +314,97 @@ INSERT INTO `objective_quiz_options` (`Objective_Answer_ID`, `Objective_Quiz_ID`
 (87, 18, 'B. 10√3 N dengan arah 30° dari barat ke utara', 0),
 (88, 18, 'C. 20 N dengan arah 30° dari timur ke utara', 0),
 (89, 18, 'D. 20 N dengan arah 60° dari utara ke barat', 0),
-(90, 18, 'E. 20 N dengan arah 60° dari barat ke utara', 1);
+(90, 18, 'E. 20 N dengan arah 60° dari barat ke utara', 1),
+(91, 19, 'A. 1 dan 4', 0),
+(92, 19, 'B. 1 dan 3', 0),
+(93, 19, 'C. 2 dan 3', 1),
+(94, 19, 'D. 2 dan 4', 0),
+(95, 19, 'E. 3 dan 4', 0),
+(96, 20, 'A. MLT-2A', 0),
+(97, 20, 'B. ML-2T-2A2', 0),
+(98, 20, 'C. ML2T-3A2', 0),
+(99, 20, 'D. L2T-3A-2', 1),
+(100, 20, 'E. LT-2A-2', 0),
+(101, 21, 'A. Gaya Sentripetal', 0),
+(102, 21, 'B. Periode Ayunan T (akar g/l)', 0),
+(103, 21, 'C. Berat Benda', 0),
+(104, 21, 'D. Gaya Sentripetal (m R/v)', 0),
+(105, 21, 'E. Periode T pada ayunan (akar l/g)', 1),
+(106, 22, 'A. 1 mm', 0),
+(107, 22, 'B. 0,5 mm', 0),
+(108, 22, 'C. 0,2 mm', 0),
+(109, 22, 'D. 0,1 mm', 0),
+(110, 22, 'E. 0,05 mm', 1),
+(111, 23, 'A. 5,47 mm', 0),
+(112, 23, 'B. 5,97 mm', 0),
+(113, 23, 'C. 6,97 mm', 0),
+(114, 23, 'D. 10,47 mm', 0),
+(115, 23, 'E. 10,97 mm', 1),
+(116, 24, 'A. (2,320 ± 0,005) cm', 1),
+(117, 24, 'B. (2,32 ± 0,05) cm', 0),
+(118, 24, 'C. (2,320 ± 0,001) cm', 0),
+(119, 24, 'D. (2,120 ± 0,005) cm', 0),
+(120, 24, 'E. (2,12 ± 0,05) cm', 0),
+(121, 25, 'A. 8 kg/m3', 0),
+(122, 25, 'B. 80 kg/m3', 0),
+(123, 25, 'C. 800 kg/m3', 1),
+(124, 25, 'D. 8000 kg/m3', 0),
+(125, 25, 'E. 80000 kg/m3', 0),
+(126, 26, 'A. nst = 0,005 cm dan rentang balok', 0),
+(127, 26, 'B. nst = 0,005 cm dan nilai pasti', 0),
+(128, 26, 'C. nst alat ukur = 0,01 cm dan 2,455 cm <= panjang <= 2,465 cm', 1),
+(129, 26, 'D. nst alat ukur = 0,01 cm dan panjang', 0),
+(130, 26, 'E. nst alat ukur = 0,01 cm dan nilai pasti', 0),
+(131, 27, 'A. 17,65 g/cm3', 1),
+(132, 27, 'B. 17,94 g/cm3', 0),
+(133, 27, 'C. 95,00 g/cm3', 0),
+(134, 27, 'D. 96,56 g/cm3', 0),
+(135, 27, 'E. 97,39 g/cm3', 0),
+(136, 28, 'A. 0,00580 km', 0),
+(137, 28, 'B. 0,0903 A', 0),
+(138, 28, 'C. 3,50 L', 0),
+(139, 28, 'D. 870 g', 0),
+(140, 28, 'E. 454,0 cm', 1),
+(141, 29, 'A. 50 cm3', 0),
+(142, 29, 'B. 500 cm3', 0),
+(143, 29, 'C. 0,005 m3', 0),
+(144, 29, 'D. 0,0005 m3', 0),
+(145, 29, 'E. 0,00050 m3', 1),
+(146, 30, 'A. 1) dan 2)', 0),
+(147, 30, 'B. 1) dan 3)', 0),
+(148, 30, 'C. 2) dan 4)', 0),
+(149, 30, 'D. 2) dan 3)', 0),
+(150, 30, 'E. 3) dan 4)', 1),
+(151, 31, 'A. 1) saja', 0),
+(152, 31, 'B. 1) dan 2)', 0),
+(153, 31, 'C. 1), 2), dan 3)', 1),
+(154, 31, 'D. 2) dan 3)', 0),
+(155, 31, 'E. 3) saja', 0),
+(156, 32, 'A. 1,4 x 10^4 kg', 0),
+(157, 32, 'B. 1,4 x 10^-4 kg', 1),
+(158, 32, 'C. 1,3 x 10^-4 kg', 0),
+(159, 32, 'D. 14 x 10^-5 kg', 0),
+(160, 32, 'E. 0,14 x 10^-3 kg', 0),
+(161, 33, 'A. 21,9 cm2', 0),
+(162, 33, 'B. 21,96 cm2', 0),
+(163, 33, 'C. 21,963 cm2', 0),
+(164, 33, 'D. 21,9625 cm2', 0),
+(165, 33, 'E. 22,0 cm2', 1),
+(166, 34, 'A. (6,137 ± 1,25%) g/cm3', 0),
+(167, 34, 'B. (6,13 ± 0,08) g/cm3', 0),
+(168, 34, 'C. (6,14 ± 0,077) g/cm3', 0),
+(169, 34, 'D. (6,14 ± 1,25%) g/cm3 atau (6,14 ± 0,08) g/cm3', 1),
+(170, 34, 'E. (6,14 ± 0,07) g/cm3', 0),
+(171, 35, 'A. (17,852 ± 0,055) cm', 0),
+(172, 35, 'B. (35,704 ± 0,055) cm', 0),
+(173, 35, 'C. (35,70 ± 0,05) cm', 0),
+(174, 35, 'D. (35,70 ± 0,06) cm', 1),
+(175, 35, 'E. (35,7 ± 0,05) cm', 0),
+(176, 36, 'A. (34,50 ± 0,05) °C', 1),
+(177, 36, 'B. (34,50 ± 0,052) °C', 0),
+(178, 36, 'C. (34,5 ± 0,052) °C', 0),
+(179, 36, 'D. (34,5 ± 0,05) °C', 0),
+(180, 36, 'E. (34,5 ± 0,05164) °C', 0);
 
 -- --------------------------------------------------------
 
@@ -309,7 +449,32 @@ INSERT INTO `quiz` (`Quiz_ID`, `Lesson_ID`, `quiz_type`, `score_weight`, `quiz_d
 (22, 3, 'Objective', 20.00, 3),
 (23, 3, 'Objective', 20.00, 3),
 (24, 3, 'Objective', 20.00, 3),
-(25, 3, 'Objective', 20.00, 3);
+(25, 3, 'Objective', 20.00, 3),
+(26, 4, 'Essay', 10.00, 1),
+(27, 5, 'Essay', 10.00, 2),
+(28, 5, 'Essay', 10.00, 2),
+(29, 7, 'Essay', 10.00, 2),
+(30, 7, 'Essay', 10.00, 2),
+(31, 6, 'Essay', 10.00, 1),
+(32, 7, 'Essay', 10.00, 2),
+(33, 4, 'Objective', 10.00, 2),
+(34, 4, 'Objective', 20.00, 3),
+(35, 4, 'Objective', 20.00, 3),
+(36, 6, 'Objective', 10.00, 2),
+(37, 6, 'Objective', 5.00, 1),
+(38, 6, 'Objective', 10.00, 2),
+(39, 5, 'Objective', 10.00, 2),
+(40, 6, 'Objective', 10.00, 2),
+(41, 6, 'Objective', 20.00, 3),
+(42, 7, 'Objective', 5.00, 1),
+(43, 7, 'Objective', 10.00, 2),
+(44, 6, 'Objective', 5.00, 1),
+(45, 6, 'Objective', 5.00, 1),
+(46, 5, 'Objective', 10.00, 2),
+(47, 7, 'Objective', 10.00, 2),
+(48, 6, 'Objective', 20.00, 3),
+(49, 6, 'Objective', 20.00, 3),
+(50, 6, 'Objective', 20.00, 3);
 
 -- --------------------------------------------------------
 
@@ -346,7 +511,13 @@ INSERT INTO `quiz_image` (`Quiz_Image_ID`, `Quiz_ID`, `image_url`) VALUES
 (16, 21, 'https://drive.google.com/file/d/1oKvV7VPV54i5PnPM24MyIn1THXIHqUr4/view?usp=drive_link'),
 (17, 22, 'https://drive.google.com/file/d/1uY1GOzCqATNKQ-8XF1vlw_DlKREMYI5C/view?usp=drive_link'),
 (18, 23, 'https://drive.google.com/file/d/19KVyaKze9L9nghCTwcBbkG6ToeHJ3wCW/view?usp=drive_link'),
-(19, 25, 'https://drive.google.com/file/d/1_-1lrvYnIX8ppmtEMsY8-3bhESQ8mO1M/view?usp=drive_link');
+(19, 25, 'https://drive.google.com/file/d/1_-1lrvYnIX8ppmtEMsY8-3bhESQ8mO1M/view?usp=drive_link'),
+(20, 33, 'https://drive.google.com/file/d/1_dbbu9F0b8ZaVPyj8xj413T3z6KF1Zua/view?usp=drive_link'),
+(21, 36, 'https://drive.google.com/file/d/1d7jUe-uYELhK4Mj4pUyOV6NuqGjDbPJ-/view?usp=drive_link'),
+(22, 37, 'https://drive.google.com/file/d/1IQ0qaqHDRrHzAtoCH4FqbGjQ0cbju0by/view?usp=drive_link'),
+(23, 38, 'https://drive.google.com/file/d/1U5gaNjBKxzwvoYH3PAYNzrNnMP-_0aAk/view?usp=drive_link'),
+(24, 41, 'https://drive.google.com/file/d/1PO--6XJdhQzXjWMwMKqp-irYoHaIRCcE/view?usp=drive_link'),
+(25, 41, 'https://drive.google.com/file/d/1_VnEYFomUG4Cl0EkNC8fNjK_WsQdnGz1/view?usp=drive_link');
 
 -- --------------------------------------------------------
 
@@ -510,31 +681,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `essay_quiz`
 --
 ALTER TABLE `essay_quiz`
-  MODIFY `Essay_Quiz_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Essay_Quiz_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `lesson`
 --
 ALTER TABLE `lesson`
-  MODIFY `Lesson_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Lesson_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `level`
 --
 ALTER TABLE `level`
-  MODIFY `Level_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Level_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `level_module_detail`
 --
 ALTER TABLE `level_module_detail`
-  MODIFY `Detail_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Detail_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `module`
 --
 ALTER TABLE `module`
-  MODIFY `Module_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Module_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `module_image`
@@ -546,25 +717,25 @@ ALTER TABLE `module_image`
 -- AUTO_INCREMENT untuk tabel `objective_quiz`
 --
 ALTER TABLE `objective_quiz`
-  MODIFY `Objective_Quiz_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Objective_Quiz_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `objective_quiz_options`
 --
 ALTER TABLE `objective_quiz_options`
-  MODIFY `Objective_Answer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `Objective_Answer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
 
 --
 -- AUTO_INCREMENT untuk tabel `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `Quiz_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `Quiz_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT untuk tabel `quiz_image`
 --
 ALTER TABLE `quiz_image`
-  MODIFY `Quiz_Image_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Quiz_Image_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `reading_material`
