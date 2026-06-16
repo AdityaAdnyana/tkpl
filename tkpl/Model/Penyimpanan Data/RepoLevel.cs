@@ -54,6 +54,7 @@ public static class RepoLevel
                                         var essay = new EssayQuiz<string>
                                         {
                                             Difficulty = difficulty,
+                                            ScoreWeight = apiQuiz.Score_Weight ?? 0m,
                                             QuestionText = eq.Quiz_Text ?? "",
                                             ExpectedAnswer = eq.Correct_Answer ?? "",
                                             ImagePath = directImageUrl
@@ -69,6 +70,7 @@ public static class RepoLevel
                                         var objective = new ObjectiveQuiz<string>
                                         {
                                             Difficulty = difficulty,
+                                            ScoreWeight = apiQuiz.Score_Weight ?? 0m,
                                             QuestionText = oq.Quiz_Text ?? "",
                                             ImagePath = directImageUrl
                                         };
@@ -154,6 +156,7 @@ public class UserFromAPI
 public class QuizFromApi
 {
     public int Quiz_ID { get; set; }
+    public decimal? Score_Weight { get; set; }
     public int? Quiz_Difficulty { get; set; }
     public List<EssayQuizFromApi> EssayQuizzes { get; set; } = new List<EssayQuizFromApi>();
     public List<ObjectiveQuizFromApi> ObjectiveQuizzes { get; set; } = new List<ObjectiveQuizFromApi>();

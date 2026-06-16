@@ -35,10 +35,9 @@ namespace tkpl.View
         /// Menampilkan ringkasan hasil sesi quiz: skor, jumlah dijawab, dan persentase progress.
         /// Mengaktifkan panel review agar score card dapat dilihat.
         /// </summary>
-        public void SetResult(int correctAnswers, int totalQuestions, int skippedQuestions, TimeSpan sessionTime)
+        public void SetResult(decimal totalScore, decimal maxScore, int answeredQuestions, int skippedQuestions, TimeSpan sessionTime)
         {
-            lbTotalScoreVal.Text = $"{correctAnswers}/{totalQuestions}";
-            int answeredQuestions = totalQuestions - skippedQuestions;
+            lbTotalScoreVal.Text = $"{totalScore:0.##}/{maxScore:0.##}";
             lbAnsweredVal.Text = $"{answeredQuestions}";
             lbSkippedVal.Text = $"{skippedQuestions}";
             
@@ -48,7 +47,7 @@ namespace tkpl.View
             else
                 lbSessionTimeVal.Text = $"{sessionTime.Seconds}s";
 
-            int percentage = totalQuestions > 0 ? (correctAnswers * 100) / totalQuestions : 0;
+            int percentage = maxScore > 0 ? (int)((totalScore * 100) / maxScore) : 0;
             progressValue.Maximum = 100;
             progressValue.Value = percentage;
             lbProgressValue.Text = $"{percentage}%";

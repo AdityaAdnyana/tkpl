@@ -19,7 +19,7 @@ namespace tkpl.Controller
         private int _userId;
         private int _currentQuestionIndex = 0;
         private DateTime _sessionStartTime;
-        private readonly List<(string QuestionText, string UserAnswer, string Status)> _answerRecords = new();
+        private readonly List<AnswerRecord> _answerRecords = new();
 
         public QuizSessionController(Lesson lesson, QuizView quizView, LogicLevel logic)
         {
@@ -42,7 +42,8 @@ namespace tkpl.Controller
             if (_currentQuestionIndex >= _lesson.Questions.Count) return;
 
             string questionText = _lesson.Questions[_currentQuestionIndex].QuestionText;
-            _answerRecords.Add((questionText, "-", "Skipped"));
+            decimal scoreWeight = _lesson.Questions[_currentQuestionIndex].ScoreWeight;
+            _answerRecords.Add(new AnswerRecord(questionText, "-", "Skipped", scoreWeight));
 
             _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
             _currentQuestionIndex++;
@@ -114,10 +115,11 @@ namespace tkpl.Controller
         private void HandleAnswer(bool isCorrect, string userAnswer)
         {
             string questionText = _lesson.Questions[_currentQuestionIndex].QuestionText;
+            decimal scoreWeight = _lesson.Questions[_currentQuestionIndex].ScoreWeight;
 
             if (isCorrect)
             {
-                _answerRecords.Add((questionText, userAnswer, "Correct"));
+                _answerRecords.Add(new AnswerRecord(questionText, userAnswer, "Correct", scoreWeight));
                 _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
                 _quizView.ShowMessage("Jawaban Anda Benar!", "Hasil", MessageBoxIcon.Information);
                 _currentQuestionIndex++;
@@ -125,7 +127,7 @@ namespace tkpl.Controller
             }
             else
             {
-                _answerRecords.Add((questionText, userAnswer, "Wrong"));
+                _answerRecords.Add(new AnswerRecord(questionText, userAnswer, "Wrong", scoreWeight));
                 
                 // Mengurangi nyawa via Publisher, Observer (QuizView) akan otomatis di-update
                 _gameLogic.DecreaseLives();

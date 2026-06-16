@@ -4,6 +4,7 @@ namespace tkpl.Model
     public interface IQuestion
     {
         public int Difficulty { get; set; }
+        public decimal ScoreWeight { get; set; }
         public string QuestionText { get; set; }
         public string ImagePath { get; set; }
         public bool ValidateAnswer(object answer);
