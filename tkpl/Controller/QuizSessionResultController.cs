@@ -9,13 +9,15 @@ namespace tkpl.Controller
     {
         private readonly QuizSessionResult _resultView;
         private readonly List<(string QuestionText, string UserAnswer, string Status)> _answerRecords;
+        private readonly TimeSpan _sessionTime;
 
         public event Action OnSessionEnded;
 
-        public QuizSessionResultController(QuizSessionResult resultView, List<(string QuestionText, string UserAnswer, string Status)> answerRecords)
+        public QuizSessionResultController(QuizSessionResult resultView, List<(string QuestionText, string UserAnswer, string Status)> answerRecords, TimeSpan sessionTime)
         {
             _resultView = resultView;
             _answerRecords = answerRecords;
+            _sessionTime = sessionTime;
 
             SetupEvents();
         }
@@ -32,6 +34,7 @@ namespace tkpl.Controller
             _resultView.ClearScoreCards();
 
             int correctCount = 0;
+            int skippedCount = 0;
 
             foreach (var record in _answerRecords)
             {
@@ -41,11 +44,15 @@ namespace tkpl.Controller
                 {
                     correctCount++;
                 }
+                else if (record.Status == "Skipped")
+                {
+                    skippedCount++;
+                }
 
                 _resultView.AddScoreCardPanel(creator.CreateCard());
             }
 
-            _resultView.SetResult(correctCount, _answerRecords.Count);
+            _resultView.SetResult(correctCount, _answerRecords.Count, skippedCount, _sessionTime);
             _resultView.Show();
         }
     }

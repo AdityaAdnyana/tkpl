@@ -18,6 +18,7 @@ namespace tkpl.Controller
         private UserModel _userModel;
         private int _userId;
         private int _currentQuestionIndex = 0;
+        private DateTime _sessionStartTime;
         private readonly List<(string QuestionText, string UserAnswer, string Status)> _answerRecords = new();
 
         public QuizSessionController(Lesson lesson, QuizView quizView, LogicLevel logic)
@@ -61,6 +62,7 @@ namespace tkpl.Controller
 
             _currentQuestionIndex = 0;
             _answerRecords.Clear();
+            _sessionStartTime = DateTime.Now;
 
             if (_lesson.Questions.Count > 0)
             {
@@ -146,8 +148,10 @@ namespace tkpl.Controller
         /// </summary>
         private void ShowSessionResult()
         {
+            TimeSpan sessionTime = DateTime.Now - _sessionStartTime;
+
             QuizSessionResult resultView = new QuizSessionResult();
-            QuizSessionResultController resultController = new QuizSessionResultController(resultView, _answerRecords);
+            QuizSessionResultController resultController = new QuizSessionResultController(resultView, _answerRecords, sessionTime);
             
             resultController.OnSessionEnded += () => {
                 _quizView.Close();
