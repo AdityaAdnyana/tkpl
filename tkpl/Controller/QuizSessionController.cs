@@ -111,37 +111,41 @@ namespace tkpl.Controller
             }
         }
 
-        // Logika penanganan jawaban dengan feedback, pelacakan hasil, dan pengurangan nyawa
         private void HandleAnswer(bool isCorrect, string userAnswer)
         {
-            string questionText = _lesson.Questions[_currentQuestionIndex].QuestionText;
-            decimal scoreWeight = _lesson.Questions[_currentQuestionIndex].ScoreWeight;
+            int questionIndex = _currentQuestionIndex;
+            string questionText = _lesson.Questions[questionIndex].QuestionText;
+            decimal scoreWeight = _lesson.Questions[questionIndex].ScoreWeight;
+
+            // Menerapkan prinsip DRY: Catat jawaban satu kali saja
+            string status = isCorrect ? "Correct" : "Wrong";
+            _answerRecords.Add(new AnswerRecord(questionText, userAnswer, status, scoreWeight));
+            ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, _lesson, questionIndex, isCorrect));
 
             if (isCorrect)
             {
-                _answerRecords.Add(new AnswerRecord(questionText, userAnswer, "Correct", scoreWeight));
-                _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
                 _quizView.ShowMessage("Jawaban Anda Benar!", "Hasil", MessageBoxIcon.Information);
-                _currentQuestionIndex++;
-                ShowQuestion(_currentQuestionIndex);
             }
             else
             {
-                _answerRecords.Add(new AnswerRecord(questionText, userAnswer, "Wrong", scoreWeight));
-                
                 // Mengurangi nyawa via Publisher, Observer (QuizView) akan otomatis di-update
                 _gameLogic.DecreaseLives();
                 
                 _quizView.ShowMessage($"Jawaban Anda Salah.\nSisa Nyawa: {_gameLogic._currentLives}", "Hasil", MessageBoxIcon.Warning);
 
+                // Menerapkan Early Return jika game over
                 if (_gameLogic._currentLives <= 0)
                 {
                     _quizView.ShowMessage("NYAWA HABIS!", "Game Over", MessageBoxIcon.Error);
                     ShowSessionResult();
+                    return;
                 }
             }
             
-            ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, _lesson, _currentQuestionIndex, isCorrect));
+            // Lanjut ke soal berikutnya untuk jawaban benar dan salah (yang nyawanya masih > 0)
+            _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
+            _currentQuestionIndex++;
+            ShowQuestion(_currentQuestionIndex);
         }
 
         /// <summary>
