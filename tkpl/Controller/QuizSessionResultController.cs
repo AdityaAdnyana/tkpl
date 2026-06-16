@@ -41,7 +41,7 @@ namespace tkpl.Controller
 
             foreach (var record in _answerRecords)
             {
-                ScoreCardCreator creator = ScoreCardCreatorFactory.Create(record.Status, record.QuestionText, record.UserAnswer);
+                ScoreCardCreator creator = ScoreCardCreatorFactory.Create(record.Status, record.QuestionText, record.UserAnswer, record.CorrectAnswer);
                 
                 maxScore += record.ScoreWeight;
 

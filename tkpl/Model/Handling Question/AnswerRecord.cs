@@ -6,13 +6,15 @@ namespace tkpl.Model
     {
         public string QuestionText { get; set; }
         public string UserAnswer { get; set; }
+        public string CorrectAnswer { get; set; }
         public string Status { get; set; }
         public decimal ScoreWeight { get; set; }
 
-        public AnswerRecord(string questionText, string userAnswer, string status, decimal scoreWeight)
+        public AnswerRecord(string questionText, string userAnswer, string correctAnswer, string status, decimal scoreWeight)
         {
             QuestionText = questionText;
             UserAnswer = userAnswer;
+            CorrectAnswer = correctAnswer;
             Status = status;
             ScoreWeight = scoreWeight;
         }

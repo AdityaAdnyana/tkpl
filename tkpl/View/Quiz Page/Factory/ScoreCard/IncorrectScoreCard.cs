@@ -11,11 +11,13 @@ namespace tkpl.View.Factory.ScoreCard
     {
         private readonly string _questionText;
         private readonly string _answerText;
+        private readonly string _correctAnswer;
 
-        public IncorrectScoreCard(string questionText, string answerText)
+        public IncorrectScoreCard(string questionText, string answerText, string correctAnswer)
         {
             _questionText = questionText;
             _answerText = answerText;
+            _correctAnswer = correctAnswer;
         }
 
         public Panel GetPanel()
@@ -42,6 +44,21 @@ namespace tkpl.View.Factory.ScoreCard
             checkButton.Size = new Size(192, 43);
             checkButton.Text = "Check Answer";
             checkButton.UseVisualStyleBackColor = false;
+            bool isShowingAnswer = false;
+            checkButton.Click += (sender, e) =>
+            {
+                if (!isShowingAnswer)
+                {
+                    contentLabel.Text = $"Jawaban Sebenarnya:\n{_correctAnswer}";
+                    checkButton.Text = "Show Question";
+                }
+                else
+                {
+                    contentLabel.Text = $"{_questionText}\nJawaban: {_answerText}";
+                    checkButton.Text = "Check Answer";
+                }
+                isShowingAnswer = !isShowingAnswer;
+            };
 
             panel.Controls.Add(iconLabel);
             panel.Controls.Add(contentLabel);
