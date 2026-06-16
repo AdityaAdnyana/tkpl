@@ -122,7 +122,7 @@ namespace tkpl.Controller
             // Menerapkan prinsip DRY: Catat jawaban satu kali saja
             string status = isCorrect ? "Correct" : "Wrong";
             _answerRecords.Add(new AnswerRecord(questionText, userAnswer, correctAnswer, status, scoreWeight));
-            ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, _lesson, questionIndex, isCorrect));
+            
 
             if (isCorrect)
             {
@@ -144,8 +144,8 @@ namespace tkpl.Controller
                 }
             }
 
-            string correctAnswer = lesson.Questions[currentQuestionIndex].GetExpectedAnswerAsString();
-            ReportQuiz.QuizItems.Add(new ReportQuizItem(userId, questionText, correctAnswer, currentQuestionIndex, isCorrect));
+            
+            ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, questionText, correctAnswer, _currentQuestionIndex, isCorrect));
             
             // Lanjut ke soal berikutnya untuk jawaban benar dan salah (yang nyawanya masih > 0)
             _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
