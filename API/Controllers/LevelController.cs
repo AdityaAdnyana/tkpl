@@ -14,13 +14,10 @@ public class LevelController : Controller
         _context = context;
     }
 
-    // =========================================================================
-    // 1. READ (GET ALL) - Mengambil Semua Modul Lengkap dengan Level & Materi
-    // =========================================================================
+    // READ (GET ALL) - Mengambil Semua Modul Lengkap dengan Level & Materi
     [HttpGet]
     public async Task<ActionResult> GetAllModules()
     {
-        // Menggunakan .Include dan .ThenInclude untuk menarik data berantai dari SQL
         var modules = await _context.Moduls
             .Include(m => m.Lessons)
                 .ThenInclude(l => l.Quizzes)
@@ -31,9 +28,7 @@ public class LevelController : Controller
         return Ok(modules);
     }
 
-    // =========================================================================
-    // 2. READ (GET BY ID) - Mengambil Satu Modul Spesifik Berdasarkan ID
-    // =========================================================================
+    // READ (GET BY ID) - Mengambil Satu Modul Spesifik Berdasarkan ID
     [HttpGet("{id}")]
     public async Task<ActionResult> GetModuleById(int id)
     {
@@ -50,9 +45,7 @@ public class LevelController : Controller
         return Ok(module);
     }
 
-    // =========================================================================
-    // 3. CREATE (POST) - Menambahkan Modul Baru (Bisa Sepaket dengan Level)
-    // =========================================================================
+    // CREATE (POST) - Menambahkan Modul Baru (Bisa Sepaket dengan Level)
     [HttpPost]
     public async Task<ActionResult> AddModule(ModuleModels newModule)
     {
@@ -67,9 +60,7 @@ public class LevelController : Controller
         return Ok(new { message = "Modul baru berhasil disimpan ke database SQL!", data = newModule });
     }
 
-    // =========================================================================
-    // 4. UPDATE (PUT) - Memperbarui Nama Modul Berdasarkan ID
-    // =========================================================================
+    // UPDATE (PUT) - Memperbarui Nama Modul Berdasarkan ID
     [HttpPut("{id}")]
     public async Task<ActionResult> UpdateModule(int id, ModuleModels updatedModule)
     {
@@ -79,7 +70,6 @@ public class LevelController : Controller
             return NotFound($"Gagal update. Modul dengan ID {id} tidak ditemukan.");
         }
 
-        // Memperbarui nilai properti nama modul
         existingModule.module_name = updatedModule.module_name;
 
         _context.Moduls.Update(existingModule);
@@ -88,9 +78,7 @@ public class LevelController : Controller
         return Ok($"Modul dengan ID {id} berhasil diperbarui di database.");
     }
 
-    // =========================================================================
-    // 5. DELETE (DELETE) - Menghapus Modul Berdasarkan ID
-    // =========================================================================
+    // DELETE (DELETE) - Menghapus Modul Berdasarkan ID
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteModule(int id)
     {

@@ -41,21 +41,5 @@ namespace API.Model
             [ForeignKey("Reading_Material_ID")]
             public ReadingMaterialModels? ReadingMaterial { get; set; }
         }
-
-        [Table("quiz_image")]
-        public class QuizImageModels
-        {
-            [Key]
-            public int Quiz_Image_ID { get; set; }
-
-            public int? Quiz_ID { get; set; }
-
-            [Column("image_url")]
-            public string? Image_Url { get; set; }
-
-            [JsonIgnore]
-            [ForeignKey("Quiz_ID")]
-            public QuizModels? Quiz { get; set; }
-        }
     }
 }
