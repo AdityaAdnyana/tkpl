@@ -5,12 +5,12 @@ namespace tkpl.View.Factory.ScoreCard
     /// </summary>
     public class IncorrectScoreCardCreator : ScoreCardCreator
     {
-        public IncorrectScoreCardCreator(string questionText, string answerText)
-            : base(questionText, answerText) { }
+        public IncorrectScoreCardCreator(string questionText, string answerText, string correctAnswer)
+            : base(questionText, answerText, correctAnswer) { }
 
         public override IScoreCard FactoryMethod()
         {
-            return new IncorrectScoreCard(_questionText, _answerText);
+            return new IncorrectScoreCard(_questionText, _answerText, _correctAnswer);
         }
     }
 }

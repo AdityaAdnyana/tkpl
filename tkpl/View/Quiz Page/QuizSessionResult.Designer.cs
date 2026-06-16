@@ -478,7 +478,7 @@ namespace tkpl.View
             panelScoreCard.Name = "panelScoreCard";
             panelScoreCard.Size = new Size(792, 588);
             panelScoreCard.TabIndex = 10;
-            panelScoreCard.Hide();
+            //panelScoreCard.Hide();
             // 
             // QuizSessionResult
             // 

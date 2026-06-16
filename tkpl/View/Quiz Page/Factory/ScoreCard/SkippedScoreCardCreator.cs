@@ -5,12 +5,12 @@ namespace tkpl.View.Factory.ScoreCard
     /// </summary>
     public class SkippedScoreCardCreator : ScoreCardCreator
     {
-        public SkippedScoreCardCreator(string questionText, string answerText)
-            : base(questionText, answerText) { }
+        public SkippedScoreCardCreator(string questionText, string answerText, string correctAnswer)
+            : base(questionText, answerText, correctAnswer) { }
 
         public override IScoreCard FactoryMethod()
         {
-            return new SkippedScoreCard(_questionText, _answerText);
+            return new SkippedScoreCard(_questionText, _answerText, _correctAnswer);
         }
     }
 }

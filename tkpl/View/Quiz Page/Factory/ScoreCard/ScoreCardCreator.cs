@@ -14,11 +14,13 @@ namespace tkpl.View.Factory.ScoreCard
     {
         protected readonly string _questionText;
         protected readonly string _answerText;
+        protected readonly string _correctAnswer;
 
-        protected ScoreCardCreator(string questionText, string answerText)
+        protected ScoreCardCreator(string questionText, string answerText, string correctAnswer)
         {
             _questionText = questionText;
             _answerText = answerText;
+            _correctAnswer = correctAnswer;
         }
 
         /// <summary>

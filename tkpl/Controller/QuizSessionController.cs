@@ -43,7 +43,8 @@ namespace tkpl.Controller
 
             string questionText = _lesson.Questions[_currentQuestionIndex].QuestionText;
             decimal scoreWeight = _lesson.Questions[_currentQuestionIndex].ScoreWeight;
-            _answerRecords.Add(new AnswerRecord(questionText, "-", "Skipped", scoreWeight));
+            string correctAnswer = _lesson.Questions[_currentQuestionIndex].GetExpectedAnswerAsString();
+            _answerRecords.Add(new AnswerRecord(questionText, "-", correctAnswer, "Skipped", scoreWeight));
 
             _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
             _currentQuestionIndex++;
@@ -116,10 +117,11 @@ namespace tkpl.Controller
             int questionIndex = _currentQuestionIndex;
             string questionText = _lesson.Questions[questionIndex].QuestionText;
             decimal scoreWeight = _lesson.Questions[questionIndex].ScoreWeight;
+            string correctAnswer = _lesson.Questions[questionIndex].GetExpectedAnswerAsString();
 
             // Menerapkan prinsip DRY: Catat jawaban satu kali saja
             string status = isCorrect ? "Correct" : "Wrong";
-            _answerRecords.Add(new AnswerRecord(questionText, userAnswer, status, scoreWeight));
+            _answerRecords.Add(new AnswerRecord(questionText, userAnswer, correctAnswer, status, scoreWeight));
             ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, _lesson, questionIndex, isCorrect));
 
             if (isCorrect)
