@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -14,6 +15,8 @@ namespace tkpl.Controller
         private Lesson _lesson;
         private QuizView _quizView;
         private LogicLevel _gameLogic;
+        private UserModel _userModel;
+        private int _userId;
         private int _currentQuestionIndex = 0;
         private readonly List<(string QuestionText, string UserAnswer, string Status)> _answerRecords = new();
 
@@ -22,6 +25,8 @@ namespace tkpl.Controller
             _lesson = lesson;
             _quizView = quizView;
             _gameLogic = logic;
+            _userModel = new UserModel();
+            _userId = _userModel.GetUserId();
 
             SetupGuiQuizViewEvent();
         }
@@ -132,7 +137,7 @@ namespace tkpl.Controller
                 }
             }
             
-            ReportQuiz.QuizItems.Add(new ReportQuizItem(userId, lesson, currentQuestionIndex,isCorrect));
+            ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, _lesson, _currentQuestionIndex, isCorrect));
         }
 
         /// <summary>

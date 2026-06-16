@@ -141,7 +141,7 @@ public class LessonFromApi
 {
     public int Lesson_ID { get; set; }
     public string Lesson_Name { get; set; }
-
+    public List<QuizFromApi> Quizzes { get; set; } = new List<QuizFromApi>();
 }
 
 public class UserFromAPI
@@ -149,9 +149,6 @@ public class UserFromAPI
     public int User_ID { get; set; }
     public string User_Name { get; set; }
     public string password { get; set; } 
-
-
-    public List<QuizFromApi> Quizzes { get; set; } = new List<QuizFromApi>();
 }
 
 public class QuizFromApi

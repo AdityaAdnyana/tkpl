@@ -1,4 +1,4 @@
-﻿using API.Model;
+using API.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -35,11 +35,11 @@ namespace API.Controllers
         public async Task<ActionResult> Update(int id, LevelModuleDetailModels updatedDetail)
         {
             // Menyesuaikan pencarian menggunakan nama properti Detail_ID sesuai berkas SQL
-            var existing = await _context.LevelModuleDetails.FirstOrDefaultAsync(lmd => lmd.Detail_ID == id);
+            var existing = await _context.LevelModuleDetails.FirstOrDefaultAsync(lmd => lmd.DetailId == id);
             if (existing == null) return NotFound("Data detail tidak ditemukan.");
 
-            existing.Module_ID = updatedDetail.Module_ID;
-            existing.Level_ID = updatedDetail.Level_ID;
+            existing.ModuleId = updatedDetail.ModuleId;
+            existing.LevelId = updatedDetail.LevelId;
 
             _context.LevelModuleDetails.Update(existing);
             await _context.SaveChangesAsync();
@@ -49,7 +49,7 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var detail = await _context.LevelModuleDetails.FirstOrDefaultAsync(lmd => lmd.Detail_ID == id);
+            var detail = await _context.LevelModuleDetails.FirstOrDefaultAsync(lmd => lmd.DetailId == id);
             if (detail == null) return NotFound("Data tidak ditemukan.");
 
             _context.LevelModuleDetails.Remove(detail);

@@ -22,8 +22,6 @@ namespace API.Controllers
         public DbSet<QuizImageModels> QuizImages { get; set; }
         public DbSet<ReadingMaterialModels> ReadingMaterials { get; set; }
         public DbSet<ReadingMaterialImageModels> ReadingMaterialImages { get; set; }
-        public DbSet<QuizImageModels> QuizImages { get; set; }
-        public DbSet<LevelModuleDetailModels> LevelModuleDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,12 +37,12 @@ namespace API.Controllers
             modelBuilder.Entity<LevelModuleDetailModels>()
                 .HasOne(lmd => lmd.Module)
                 .WithMany()
-                .HasForeignKey(lmd => lmd.Module_ID);
+                .HasForeignKey(lmd => lmd.ModuleId);
 
             modelBuilder.Entity<LevelModuleDetailModels>()
                 .HasOne(lmd => lmd.Level)
                 .WithMany()
-                .HasForeignKey(lmd => lmd.Level_ID);
+                .HasForeignKey(lmd => lmd.LevelId);
 
             // Sesuai constraint: report_quiz_ibfk_1, 2, & 3
             modelBuilder.Entity<ReportQuizModels>()

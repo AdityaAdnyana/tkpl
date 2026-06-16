@@ -15,5 +15,8 @@ namespace API.Model
 
         [Column("Level_ID")]
         public int LevelId { get; set; }
+
+        public ModuleModels? Module { get; set; }
+        public LevelModels? Level { get; set; }
     }
 }
