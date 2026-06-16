@@ -36,7 +36,7 @@ namespace tkpl.Model.Reading_Material
             try
             {
                 // blms selesai
-                var materialsFromAPI = await _httpClient.GetFromJsonAsync<List<ReadingMaterialFromAPI>>("ReadingMaterial");
+                var materialsFromAPI = await _httpClient.GetFromJsonAsync<List<ReadingMaterialFromAPI>>("ReadingMaterialFromAPI");
 
                 if (materialsFromAPI != null)
                 {

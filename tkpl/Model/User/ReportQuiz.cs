@@ -29,7 +29,7 @@ using tkpl.Model;
     {
         try
         {
-            var reportQuizItemsFromApi = await _httpClient.GetFromJsonAsync<List<ReportQuizItemFromAPI>>("Level");
+            var reportQuizItemsFromApi = await _httpClient.GetFromJsonAsync<List<ReportQuizItemFromAPI>>("ReportQuizItemFromAPI");
 
             if (reportQuizItemsFromApi != null)
             {
