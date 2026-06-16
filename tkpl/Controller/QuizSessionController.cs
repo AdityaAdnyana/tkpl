@@ -143,11 +143,16 @@ namespace tkpl.Controller
                     return;
                 }
             }
+
+            string correctAnswer = lesson.Questions[currentQuestionIndex].GetExpectedAnswerAsString();
+            ReportQuiz.QuizItems.Add(new ReportQuizItem(userId, questionText, correctAnswer, currentQuestionIndex, isCorrect));
             
             // Lanjut ke soal berikutnya untuk jawaban benar dan salah (yang nyawanya masih > 0)
             _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
             _currentQuestionIndex++;
             ShowQuestion(_currentQuestionIndex);
+           
+            
         }
 
         /// <summary>
