@@ -150,8 +150,9 @@ namespace tkpl.Controller
                     ShowSessionResult();
                 }
             }
-            
-            ReportQuiz.QuizItems.Add(new ReportQuizItem(userId, lesson, currentQuestionIndex,isCorrect));
+           
+            string correctAnswer = lesson.Questions[currentQuestionIndex].GetExpectedAnswerAsString();
+            ReportQuiz.QuizItems.Add(new ReportQuizItem(userId, questionText, correctAnswer, currentQuestionIndex, isCorrect));
         }
 
         /// <summary>
