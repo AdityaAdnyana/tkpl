@@ -494,7 +494,7 @@ namespace tkpl.View
             Controls.Add(panel4);
             Name = "QuizSessionResult";
             Text = "Session Result";
-            Load += QuizSessionResult_Load;
+
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panelResult.ResumeLayout(false);

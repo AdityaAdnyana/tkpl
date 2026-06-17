@@ -25,9 +25,9 @@ namespace tkpl.Controller
 
         private void SetupEvents()
         {
-            _resultView.GetBtReview().Click += (sender, e) => _resultView.ToglePanelScoreCard();
-            _resultView.GetBtClose().Click += (sender, e) => _resultView.ToglePanelScoreCard();
-            _resultView.GetBtContinue().Click += (sender, e) => OnSessionEnded?.Invoke();
+            _resultView.OnReviewClicked += (sender, e) => _resultView.TogglePanelScoreCard();
+            _resultView.OnCloseClicked += (sender, e) => _resultView.TogglePanelScoreCard();
+            _resultView.OnContinueClicked += (sender, e) => OnSessionEnded?.Invoke();
         }
 
         public void ShowResult()
@@ -45,12 +45,12 @@ namespace tkpl.Controller
                 
                 maxScore += record.ScoreWeight;
 
-                if (record.Status == "Correct")
+                if (record.Status == AnswerStatus.Correct)
                 {
                     totalScore += record.ScoreWeight;
                 }
                 
-                if (record.Status == "Skipped")
+                if (record.Status == AnswerStatus.Skipped)
                 {
                     skippedCount++;
                 }

@@ -46,7 +46,7 @@ namespace tkpl.Controller
             string questionText = _lesson.Questions[_currentQuestionIndex].QuestionText;
             decimal scoreWeight = _lesson.Questions[_currentQuestionIndex].ScoreWeight;
             string correctAnswer = _lesson.Questions[_currentQuestionIndex].GetExpectedAnswerAsString();
-            _answerRecords.Add(new AnswerRecord(questionText, "-", correctAnswer, "Skipped", scoreWeight));
+            _answerRecords.Add(new AnswerRecord(questionText, "-", correctAnswer, AnswerStatus.Skipped, scoreWeight));
 
             _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
             _currentQuestionIndex++;
@@ -62,7 +62,7 @@ namespace tkpl.Controller
             _gameLogic.ResetLives(_lesson.Questions.Count);
 
             // Inisialisasi GUI nyawa awal
-            _quizView.UpdateHealthVal(_gameLogic._currentLives);
+            _quizView.UpdateHealthVal(_gameLogic.CurrentLives);
 
             _currentQuestionIndex = 0;
             _answerRecords.Clear();
@@ -122,7 +122,7 @@ namespace tkpl.Controller
             string correctAnswer = _lesson.Questions[questionIndex].GetExpectedAnswerAsString();
 
             // Menerapkan prinsip DRY: Catat jawaban satu kali saja
-            string status = isCorrect ? "Correct" : "Wrong";
+            AnswerStatus status = isCorrect ? AnswerStatus.Correct : AnswerStatus.Wrong;
             _answerRecords.Add(new AnswerRecord(questionText, userAnswer, correctAnswer, status, scoreWeight));
             
 
@@ -135,10 +135,10 @@ namespace tkpl.Controller
                 // Mengurangi nyawa via Publisher, Observer (QuizView) akan otomatis di-update
                 _gameLogic.DecreaseLives();
                 
-                _quizView.ShowMessage($"Jawaban Anda Salah.\nSisa Nyawa: {_gameLogic._currentLives}", "Hasil", MessageBoxIcon.Warning);
+                _quizView.ShowMessage($"Jawaban Anda Salah.\nSisa Nyawa: {_gameLogic.CurrentLives}", "Hasil", MessageBoxIcon.Warning);
 
                 // Menerapkan Early Return jika game over
-                if (_gameLogic._currentLives <= 0)
+                if (_gameLogic.CurrentLives <= 0)
                 {
                     _quizView.ShowMessage("NYAWA HABIS!", "Game Over", MessageBoxIcon.Error);
                     ShowSessionResult();

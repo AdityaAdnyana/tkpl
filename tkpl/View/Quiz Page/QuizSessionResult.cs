@@ -56,28 +56,27 @@ namespace tkpl.View
             panelScoreCard.Enabled = true;
         }
 
-        public Button GetBtReview() => btReview;
+        public event EventHandler OnReviewClicked
+        {
+            add { btReview.Click += value; }
+            remove { btReview.Click -= value; }
+        }
 
+        public event EventHandler OnCloseClicked
+        {
+            add { btClose.Click += value; }
+            remove { btClose.Click -= value; }
+        }
 
-        public Button GetBtClose() => btClose;
+        public event EventHandler OnContinueClicked
+        {
+            add { btContinue.Click += value; }
+            remove { btContinue.Click -= value; }
+        }
 
-
-        public Button GetBtContinue() => btContinue;
-        
-
-        public void ToglePanelScoreCard()
+        public void TogglePanelScoreCard()
         {
             panelScoreCard.Visible = !panelScoreCard.Visible;
-        }
-
-        private void QuizSessionResult_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
