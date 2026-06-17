@@ -12,14 +12,14 @@ namespace tkpl.Controller
     /// </summary>
     public class LogicLevel : ILivesSubject
     {
-        public int _currentLives { get; private set; }
+        public int CurrentLives { get; private set; }
         private static LogicLevel _instance;
 
         private readonly List<ILivesObserver> _observers = new();
 
         private LogicLevel()
         {
-            _currentLives = 3; // Default sementara, akan direset saat StartSession
+            CurrentLives = 3; // Default sementara, akan direset saat StartSession
         }
 
         public static LogicLevel Instance()
@@ -57,7 +57,7 @@ namespace tkpl.Controller
         {
             foreach (var observer in _observers)
             {
-                observer.Update(_currentLives);
+                observer.Update(CurrentLives);
             }
         }
 
@@ -67,13 +67,13 @@ namespace tkpl.Controller
         /// </summary>
         public void DecreaseLives()
         {
-            _currentLives--;
+            CurrentLives--;
             NotifyObservers();
         }
 
         public void ResetLives(int totalQuestions)
         {
-            _currentLives = Math.Max(1, totalQuestions / 3);
+            CurrentLives = Math.Max(1, totalQuestions / 3);
             NotifyObservers();
         }
     }

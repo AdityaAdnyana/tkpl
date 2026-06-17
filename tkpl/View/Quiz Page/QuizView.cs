@@ -19,83 +19,85 @@ namespace tkpl
             InitializeComponent();
         }
 
-        // Method untuk membersihkan kontrol yang ada di dalam FlowLayoutPanel.
-        // Seperti button jawaban atau TextBox
+        /// <summary>
+        /// Membersihkan kontrol yang ada di dalam panel jawaban.
+        /// Seperti button jawaban atau TextBox.
+        /// </summary>
         public void ClearControls()
         {
             Debug.WriteLine("CLEAR CONTROLS EXECUTED");
 
-            flowLayoutPanel1.Controls.Clear();
+            answerPanel.Controls.Clear();
         }
 
-        // Method untuk menambahkan kontrol ke dalam FlowLayoutPanel
-        // Berfungsi untuk menambahkan tombol jawaban atau TextBox ke dalam tampilan kuis.
+        /// <summary>
+        /// Menambahkan kontrol ke dalam panel jawaban.
+        /// Berfungsi untuk menambahkan tombol jawaban atau TextBox ke dalam tampilan kuis.
+        /// </summary>
         public void AddControl(Control ctrl)
         {
             Debug.WriteLine("ADD CONTROL EXECUTED");
 
-
-            flowLayoutPanel1.Controls.Add(ctrl);
+            answerPanel.Controls.Add(ctrl);
         }
 
-        // Menambahkan pertanyaan ke label yang ada di tampilan kuis.
+        /// <summary>
+        /// Menambahkan pertanyaan ke label yang ada di tampilan kuis.
+        /// </summary>
         public void SetQuestionText(string text)
         {
             Debug.WriteLine("SET QUESTION TEXT EXECUTED");
 
-            label1.Text = text;
+            questionLabel.Text = text;
         }
 
 
-        public void InitProgressBar(int maxVal, int curVal)
+        public void InitProgressBar(int maxValue, int currentValue)
         {
-            quizSessionProgressBar.Maximum = maxVal;
-            UpdateProgressBarValue(curVal);
-
+            quizSessionProgressBar.Maximum = maxValue;
+            UpdateProgressBarValue(currentValue);
         }
 
-        public void UpdateProgressBarValue(int newVal)
+        public void UpdateProgressBarValue(int newValue)
         {
-            if (newVal <= quizSessionProgressBar.Maximum)
+            if (newValue <= quizSessionProgressBar.Maximum)
             {
-                quizSessionProgressBar.Value = newVal;
-                if (newVal > 0)
-                {
-                    quizSessionProgressBar.Value = newVal - 1;
-                    quizSessionProgressBar.Value = newVal;
-                }
+                quizSessionProgressBar.Value = newValue;
             }
         }
 
-        public void UpdateHealthVal(int newVal)
+        public void UpdateHealthVal(int newValue)
         {
-            health.Text = $"❤️ {newVal}";
+            health.Text = $"❤️ {newValue}";
         }
 
-        // Implementasi ILivesObserver: bereaksi ketika ada notifikasi dari publisher
+        /// <summary>
+        /// Implementasi ILivesObserver: bereaksi ketika ada notifikasi dari publisher
+        /// </summary>
         public void Update(int currentLives)
         {
             UpdateHealthVal(currentLives);
         }
 
-        public Button GetBtSkip()
+        public event EventHandler SkipClicked
         {
-            return btSkip;
+            add { btSkip.Click += value; }
+            remove { btSkip.Click -= value; }
         }
 
-        public void ShowMessage(string message, string title, MessageBoxIcon icon = MessageBoxIcon.Information)
+        public void ShowInfoMessage(string message, string title)
         {
-            MessageBox.Show(message, title, MessageBoxButtons.OK, icon);
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        public void ShowWarningMessage(string message, string title)
         {
-
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private void QuizView_Load(object sender, EventArgs e)
+        public void ShowErrorMessage(string message, string title)
         {
-
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 

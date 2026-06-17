@@ -5,7 +5,7 @@ using System.Text;
 
 namespace tkpl.Model.User
 {
-    internal class UserModel : IUserModel
+    public class UserModel : IUserModel
     {
         private User user;
         private bool isLoggedIn = false;
@@ -53,5 +53,18 @@ namespace tkpl.Model.User
         public void SetUsername(string username) { if (user != null) user.userName = username; }
         public string GetPassword() { return user?.password ?? string.Empty; }
         public void SetPassword(string password) { if (user != null) user.password = password; }
+
+        public int GetUnlockedLevel() 
+        { 
+            return user?.UnlockedLevel ?? 1; 
+        }
+
+        public void UnlockLevel(int levelId) 
+        { 
+            if (user != null && levelId > user.UnlockedLevel) 
+            {
+                user.UnlockedLevel = levelId; 
+            }
+        }
     }
 }

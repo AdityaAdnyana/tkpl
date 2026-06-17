@@ -29,30 +29,30 @@ namespace tkpl.View
         private void InitializeComponent()
         {
             panel4 = new Panel();
-            btReview = new Button();
-            btContinue = new Button();
+            reviewButton = new Button();
+            continueButton = new Button();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             panelResult = new FlowLayoutPanel();
             panelTotalScore = new Panel();
             label6 = new Label();
             pictureBox2 = new PictureBox();
-            lbTotalScoreVal = new Label();
+            totalScoreLabel = new Label();
             panelTime = new Panel();
             label7 = new Label();
             pictureBox3 = new PictureBox();
-            lbSessionTimeVal = new Label();
+            sessionTimeLabel = new Label();
             panelAnswered = new Panel();
             label8 = new Label();
             pictureBox4 = new PictureBox();
-            lbAnsweredVal = new Label();
+            answeredCountLabel = new Label();
             skippedPanel = new Panel();
             label9 = new Label();
             pictureBox5 = new PictureBox();
-            lbSkippedVal = new Label();
-            progressValue = new ProgressBar();
-            lbProgressValue = new Label();
-            fLScore = new FlowLayoutPanel();
+            skippedCountLabel = new Label();
+            sessionProgressBar = new ProgressBar();
+            progressPercentageLabel = new Label();
+            scoreFlowPanel = new FlowLayoutPanel();
             panel2 = new Panel();
             label3 = new Label();
             label2 = new Label();
@@ -65,10 +65,10 @@ namespace tkpl.View
             label10 = new Label();
             label11 = new Label();
             button4 = new Button();
-            btClose = new Button();
+            closeButton = new Button();
             label12 = new Label();
             label13 = new Label();
-            panelScoreCard = new Panel();
+            scoreCardPanel = new Panel();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelResult.SuspendLayout();
@@ -80,17 +80,17 @@ namespace tkpl.View
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             skippedPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            fLScore.SuspendLayout();
+            scoreFlowPanel.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel5.SuspendLayout();
-            panelScoreCard.SuspendLayout();
+            scoreCardPanel.SuspendLayout();
             SuspendLayout();
             // 
             // panel4
             // 
-            panel4.Controls.Add(btReview);
-            panel4.Controls.Add(btContinue);
+            panel4.Controls.Add(reviewButton);
+            panel4.Controls.Add(continueButton);
             panel4.Dock = DockStyle.Bottom;
             panel4.Location = new Point(0, 605);
             panel4.Margin = new Padding(2);
@@ -98,23 +98,23 @@ namespace tkpl.View
             panel4.Size = new Size(1058, 59);
             panel4.TabIndex = 3;
             // 
-            // btReview
+            // reviewButton
             // 
-            btReview.Location = new Point(12, 13);
-            btReview.Name = "btReview";
-            btReview.Size = new Size(112, 34);
-            btReview.TabIndex = 2;
-            btReview.Text = "REVIEW";
-            btReview.UseVisualStyleBackColor = true;
+            reviewButton.Location = new Point(12, 13);
+            reviewButton.Name = "reviewButton";
+            reviewButton.Size = new Size(112, 34);
+            reviewButton.TabIndex = 2;
+            reviewButton.Text = "REVIEW";
+            reviewButton.UseVisualStyleBackColor = true;
             // 
-            // btContinue
+            // continueButton
             // 
-            btContinue.Location = new Point(924, 13);
-            btContinue.Name = "btContinue";
-            btContinue.Size = new Size(112, 34);
-            btContinue.TabIndex = 1;
-            btContinue.Text = "CONTINUE";
-            btContinue.UseVisualStyleBackColor = true;
+            continueButton.Location = new Point(924, 13);
+            continueButton.Name = "continueButton";
+            continueButton.Size = new Size(112, 34);
+            continueButton.TabIndex = 1;
+            continueButton.Text = "CONTINUE";
+            continueButton.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
@@ -149,7 +149,7 @@ namespace tkpl.View
             // 
             panelTotalScore.Controls.Add(label6);
             panelTotalScore.Controls.Add(pictureBox2);
-            panelTotalScore.Controls.Add(lbTotalScoreVal);
+            panelTotalScore.Controls.Add(totalScoreLabel);
             panelTotalScore.Location = new Point(3, 3);
             panelTotalScore.Name = "panelTotalScore";
             panelTotalScore.Size = new Size(166, 166);
@@ -172,20 +172,20 @@ namespace tkpl.View
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
             // 
-            // lbTotalScoreVal
+            // totalScoreLabel
             // 
-            lbTotalScoreVal.Location = new Point(2, 127);
-            lbTotalScoreVal.Name = "lbTotalScoreVal";
-            lbTotalScoreVal.Size = new Size(160, 25);
-            lbTotalScoreVal.TabIndex = 0;
-            lbTotalScoreVal.Text = "n(int)/100";
-            lbTotalScoreVal.TextAlign = ContentAlignment.MiddleCenter;
+            totalScoreLabel.Location = new Point(2, 127);
+            totalScoreLabel.Name = "totalScoreLabel";
+            totalScoreLabel.Size = new Size(160, 25);
+            totalScoreLabel.TabIndex = 0;
+            totalScoreLabel.Text = "n(int)/100";
+            totalScoreLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panelTime
             // 
             panelTime.Controls.Add(label7);
             panelTime.Controls.Add(pictureBox3);
-            panelTime.Controls.Add(lbSessionTimeVal);
+            panelTime.Controls.Add(sessionTimeLabel);
             panelTime.Location = new Point(175, 3);
             panelTime.Name = "panelTime";
             panelTime.Size = new Size(166, 166);
@@ -208,20 +208,20 @@ namespace tkpl.View
             pictureBox3.TabIndex = 3;
             pictureBox3.TabStop = false;
             // 
-            // lbSessionTimeVal
+            // sessionTimeLabel
             // 
-            lbSessionTimeVal.Location = new Point(3, 127);
-            lbSessionTimeVal.Name = "lbSessionTimeVal";
-            lbSessionTimeVal.Size = new Size(157, 25);
-            lbSessionTimeVal.TabIndex = 2;
-            lbSessionTimeVal.Text = "n(float) s";
-            lbSessionTimeVal.TextAlign = ContentAlignment.MiddleCenter;
+            sessionTimeLabel.Location = new Point(3, 127);
+            sessionTimeLabel.Name = "sessionTimeLabel";
+            sessionTimeLabel.Size = new Size(157, 25);
+            sessionTimeLabel.TabIndex = 2;
+            sessionTimeLabel.Text = "n(float) s";
+            sessionTimeLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panelAnswered
             // 
             panelAnswered.Controls.Add(label8);
             panelAnswered.Controls.Add(pictureBox4);
-            panelAnswered.Controls.Add(lbAnsweredVal);
+            panelAnswered.Controls.Add(answeredCountLabel);
             panelAnswered.Location = new Point(347, 3);
             panelAnswered.Name = "panelAnswered";
             panelAnswered.Size = new Size(166, 166);
@@ -244,20 +244,20 @@ namespace tkpl.View
             pictureBox4.TabIndex = 3;
             pictureBox4.TabStop = false;
             // 
-            // lbAnsweredVal
+            // answeredCountLabel
             // 
-            lbAnsweredVal.Location = new Point(3, 127);
-            lbAnsweredVal.Name = "lbAnsweredVal";
-            lbAnsweredVal.Size = new Size(160, 25);
-            lbAnsweredVal.TabIndex = 2;
-            lbAnsweredVal.Text = "n(int)";
-            lbAnsweredVal.TextAlign = ContentAlignment.MiddleCenter;
+            answeredCountLabel.Location = new Point(3, 127);
+            answeredCountLabel.Name = "answeredCountLabel";
+            answeredCountLabel.Size = new Size(160, 25);
+            answeredCountLabel.TabIndex = 2;
+            answeredCountLabel.Text = "n(int)";
+            answeredCountLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // skippedPanel
             // 
             skippedPanel.Controls.Add(label9);
             skippedPanel.Controls.Add(pictureBox5);
-            skippedPanel.Controls.Add(lbSkippedVal);
+            skippedPanel.Controls.Add(skippedCountLabel);
             skippedPanel.Location = new Point(519, 3);
             skippedPanel.Name = "skippedPanel";
             skippedPanel.Size = new Size(166, 166);
@@ -280,43 +280,43 @@ namespace tkpl.View
             pictureBox5.TabIndex = 3;
             pictureBox5.TabStop = false;
             // 
-            // lbSkippedVal
+            // skippedCountLabel
             // 
-            lbSkippedVal.Location = new Point(4, 127);
-            lbSkippedVal.Name = "lbSkippedVal";
-            lbSkippedVal.Size = new Size(160, 25);
-            lbSkippedVal.TabIndex = 2;
-            lbSkippedVal.Text = "n(int)";
-            lbSkippedVal.TextAlign = ContentAlignment.MiddleCenter;
+            skippedCountLabel.Location = new Point(4, 127);
+            skippedCountLabel.Name = "skippedCountLabel";
+            skippedCountLabel.Size = new Size(160, 25);
+            skippedCountLabel.TabIndex = 2;
+            skippedCountLabel.Text = "n(int)";
+            skippedCountLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // progressValue
+            // sessionProgressBar
             // 
-            progressValue.Location = new Point(181, 530);
-            progressValue.Name = "progressValue";
-            progressValue.Size = new Size(685, 45);
-            progressValue.TabIndex = 7;
+            sessionProgressBar.Location = new Point(181, 530);
+            sessionProgressBar.Name = "sessionProgressBar";
+            sessionProgressBar.Size = new Size(685, 45);
+            sessionProgressBar.TabIndex = 7;
             // 
-            // lbProgressValue
+            // progressPercentageLabel
             // 
-            lbProgressValue.BackColor = Color.FromArgb(0, 0, 0, 0);
-            lbProgressValue.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbProgressValue.Location = new Point(206, 530);
-            lbProgressValue.Name = "lbProgressValue";
-            lbProgressValue.Size = new Size(639, 45);
-            lbProgressValue.TabIndex = 8;
-            lbProgressValue.Text = "0%";
-            lbProgressValue.TextAlign = ContentAlignment.MiddleCenter;
+            progressPercentageLabel.BackColor = Color.FromArgb(0, 0, 0, 0);
+            progressPercentageLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            progressPercentageLabel.Location = new Point(206, 530);
+            progressPercentageLabel.Name = "progressPercentageLabel";
+            progressPercentageLabel.Size = new Size(639, 45);
+            progressPercentageLabel.TabIndex = 8;
+            progressPercentageLabel.Text = "0%";
+            progressPercentageLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fLScore
+            // scoreFlowPanel
             // 
-            fLScore.AutoScroll = true;
-            fLScore.Controls.Add(panel2);
-            fLScore.Controls.Add(panel3);
-            fLScore.Controls.Add(panel5);
-            fLScore.Location = new Point(18, 105);
-            fLScore.Name = "fLScore";
-            fLScore.Size = new Size(757, 465);
-            fLScore.TabIndex = 9;
+            scoreFlowPanel.AutoScroll = true;
+            scoreFlowPanel.Controls.Add(panel2);
+            scoreFlowPanel.Controls.Add(panel3);
+            scoreFlowPanel.Controls.Add(panel5);
+            scoreFlowPanel.Location = new Point(18, 105);
+            scoreFlowPanel.Name = "scoreFlowPanel";
+            scoreFlowPanel.Size = new Size(757, 465);
+            scoreFlowPanel.TabIndex = 9;
             // 
             // panel2
             // 
@@ -438,15 +438,15 @@ namespace tkpl.View
             button4.Text = "Check Answer";
             button4.UseVisualStyleBackColor = false;
             // 
-            // btClose
+            // closeButton
             // 
-            btClose.BackColor = Color.FromArgb(0, 0, 0, 0);
-            btClose.Location = new Point(725, 13);
-            btClose.Name = "btClose";
-            btClose.Size = new Size(50, 50);
-            btClose.TabIndex = 0;
-            btClose.Text = "X";
-            btClose.UseVisualStyleBackColor = false;
+            closeButton.BackColor = Color.FromArgb(0, 0, 0, 0);
+            closeButton.Location = new Point(725, 13);
+            closeButton.Name = "closeButton";
+            closeButton.Size = new Size(50, 50);
+            closeButton.TabIndex = 0;
+            closeButton.Text = "X";
+            closeButton.UseVisualStyleBackColor = false;
             // 
             // label12
             // 
@@ -466,35 +466,35 @@ namespace tkpl.View
             label13.TabIndex = 11;
             label13.Text = "Klik Kotak-Kotak Dibawah Untuk Melihat Solusinya";
             // 
-            // panelScoreCard
+            // scoreCardPanel
             // 
-            panelScoreCard.BackColor = SystemColors.ControlLight;
-            panelScoreCard.Controls.Add(label13);
-            panelScoreCard.Controls.Add(label12);
-            panelScoreCard.Controls.Add(btClose);
-            panelScoreCard.Controls.Add(fLScore);
-            panelScoreCard.Enabled = false;
-            panelScoreCard.Location = new Point(131, 12);
-            panelScoreCard.Name = "panelScoreCard";
-            panelScoreCard.Size = new Size(792, 588);
-            panelScoreCard.TabIndex = 10;
-            //panelScoreCard.Hide();
+            scoreCardPanel.BackColor = SystemColors.ControlLight;
+            scoreCardPanel.Controls.Add(label13);
+            scoreCardPanel.Controls.Add(label12);
+            scoreCardPanel.Controls.Add(closeButton);
+            scoreCardPanel.Controls.Add(scoreFlowPanel);
+            scoreCardPanel.Enabled = false;
+            scoreCardPanel.Location = new Point(131, 12);
+            scoreCardPanel.Name = "scoreCardPanel";
+            scoreCardPanel.Size = new Size(792, 588);
+            scoreCardPanel.TabIndex = 10;
+            //scoreCardPanel.Hide();
             // 
             // QuizSessionResult
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1058, 664);
-            Controls.Add(panelScoreCard);
-            Controls.Add(lbProgressValue);
-            Controls.Add(progressValue);
+            Controls.Add(scoreCardPanel);
+            Controls.Add(progressPercentageLabel);
+            Controls.Add(sessionProgressBar);
             Controls.Add(panelResult);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(panel4);
             Name = "QuizSessionResult";
             Text = "Session Result";
-            Load += QuizSessionResult_Load;
+
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panelResult.ResumeLayout(false);
@@ -506,15 +506,15 @@ namespace tkpl.View
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             skippedPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            fLScore.ResumeLayout(false);
+            scoreFlowPanel.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            panelScoreCard.ResumeLayout(false);
-            panelScoreCard.PerformLayout();
+            scoreCardPanel.ResumeLayout(false);
+            scoreCardPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -522,7 +522,7 @@ namespace tkpl.View
         #endregion
 
         private Panel panel4;
-        private Button btContinue;
+        private Button continueButton;
         private PictureBox pictureBox1;
         private Label label1;
         private FlowLayoutPanel panelResult;
@@ -530,22 +530,22 @@ namespace tkpl.View
         private Panel panelTime;
         private Panel panelAnswered;
         private Panel skippedPanel;
-        private ProgressBar progressValue;
-        private Label lbProgressValue;
+        private ProgressBar sessionProgressBar;
+        private Label progressPercentageLabel;
         private PictureBox pictureBox2;
-        private Label lbTotalScoreVal;
+        private Label totalScoreLabel;
         private PictureBox pictureBox3;
-        private Label lbSessionTimeVal;
+        private Label sessionTimeLabel;
         private PictureBox pictureBox4;
-        private Label lbAnsweredVal;
+        private Label answeredCountLabel;
         private PictureBox pictureBox5;
-        private Label lbSkippedVal;
+        private Label skippedCountLabel;
         private Label label6;
         private Label label7;
         private Label label8;
         private Label label9;
-        private Button btReview;
-        private FlowLayoutPanel fLScore;
+        private Button reviewButton;
+        private FlowLayoutPanel scoreFlowPanel;
         private Panel panel2;
         private Label label3;
         private Label label2;
@@ -558,9 +558,9 @@ namespace tkpl.View
         private Label label10;
         private Label label11;
         private Button button4;
-        private Button btClose;
+        private Button closeButton;
         private Label label12;
         private Label label13;
-        private Panel panelScoreCard;
+        private Panel scoreCardPanel;
     }
 }

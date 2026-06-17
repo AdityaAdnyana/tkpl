@@ -31,7 +31,7 @@ namespace tkpl.View.Factory.QuizControl
             Button submitButton = new Button();
             submitButton.Text = "Submit Jawaban";
             submitButton.Size = new Size(AppConfig.UI.SubmitButtonWidth, AppConfig.UI.SubmitButtonHeight);
-            submitButton.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.FontSize);
+            submitButton.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.SubmitButtonFontSize);
             submitButton.Click += (sender, e) => _onAnswerSubmitted(answerTextBox.Text);
 
             controls.Add(answerTextBox);
