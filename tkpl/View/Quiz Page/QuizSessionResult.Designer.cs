@@ -29,30 +29,30 @@ namespace tkpl.View
         private void InitializeComponent()
         {
             panel4 = new Panel();
-            btReview = new Button();
-            btContinue = new Button();
+            reviewButton = new Button();
+            continueButton = new Button();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             panelResult = new FlowLayoutPanel();
             panelTotalScore = new Panel();
             label6 = new Label();
             pictureBox2 = new PictureBox();
-            lbTotalScoreVal = new Label();
+            totalScoreLabel = new Label();
             panelTime = new Panel();
             label7 = new Label();
             pictureBox3 = new PictureBox();
-            lbSessionTimeVal = new Label();
+            sessionTimeLabel = new Label();
             panelAnswered = new Panel();
             label8 = new Label();
             pictureBox4 = new PictureBox();
-            lbAnsweredVal = new Label();
+            answeredCountLabel = new Label();
             skippedPanel = new Panel();
             label9 = new Label();
             pictureBox5 = new PictureBox();
-            lbSkippedVal = new Label();
-            progressValue = new ProgressBar();
-            lbProgressValue = new Label();
-            fLScore = new FlowLayoutPanel();
+            skippedCountLabel = new Label();
+            sessionProgressBar = new ProgressBar();
+            progressPercentageLabel = new Label();
+            scoreFlowPanel = new FlowLayoutPanel();
             panel2 = new Panel();
             label3 = new Label();
             label2 = new Label();
@@ -65,10 +65,10 @@ namespace tkpl.View
             label10 = new Label();
             label11 = new Label();
             button4 = new Button();
-            btClose = new Button();
+            closeButton = new Button();
             label12 = new Label();
             label13 = new Label();
-            panelScoreCard = new Panel();
+            scoreCardPanel = new Panel();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelResult.SuspendLayout();
@@ -80,11 +80,11 @@ namespace tkpl.View
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             skippedPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            fLScore.SuspendLayout();
+            scoreFlowPanel.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel5.SuspendLayout();
-            panelScoreCard.SuspendLayout();
+            scoreCardPanel.SuspendLayout();
             SuspendLayout();
             // 
             // panel4
@@ -478,7 +478,7 @@ namespace tkpl.View
             scoreCardPanel.Name = "scoreCardPanel";
             scoreCardPanel.Size = new Size(792, 588);
             scoreCardPanel.TabIndex = 10;
-            //panelScoreCard.Hide();
+            //scoreCardPanel.Hide();
             // 
             // QuizSessionResult
             // 
@@ -506,7 +506,7 @@ namespace tkpl.View
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             skippedPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            fLScore.ResumeLayout(false);
+            scoreFlowPanel.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
