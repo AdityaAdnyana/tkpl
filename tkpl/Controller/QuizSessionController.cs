@@ -41,7 +41,7 @@ namespace tkpl.Controller
 
         private void SetupGuiQuizViewEvent()
         {
-            _quizView.GetBtSkip().Click += HandleSkipQuestion;
+            _quizView.SkipClicked += HandleSkipQuestion;
         }
 
         private void HandleSkipQuestion(object sender, EventArgs e)

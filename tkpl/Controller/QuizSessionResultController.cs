@@ -25,9 +25,9 @@ namespace tkpl.Controller
 
         private void SetupEvents()
         {
-            _resultView.OnReviewClicked += (sender, e) => _resultView.TogglePanelScoreCard();
-            _resultView.OnCloseClicked += (sender, e) => _resultView.TogglePanelScoreCard();
-            _resultView.OnContinueClicked += (sender, e) => OnSessionEnded?.Invoke();
+            _resultView.ReviewClicked += (sender, e) => _resultView.TogglePanelScoreCard();
+            _resultView.CloseClicked += (sender, e) => _resultView.TogglePanelScoreCard();
+            _resultView.ContinueClicked += (sender, e) => OnSessionEnded?.Invoke();
         }
 
         public void ShowResult()
@@ -62,7 +62,20 @@ namespace tkpl.Controller
                 _resultView.AddScoreCardPanel(creator.CreateCard());
             }
 
-            _resultView.SetResult(totalScore, maxScore, answeredCount, skippedCount, _sessionTime);
+            string scoreText = $"{totalScore:0.##}/{maxScore:0.##}";
+            string answeredText = $"{answeredCount}";
+            string skippedText = $"{skippedCount}";
+            
+            string sessionTimeText;
+            if (_sessionTime.TotalMinutes >= 1)
+                sessionTimeText = $"{(int)_sessionTime.TotalMinutes}m {_sessionTime.Seconds}s";
+            else
+                sessionTimeText = $"{_sessionTime.Seconds}s";
+
+            int percentage = maxScore > 0 ? (int)((totalScore * 100) / maxScore) : 0;
+            string progressPercentageText = $"{percentage}%";
+
+            _resultView.SetResult(scoreText, answeredText, skippedText, sessionTimeText, percentage, progressPercentageText);
             _resultView.Show();
         }
     }
