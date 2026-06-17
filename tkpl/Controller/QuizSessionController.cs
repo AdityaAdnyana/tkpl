@@ -20,9 +20,11 @@ namespace tkpl.Controller
         private int _currentQuestionIndex = 0;
         private DateTime _sessionStartTime;
         private readonly List<AnswerRecord> _answerRecords = new();
+        private int _levelId;
 
-        public QuizSessionController(Lesson lesson, QuizView quizView, LogicLevel logic)
+        public QuizSessionController(int levelId, Lesson lesson, QuizView quizView, LogicLevel logic)
         {
+            _levelId = levelId;
             _lesson = lesson;
             _quizView = quizView;
             _gameLogic = logic;
@@ -161,6 +163,8 @@ namespace tkpl.Controller
         /// </summary>
         private void ShowSessionResult()
         {
+            _userModel.UnlockLevel(_levelId + 1);
+
             TimeSpan sessionTime = DateTime.Now - _sessionStartTime;
 
             QuizSessionResult resultView = new QuizSessionResult();
