@@ -49,7 +49,8 @@ namespace tkpl.Controller
                 QuizView quizWindow = new QuizView();
 
                 // Ambil objek Singleton LogicLevel untuk mengontrol status level game
-                QuizSessionController session = new QuizSessionController(level, levelLesson, quizWindow, LogicLevel.Instance());
+                UserModel userModel = new UserModel();
+                QuizSessionController session = new QuizSessionController(level, levelLesson, quizWindow, LogicLevel.Instance(), userModel);
 
                 _homepageView.Hide();
 

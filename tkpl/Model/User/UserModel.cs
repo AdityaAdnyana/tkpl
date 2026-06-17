@@ -5,7 +5,7 @@ using System.Text;
 
 namespace tkpl.Model.User
 {
-    internal class UserModel : IUserModel
+    public class UserModel : IUserModel
     {
         private User user;
         private bool isLoggedIn = false;

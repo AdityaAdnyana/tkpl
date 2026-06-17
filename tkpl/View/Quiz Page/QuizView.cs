@@ -83,9 +83,19 @@ namespace tkpl
             return btSkip;
         }
 
-        public void ShowMessage(string message, string title, MessageBoxIcon icon = MessageBoxIcon.Information)
+        public void ShowInfoMessage(string message, string title)
         {
-            MessageBox.Show(message, title, MessageBoxButtons.OK, icon);
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public void ShowWarningMessage(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        public void ShowErrorMessage(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
