@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using tkpl.Model.HomePage;
 using tkpl.Model.User;
 
 namespace tkpl.View.User_Page
@@ -13,11 +14,12 @@ namespace tkpl.View.User_Page
     public partial class LoginPage : Form
     {
         UserModel userModel = new UserModel();
-        Homepage homepage = new Homepage();
-        SigninPage signinPage = new SigninPage();
+        StateMachine stateMachine = new StateMachine();
+
         public LoginPage()
         {
             InitializeComponent();
+            stateMachine.TransitionState("login");
             TbPassword.UseSystemPasswordChar = true;
 
         }
@@ -45,6 +47,7 @@ namespace tkpl.View.User_Page
             if (userModel.Login(username, password))
             {
                 MessageBox.Show("Login Berhasil!");
+                Homepage homepage = new Homepage();
                 homepage.FormClosed += (s, args) => this.Close();
                 homepage.Show();
                 this.Hide();
@@ -56,7 +59,8 @@ namespace tkpl.View.User_Page
         }
 
         private void BtnSignIn_Click(object sender, EventArgs e)
-        {
+        {   
+            SigninPage signinPage = new SigninPage();
             signinPage.FormClosed += (s, args) => this.Close();
             signinPage.Show();
             this.Hide();

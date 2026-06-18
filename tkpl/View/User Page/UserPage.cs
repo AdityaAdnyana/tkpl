@@ -103,11 +103,7 @@ namespace tkpl.View.User_Page
             // Pastikan tabel meng-generate kolom secara otomatis sesuai properti kelas
             dataGridViewReport.AutoGenerateColumns = true;
 
-            // Merapikan Tampilan Kolom
-            if (dataGridViewReport.Columns["Lesson"] != null)
-            {
-                dataGridViewReport.Columns["Lesson"].Visible = false;
-            }
+            //int id, string questionText, string correctAnswer, int questionIndex, bool isUserCorrect
 
             // Mengubah teks judul kolom agar lebih enak dibaca pengguna
             if (dataGridViewReport.Columns["id"] != null)
@@ -116,11 +112,16 @@ namespace tkpl.View.User_Page
             if (dataGridViewReport.Columns["QuestionText"] != null)
                 dataGridViewReport.Columns["QuestionText"].HeaderText = "Soal Evaluasi";
 
-            if (dataGridViewReport.Columns["IsCorrect"] != null)
-                dataGridViewReport.Columns["IsCorrect"].HeaderText = "Status (Benar/Salah)";
 
             if (dataGridViewReport.Columns["CorrectAnswer"] != null)
                 dataGridViewReport.Columns["CorrectAnswer"].HeaderText = "Kunci Jawaban";
+
+            if (dataGridViewReport.Columns["questionIndex"] != null)
+                dataGridViewReport.Columns["questionIndex"].HeaderText = "Nomor Soal";
+
+            if (dataGridViewReport.Columns["IsCorrect"] != null)
+                dataGridViewReport.Columns["IsCorrect"].HeaderText = "Status (Benar/Salah)";
+
 
             // Membuat lebar kolom otomatis menyesuaikan panjang teks soal
             dataGridViewReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

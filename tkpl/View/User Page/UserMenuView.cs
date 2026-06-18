@@ -7,14 +7,17 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using tkpl.Controller;
+using tkpl.Model.HomePage;
 
 namespace tkpl.View.User_Page
 {
     public partial class UserMenuView : Form
     {
+        StateMachine stateMachine = new StateMachine();
         public UserMenuView()
         {
             InitializeComponent();
+            stateMachine.TransitionState("userMenu");
         }
 
         public static Label GenerateLabel(string insert)
