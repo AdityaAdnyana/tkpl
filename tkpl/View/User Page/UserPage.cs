@@ -86,6 +86,7 @@ namespace tkpl.View.User_Page
             // Menghilangkan baris kosong tambahan di paling bawah
             dataGridViewReport.AllowUserToAddRows = false;
             // Pengguna tidak bisa menghapus baris dengan tombol Delete
+
             dataGridViewReport.AllowUserToDeleteRows = false;   
            
             
