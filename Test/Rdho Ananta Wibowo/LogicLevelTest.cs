@@ -72,8 +72,9 @@ namespace Test.Rdho_Ananta_Wibowo
         [Fact]
         public void DecreaseLives_ShouldNotifyRegisteredObservers()
         {
-            // Arrange
             var logicLevel = LogicLevel.Instance();
+
+            // SOLUSI KUNCI: Paksa reset nyawa secara eksplisit ke 3 menggunakan parameter totalQuestions = 9 (9 / 3 = 3)
             logicLevel.ResetLives(9);
 
             var mockObserver = new MockLivesObserver();
@@ -84,9 +85,10 @@ namespace Test.Rdho_Ananta_Wibowo
 
             // Assert
             Assert.True(mockObserver.UpdateCalled);
+            // Sekarang nilai awal dijamin pasti 3, dan setelah dikurangi pasti menjadi 2!
             Assert.Equal(2, mockObserver.UpdatedLives);
 
-            // Clean up observer agar tidak mengganggu test lain
+            // Clean up observer agar tidak membocorkan event ke pengujian selanjutnya
             logicLevel.Unsubscribe(mockObserver);
         }
     }
