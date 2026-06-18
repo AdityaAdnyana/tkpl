@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static API.Model.QuizModel;
 using static API.Model.ReadingMaterial;
 
 namespace API.Controllers

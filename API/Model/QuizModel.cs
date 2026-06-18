@@ -28,7 +28,7 @@ namespace API.Model
 
             public List<EssayQuizModels> EssayQuizzes { get; set; } = new List<EssayQuizModels>();
             public List<ObjectiveQuizModels> ObjectiveQuizzes { get; set; } = new List<ObjectiveQuizModels>();
-            public List<ReadingMaterial.QuizImageModels> QuizImages { get; set; } = new List<ReadingMaterial.QuizImageModels>();
+            public List<QuizImageModels> QuizImages { get; set; } = new List<QuizImageModels>();
         }
 
         [Table("essay_quiz")]
