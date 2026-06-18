@@ -19,8 +19,6 @@ public static class RepoUser
         new User { id = 3, userName = "user2", password = "password2" }
     };
 
-
-
     private static readonly HttpClient _httpClient = new HttpClient
     {
         BaseAddress = new Uri("https://localhost:7021/")
@@ -65,19 +63,13 @@ public static class RepoUser
     {
         try
         {
-            
-            var newUser = new
-            {
-                User_Name = username,
-                password = password
-            };
 
-          
-          
-            var response = await _httpClient.PostAsJsonAsync("Register", newUser);
+            var newModule = new User(username, password);
 
-           
-            return response.IsSuccessStatusCode;
+            UserTable.Add(newModule);
+
+            return true;
+
         }
         catch (Exception ex)
         {
