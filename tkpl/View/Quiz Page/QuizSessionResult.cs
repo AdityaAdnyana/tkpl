@@ -22,7 +22,7 @@ namespace tkpl.View
         /// </summary>
         public void ClearScoreCards()
         {
-            fLScore.Controls.Clear();
+            scoreFlowPanel.Controls.Clear();
         }
 
         /// <summary>
@@ -31,56 +31,49 @@ namespace tkpl.View
         /// </summary>
         public void AddScoreCardPanel(Panel panel)
         {
-            fLScore.Controls.Add(panel);
+            scoreFlowPanel.Controls.Add(panel);
         }
 
         /// <summary>
         /// Menampilkan ringkasan hasil sesi quiz: skor, jumlah dijawab, dan persentase progress.
         /// Mengaktifkan panel review agar score card dapat dilihat.
         /// </summary>
-        public void SetResult(decimal totalScore, decimal maxScore, int answeredQuestions, int skippedQuestions, TimeSpan sessionTime)
+        public void SetResult(string scoreText, string answeredText, string skippedText, string sessionTimeText, int progressPercentage, string progressPercentageText)
         {
-            lbTotalScoreVal.Text = $"{totalScore:0.##}/{maxScore:0.##}";
-            lbAnsweredVal.Text = $"{answeredQuestions}";
-            lbSkippedVal.Text = $"{skippedQuestions}";
-            
-            // Format time as "mm:ss" if more than 60s, or just "ss s"
-            if (sessionTime.TotalMinutes >= 1)
-                lbSessionTimeVal.Text = $"{(int)sessionTime.TotalMinutes}m {sessionTime.Seconds}s";
-            else
-                lbSessionTimeVal.Text = $"{sessionTime.Seconds}s";
+            totalScoreLabel.Text = scoreText;
+            answeredCountLabel.Text = answeredText;
+            skippedCountLabel.Text = skippedText;
+            sessionTimeLabel.Text = sessionTimeText;
 
-            int percentage = maxScore > 0 ? (int)((totalScore * 100) / maxScore) : 0;
-            progressValue.Maximum = 100;
-            progressValue.Value = percentage;
-            lbProgressValue.Text = $"{percentage}%";
+            sessionProgressBar.Maximum = 100;
+            sessionProgressBar.Value = progressPercentage;
+            progressPercentageLabel.Text = progressPercentageText;
 
             // Mengaktifkan panel review agar user dapat melihat score cards
-            panelScoreCard.Enabled = true;
+            scoreCardPanel.Enabled = true;
         }
 
-        public Button GetBtReview() => btReview;
-
-
-        public Button GetBtClose() => btClose;
-
-
-        public Button GetBtContinue() => btContinue;
-        
-
-        public void ToglePanelScoreCard()
+        public event EventHandler ReviewClicked
         {
-            panelScoreCard.Visible = !panelScoreCard.Visible;
+            add { reviewButton.Click += value; }
+            remove { reviewButton.Click -= value; }
         }
 
-        private void QuizSessionResult_Load(object sender, EventArgs e)
+        public event EventHandler CloseClicked
         {
-
+            add { closeButton.Click += value; }
+            remove { closeButton.Click -= value; }
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        public event EventHandler ContinueClicked
         {
+            add { continueButton.Click += value; }
+            remove { continueButton.Click -= value; }
+        }
 
+        public void TogglePanelScoreCard()
+        {
+            scoreCardPanel.Visible = !scoreCardPanel.Visible;
         }
     }
 }

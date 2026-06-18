@@ -1,10 +1,10 @@
-using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using tkpl.Model;
 using tkpl.Model.User;
 using tkpl.View;
+using tkpl.View.Factory.ImageControl;
 using tkpl.View.Factory.QuizControl;
 using tkpl.View.Factory.ScoreCard;
 
@@ -12,21 +12,28 @@ namespace tkpl.Controller
 {
     public class QuizSessionController
     {
-        private Lesson _lesson;
-        private QuizView _quizView;
-        private LogicLevel _gameLogic;
-        private UserModel _userModel;
-        private int _userId;
+        private readonly Lesson _lesson;
+        private readonly QuizView _quizView;
+        private readonly LogicLevel _gameLogic;
+        private readonly UserModel _userModel;
+        private readonly int _levelId;
+        private readonly int _userId;
+        private readonly List<AnswerRecord> _answerRecords = new();
+        
         private int _currentQuestionIndex = 0;
         private DateTime _sessionStartTime;
-        private readonly List<AnswerRecord> _answerRecords = new();
 
-        public QuizSessionController(Lesson lesson, QuizView quizView, LogicLevel logic)
+        /// <summary>
+        /// Inisialisasi QuizSessionController.
+        /// Menggunakan Dependency Injection untuk UserModel guna mengurangi tight coupling.
+        /// </summary>
+        public QuizSessionController(int levelId, Lesson lesson, QuizView quizView, LogicLevel logic, UserModel userModel)
         {
+            _levelId = levelId;
             _lesson = lesson;
             _quizView = quizView;
             _gameLogic = logic;
-            _userModel = new UserModel();
+            _userModel = userModel;
             _userId = _userModel.GetUserId();
 
             SetupGuiQuizViewEvent();
@@ -34,125 +41,141 @@ namespace tkpl.Controller
 
         private void SetupGuiQuizViewEvent()
         {
-            _quizView.GetBtSkip().Click += HandleSkipQuestion;
+            _quizView.SkipClicked += HandleSkipQuestion;
         }
 
         private void HandleSkipQuestion(object sender, EventArgs e)
         {
-            if (_currentQuestionIndex >= _lesson.Questions.Count) return;
+            try
+            {
+                if (_currentQuestionIndex >= _lesson.Questions.Count) return;
 
-            string questionText = _lesson.Questions[_currentQuestionIndex].QuestionText;
-            decimal scoreWeight = _lesson.Questions[_currentQuestionIndex].ScoreWeight;
-            string correctAnswer = _lesson.Questions[_currentQuestionIndex].GetExpectedAnswerAsString();
-            _answerRecords.Add(new AnswerRecord(questionText, "-", correctAnswer, "Skipped", scoreWeight));
+                string questionText = _lesson.Questions[_currentQuestionIndex].QuestionText;
+                decimal scoreWeight = _lesson.Questions[_currentQuestionIndex].ScoreWeight;
+                string correctAnswer = _lesson.Questions[_currentQuestionIndex].GetExpectedAnswerAsString();
+                
+                _answerRecords.Add(new AnswerRecord(questionText, "-", correctAnswer, AnswerStatus.Skipped, scoreWeight));
 
-            _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
-            _currentQuestionIndex++;
-            ShowQuestion(_currentQuestionIndex);
+                _currentQuestionIndex++;
+                ShowQuestion(_currentQuestionIndex);
+            }
+            catch (Exception ex)
+            {
+                _quizView.ShowErrorMessage($"Terjadi kesalahan saat melewati soal: {ex.Message}", "Error");
+            }
         }
 
+        /// <summary>
+        /// Memulai sesi kuis baru, me-reset state, dan menampilkan soal pertama.
+        /// </summary>
         public void StartSession()
         {
-            // Mendaftarkan Observer (QuizView) ke Publisher (LogicLevel)
-            _gameLogic.Subscribe(_quizView);
-
-            // Reset nyawa berdasarkan jumlah soal pada sesi ini (integer div 3)
-            _gameLogic.ResetLives(_lesson.Questions.Count);
-
-            // Inisialisasi GUI nyawa awal
-            _quizView.UpdateHealthVal(_gameLogic._currentLives);
-
-            _currentQuestionIndex = 0;
-            _answerRecords.Clear();
-            _sessionStartTime = DateTime.Now;
-
-            if (_lesson.Questions.Count > 0)
+            try
             {
-                _quizView.InitProgressBar(_lesson.Questions.Count, _currentQuestionIndex);
-                ShowQuestion(_currentQuestionIndex);
-                _quizView.Show();
+                // Mendaftarkan Observer (QuizView) ke Publisher (LogicLevel)
+                _gameLogic.Subscribe(_quizView);
+
+                // Reset nyawa berdasarkan jumlah soal pada sesi ini (integer div 3)
+                _gameLogic.ResetLives(_lesson.Questions.Count);
+
+                // Inisialisasi GUI nyawa awal
+                _quizView.UpdateHealthVal(_gameLogic.CurrentLives);
+
+                _currentQuestionIndex = 0;
+                _answerRecords.Clear();
+                _sessionStartTime = DateTime.Now;
+
+                if (_lesson.Questions.Count > 0)
+                {
+                    _quizView.InitProgressBar(_lesson.Questions.Count, _currentQuestionIndex);
+                    ShowQuestion(_currentQuestionIndex);
+                    _quizView.Show();
+                }
+                else
+                {
+                    _quizView.ShowWarningMessage("Tidak ada soal dalam lesson ini.", "Informasi");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                _quizView.ShowMessage("Tidak ada soal dalam lesson ini.", "Informasi", MessageBoxIcon.Warning);
+                _quizView.ShowErrorMessage($"Gagal memulai sesi kuis: {ex.Message}", "Error");
             }
         }
 
-        // Metode ini menampilkan soal berdasarkan indeks saat ini
         private void ShowQuestion(int index)
         {
-            // Pengecekan Batas Akhir Kuis
-            if (index >= _lesson.Questions.Count)
+            try
             {
-                _quizView.UpdateProgressBarValue(_lesson.Questions.Count);
-                ShowSessionResult();
-                return;
+                if (index >= _lesson.Questions.Count)
+                {
+                    _quizView.UpdateProgressBarValue(_lesson.Questions.Count);
+                    ShowSessionResult();
+                    return;
+                }
+
+                _quizView.UpdateProgressBarValue(index);
+                IQuestion currentQuestion = _lesson.Questions[index];
+                _quizView.SetQuestionText(currentQuestion.QuestionText);
+                _quizView.ClearControls();
+
+                if (!string.IsNullOrEmpty(currentQuestion.ImagePath))
+                {
+                    var imageCreator = new QuestionImageCreator();
+                    Control imgControl = imageCreator.CreateImageControl(currentQuestion.ImagePath);
+                    _quizView.AddControl(imgControl);
+                }
+
+                QuizControlCreator creator = QuizControlCreatorFactory.Create(currentQuestion, HandleAnswer);
+
+                if (creator != null)
+                {
+                    creator.RenderControls(_quizView);
+                }
             }
-
-            _quizView.UpdateProgressBarValue(index);
-            IQuestion currentQuestion = _lesson.Questions[index];
-            _quizView.SetQuestionText(currentQuestion.QuestionText);
-            _quizView.ClearControls();
-
-            // Menggunakan Factory untuk gambar jika soal memiliki gambar
-            if (!string.IsNullOrEmpty(currentQuestion.ImagePath))
+            catch (Exception ex)
             {
-                tkpl.View.Factory.ImageControl.ImageControlCreator imageCreator = new tkpl.View.Factory.ImageControl.QuestionImageCreator();
-                Control imgControl = imageCreator.CreateImageControl(currentQuestion.ImagePath);
-                _quizView.AddControl(imgControl);
-            }
-
-            // Menggunakan Factory Method Pattern untuk membuat kontrol UI quiz.
-            QuizControlCreator creator = QuizControlCreatorFactory.Create(currentQuestion, HandleAnswer);
-
-            if (creator != null)
-            {
-                // Client code — bekerja dengan creator melalui base interface
-                creator.RenderControls(_quizView);
+                _quizView.ShowErrorMessage($"Gagal memuat soal: {ex.Message}", "Error");
             }
         }
 
         private void HandleAnswer(bool isCorrect, string userAnswer)
         {
-            int questionIndex = _currentQuestionIndex;
-            string questionText = _lesson.Questions[questionIndex].QuestionText;
-            decimal scoreWeight = _lesson.Questions[questionIndex].ScoreWeight;
-            string correctAnswer = _lesson.Questions[questionIndex].GetExpectedAnswerAsString();
-
-            // Menerapkan prinsip DRY: Catat jawaban satu kali saja
-            string status = isCorrect ? "Correct" : "Wrong";
-            _answerRecords.Add(new AnswerRecord(questionText, userAnswer, correctAnswer, status, scoreWeight));
-            
-
-            if (isCorrect)
+            try
             {
-                _quizView.ShowMessage("Jawaban Anda Benar!", "Hasil", MessageBoxIcon.Information);
-            }
-            else
-            {
-                // Mengurangi nyawa via Publisher, Observer (QuizView) akan otomatis di-update
-                _gameLogic.DecreaseLives();
-                
-                _quizView.ShowMessage($"Jawaban Anda Salah.\nSisa Nyawa: {_gameLogic._currentLives}", "Hasil", MessageBoxIcon.Warning);
+                int questionIndex = _currentQuestionIndex;
+                string questionText = _lesson.Questions[questionIndex].QuestionText;
+                decimal scoreWeight = _lesson.Questions[questionIndex].ScoreWeight;
+                string correctAnswer = _lesson.Questions[questionIndex].GetExpectedAnswerAsString();
 
-                // Menerapkan Early Return jika game over
-                if (_gameLogic._currentLives <= 0)
+                AnswerStatus status = isCorrect ? AnswerStatus.Correct : AnswerStatus.Wrong;
+                _answerRecords.Add(new AnswerRecord(questionText, userAnswer, correctAnswer, status, scoreWeight));
+
+                if (isCorrect)
                 {
-                    _quizView.ShowMessage("NYAWA HABIS!", "Game Over", MessageBoxIcon.Error);
-                    ShowSessionResult();
-                    return;
+                    _quizView.ShowInfoMessage("Jawaban Anda Benar!", "Hasil");
                 }
-            }
+                else
+                {
+                    _gameLogic.DecreaseLives();
+                    _quizView.ShowWarningMessage($"Jawaban Anda Salah.\nSisa Nyawa: {_gameLogic.CurrentLives}", "Hasil");
 
-            
-            ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, questionText, correctAnswer, _currentQuestionIndex, isCorrect));
-            
-            // Lanjut ke soal berikutnya untuk jawaban benar dan salah (yang nyawanya masih > 0)
-            _quizView.UpdateProgressBarValue(_currentQuestionIndex + 1);
-            _currentQuestionIndex++;
-            ShowQuestion(_currentQuestionIndex);
-           
-            
+                    if (_gameLogic.CurrentLives <= 0)
+                    {
+                        _quizView.ShowErrorMessage("NYAWA HABIS!", "Game Over");
+                        ShowSessionResult();
+                        return;
+                    }
+                }
+
+                ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, questionText, correctAnswer, _currentQuestionIndex, isCorrect));
+
+                _currentQuestionIndex++;
+                ShowQuestion(_currentQuestionIndex);
+            }
+            catch (Exception ex)
+            {
+                _quizView.ShowErrorMessage($"Terjadi kesalahan saat memproses jawaban: {ex.Message}", "Error");
+            }
         }
 
         /// <summary>
@@ -161,18 +184,27 @@ namespace tkpl.Controller
         /// </summary>
         private void ShowSessionResult()
         {
-            TimeSpan sessionTime = DateTime.Now - _sessionStartTime;
+            try
+            {
+                _userModel.UnlockLevel(_levelId + 1);
 
-            QuizSessionResult resultView = new QuizSessionResult();
-            QuizSessionResultController resultController = new QuizSessionResultController(resultView, _answerRecords, sessionTime);
-            
-            resultController.OnSessionEnded += () => {
-                _quizView.Close();
-                resultView.Close();
-            };
+                TimeSpan sessionTime = DateTime.Now - _sessionStartTime;
 
-            _quizView.Hide();
-            resultController.ShowResult();
+                QuizSessionResult resultView = new QuizSessionResult();
+                QuizSessionResultController resultController = new QuizSessionResultController(resultView, _answerRecords, sessionTime);
+                
+                resultController.OnSessionEnded += () => {
+                    _quizView.Close();
+                    resultView.Close();
+                };
+
+                _quizView.Hide();
+                resultController.ShowResult();
+            }
+            catch (Exception ex)
+            {
+                _quizView.ShowErrorMessage($"Gagal menampilkan hasil sesi: {ex.Message}", "Error");
+            }
         }
     }
 }

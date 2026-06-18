@@ -134,6 +134,7 @@ public class LevelModuleDetailFromApi
 // Kelas-kelas ini merepresentasikan struktur data yang diterima dari API. Mereka digunakan untuk deserialisasi JSON dan kemudian diubah menjadi objek-objek level yang sesuai dalam MasterTable.
 public class ModuleFromApi
 {
+    // ini contoh clean attribute
     public int Module_ID { get; set; }
     public string Module_Name { get; set; }
     public List<LessonFromApi> Lessons { get; set; } = new List<LessonFromApi>();
