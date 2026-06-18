@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using tkpl.Controller;
 using tkpl.Model;
+using tkpl.Model.Reading_Material;
 using tkpl.View;
 using tkpl.View.Materi_Page;
 using tkpl.View.User_Page;
@@ -18,6 +19,13 @@ namespace tkpl
             AppConfig.LoadConfig();
 
             await RepoLevel.FetchLevelsFromApiAsync();
+            await RepoUser.FetchUsersFromApiAsync();
+            
+            await RepoReadingMaterial.FetchMaterialsFromApiAsync();
+            await RepoReadingMaterialImage.FetchImagesFromApiAsync();
+
+
+
 
             QuizView quizView = new QuizView();
             Homepage menuHomepage = new Homepage();

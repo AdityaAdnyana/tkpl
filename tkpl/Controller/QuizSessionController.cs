@@ -129,11 +129,44 @@ namespace tkpl.Controller
 
             if (isCorrect)
             {
-                _answerRecords.Add((questionText, userAnswer, "Correct"));
-                quizView.UpdateProgressBarValue(currentQuestionIndex + 1);
-                MessageBox.Show("Jawaban Anda Benar!", "Hasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                currentQuestionIndex++;
-                ShowQuestion(currentQuestionIndex);
+                int questionIndex = _currentQuestionIndex;
+                string questionText = _lesson.Questions[questionIndex].QuestionText;
+                decimal scoreWeight = _lesson.Questions[questionIndex].ScoreWeight;
+                string correctAnswer = _lesson.Questions[questionIndex].GetExpectedAnswerAsString();
+
+                AnswerStatus status = isCorrect ? AnswerStatus.Correct : AnswerStatus.Wrong;
+                _answerRecords.Add(new AnswerRecord(questionText, userAnswer, correctAnswer, status, scoreWeight));
+
+                if (isCorrect)
+                {
+                    _quizView.ShowInfoMessage("Jawaban Anda Benar!", "Hasil");
+                }
+                else
+                {
+                    _gameLogic.DecreaseLives();
+                    _quizView.ShowWarningMessage($"Jawaban Anda Salah.\nSisa Nyawa: {_gameLogic.CurrentLives}", "Hasil");
+
+                    if (_gameLogic.CurrentLives <= 0)
+                    {
+                        _quizView.ShowErrorMessage("NYAWA HABIS!", "Game Over");
+                        ShowSessionResult();
+                        return;
+                    }
+                }
+
+                ReportQuiz.QuizItems.Add(new ReportQuizItem(
+                    no: _answerRecords.Count,
+                    questionText: questionText,
+                    correctAnswer: correctAnswer,
+                    userAnswer: userAnswer,
+                    isCorrect: isCorrect,
+                    userId: _userId,
+                    quizId: 0,           // Quiz_ID tidak tersedia di sini; kolom nullable di DB
+                    levelId: _levelId
+                ));
+
+                _currentQuestionIndex++;
+                ShowQuestion(_currentQuestionIndex);
             }
             else
             {

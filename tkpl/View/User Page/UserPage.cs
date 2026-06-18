@@ -42,6 +42,7 @@ namespace tkpl.View.User_Page
 
         private async void uploadReport()
         {
+            if (ReportQuiz.QuizItems.Count == 0) return;
             bool isSaved = await ReportQuiz.SaveReportsToApiAsync();
 
             if (isSaved)
@@ -90,21 +91,28 @@ namespace tkpl.View.User_Page
             //int id, string questionText, string correctAnswer, int questionIndex, bool isUserCorrect
 
             // Mengubah teks judul kolom agar lebih enak dibaca pengguna
-            if (dataGridViewReport.Columns["id"] != null)
-                dataGridViewReport.Columns["id"].HeaderText = "No.";
+            if (dataGridViewReport.Columns["No"] != null)
+                dataGridViewReport.Columns["No"].HeaderText = "No.";
 
             if (dataGridViewReport.Columns["QuestionText"] != null)
                 dataGridViewReport.Columns["QuestionText"].HeaderText = "Soal Evaluasi";
 
-
             if (dataGridViewReport.Columns["CorrectAnswer"] != null)
                 dataGridViewReport.Columns["CorrectAnswer"].HeaderText = "Kunci Jawaban";
 
-            if (dataGridViewReport.Columns["questionIndex"] != null)
-                dataGridViewReport.Columns["questionIndex"].HeaderText = "Nomor Soal";
+            if (dataGridViewReport.Columns["UserAnswer"] != null)
+                dataGridViewReport.Columns["UserAnswer"].HeaderText = "Jawaban Anda";
 
             if (dataGridViewReport.Columns["IsCorrect"] != null)
                 dataGridViewReport.Columns["IsCorrect"].HeaderText = "Status (Benar/Salah)";
+
+            // Sembunyikan kolom internal yang tidak perlu ditampilkan ke user
+            if (dataGridViewReport.Columns["UserId"] != null)
+                dataGridViewReport.Columns["UserId"].Visible = false;
+            if (dataGridViewReport.Columns["QuizId"] != null)
+                dataGridViewReport.Columns["QuizId"].Visible = false;
+            if (dataGridViewReport.Columns["LevelId"] != null)
+                dataGridViewReport.Columns["LevelId"].Visible = false;
 
 
             // Membuat lebar kolom otomatis menyesuaikan panjang teks soal

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using tkpl.Model.User;
+using tkpl.View;
 
 namespace tkpl.View.User_Page
 {

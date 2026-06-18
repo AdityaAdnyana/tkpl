@@ -9,6 +9,12 @@ namespace API.Model
         [Key]
         public int User_ID { get; set; }
 
+        [Column("User_Name")]
+        public string User_Name { get; set; } = string.Empty;
+
+        [Column("password")]
+        public string password { get; set; } = string.Empty;
+
         public int? Current_Level_ID { get; set; }
 
         [Column("Report_Quiz")]
