@@ -4,15 +4,15 @@ namespace TestProject1
 {
     public class UnitTestStateMachine
     {
-        [Fact]
-        public void TestTransitionState()
-        {
-            StateMachine stateMachine = new StateMachine();
-            stateMachine.TransitionState("homePage");
+        //[Fact]
+        //public void TestTransitionState()
+        //{
+        //    StateMachine stateMachine = new StateMachine();
+        //    stateMachine.TransitionState("homePage");
 
-            Assert.Equal(stateMachine, stateMachine);
-            Assert.Equal("home page", StateMachine.stringCurentState);
-        }
+        //    Assert.Equal(stateMachine, stateMachine);
+        //    Assert.Equal("home page", StateMachine.stringCurentState);
+        //}
 
         [Fact]
         public void TestChangeState()

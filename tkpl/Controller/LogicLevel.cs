@@ -5,13 +5,9 @@ using tkpl.Model.Observer;
 
 namespace tkpl.Controller
 {
-    /// <summary>
-    /// Concrete Publisher (Subject) dalam Observer Pattern.
-    /// Mengelola daftar observer dan memberitahu mereka saat nyawa berubah.
-    /// Ref: https://refactoring.guru/design-patterns/observer
-    /// </summary>
     public class LogicLevel : ILivesSubject
     {
+        // 
         public int CurrentLives { get; private set; }
         private static LogicLevel _instance;
 
