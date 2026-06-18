@@ -1,6 +1,8 @@
 using System;
 using System.Windows.Forms;
 using tkpl.Controller;
+using tkpl.View.Materi_Page;
+using tkpl.View.User_Page;
 
 namespace tkpl.View
 {
@@ -73,13 +75,17 @@ namespace tkpl.View
             UserProfileView userProfile = new UserProfileView();
             userProfile.ShowDialog();
         }
-           
-        
 
         public Button GetBtnStartLevel1() => btnStartLevel1;
         public Button GetBtnStartLevel2() => btnStartLevel2;
         public Button GetBtnStartLevel3() => btnStartLevel3;
         public Button GetBtnExit() => btnExit;
+
+        private void btnToMateri_Click(object sender, EventArgs e)
+        {
+            MateriMenuPage materiMenuPage = new MateriMenuPage();
+            materiMenuPage.Show();
+        }
     }
-    
+
 }

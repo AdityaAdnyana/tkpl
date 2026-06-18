@@ -8,15 +8,18 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using tkpl.Controller;
+using tkpl.Model.HomePage;
 using tkpl.Model.Observer;
 
 namespace tkpl
 {
     public partial class QuizView : Form, ILivesObserver
     {
+        StateMachine stateMachine = new StateMachine(); 
         public QuizView()
         {
             InitializeComponent();
+            stateMachine.TransitionState("quiz");
         }
 
         // Method untuk membersihkan kontrol yang ada di dalam FlowLayoutPanel.

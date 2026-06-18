@@ -107,6 +107,7 @@ namespace tkpl.View
             btnToMateri.TabIndex = 6;
             btnToMateri.Text = "Materi";
             btnToMateri.UseVisualStyleBackColor = true;
+            btnToMateri.Click += btnToMateri_Click;
             // 
             // Homepage
             // 

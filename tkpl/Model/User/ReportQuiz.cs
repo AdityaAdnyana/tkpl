@@ -100,24 +100,6 @@ public class ReportQuizItem
         this.QuestionIndex = questionIndex;
         this.IsCorrect = isUserCorrect;
 
-        
-        //if (lesson.Questions != null && questionIndex >= 0 && questionIndex < lesson.Questions.Count)
-        //{
-        //    // Ambil soal Lesson
-        //    IQuestion targetQuestion = lesson.Questions[questionIndex];
-
-        //    // Tarik data langsung dari soal yang ditemukan
-        //    this.QuestionText = targetQuestion.QuestionText;
-        //    this.CorrectAnswer = targetQuestion.GetExpectedAnswerAsString(); 
-        //}
-        //else
-        //{
-        //    // Fallback jika indeks di luar jangkauan
-        //    this.QuestionText = "Soal tidak ditemukan";
-        //    this.CorrectAnswer = "N/A";
-
-
-        //}
     }
 }
 

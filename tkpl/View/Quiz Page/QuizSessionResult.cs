@@ -1,15 +1,18 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using tkpl.Model.HomePage;
 using tkpl.View.Factory.ScoreCard;
 
 namespace tkpl.View
 {
     public partial class QuizSessionResult : Form
     {
+        StateMachine stateMachine = new StateMachine();
         public QuizSessionResult()
         {
             InitializeComponent();
+            stateMachine.TransitionState("quiz");
         }
 
         /// <summary>

@@ -73,8 +73,8 @@ public static class RepoUser
             };
 
           
-            // blm selesai
-            var response = await _httpClient.PostAsJsonAsync("api/User/Register", newUser);
+          
+            var response = await _httpClient.PostAsJsonAsync("Register", newUser);
 
            
             return response.IsSuccessStatusCode;
