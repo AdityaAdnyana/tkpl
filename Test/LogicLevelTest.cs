@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using tkpl.Controller;
 using tkpl.Model.Observer;
+using Xunit;
 
-namespace Test.Rdho_Ananta_Wibowo
+namespace Test
 {
     public class MockLivesObserver : ILivesObserver
     {
-        public int UpdatedLives { get; private set; }
-        public bool UpdateCalled { get; private set; } = false;
+        public int UpdatedLives = 0;
+        public bool UpdateCalled = false;
 
         public void Update(int lives)
         {
@@ -18,66 +19,56 @@ namespace Test.Rdho_Ananta_Wibowo
         }
     }
 
-    public class SingletonPatternTests
+    public class SingletonFixture { }
+
+    [Collection("SingletonTests")]
+    public class SingletonPatternTests : IClassFixture<SingletonFixture>
     {
         [Fact]
         public void LogicLevel_Instance_ShouldAlwaysReturnSameInstance()
         {
-            // Arrange & Act
-            // Mengambil instance pertama dan kedua dari Singleton
             var firstCall = LogicLevel.Instance();
             var secondCall = LogicLevel.Instance();
 
-            // Assert
-            // 1. Memastikan objek tidak bernilai null setelah dipanggil
             Assert.NotNull(firstCall);
-
             Assert.Same(firstCall, secondCall);
         }
 
         [Fact]
         public void LogicLevel_State_ShouldBeSharedAcrossInstances()
         {
-            // Arrange
             var instance1 = LogicLevel.Instance();
             var instance2 = LogicLevel.Instance();
 
-            // Atur nyawa awal lewat instance pertama
-            instance1.ResetLives(9); // 9 kuis / 3 = 3 nyawa
+            instance1.ResetLives(9);
 
-            // Act
-            // Kurangi nyawa menggunakan objek instance pertama
+            Assert.Equal(3, instance1.CurrentLives);
+            Assert.Equal(3, instance2.CurrentLives);
+
             instance1.DecreaseLives();
 
-            // Assert
-            // Memastikan perubahan state di instance1 otomatis berdampak pada instance2 karena mereka satu objek
             Assert.Equal(instance1.CurrentLives, instance2.CurrentLives);
             Assert.Equal(2, instance2.CurrentLives);
         }
     }
 
-    public class ObserverPatternTests
+
+    [Collection("SingletonTests")]
+    public class ObserverPatternTests : IClassFixture<SingletonFixture>
     {
-        [Fact]
-        public void LogicLevel_Is_True_Singleton()
-        {
-            // Act
-            var instance1 = LogicLevel.Instance();
-            var instance2 = LogicLevel.Instance();
-
-            // Assert
-            Assert.Same(instance1, instance2);
-        }
-
         [Fact]
         public void DecreaseLives_ShouldNotifyRegisteredObservers()
         {
             var logicLevel = LogicLevel.Instance();
 
-            // SOLUSI KUNCI: Paksa reset nyawa secara eksplisit ke 3 menggunakan parameter totalQuestions = 9 (9 / 3 = 3)
+            // Paksa reset ke kondisi awal
             logicLevel.ResetLives(9);
 
             var mockObserver = new MockLivesObserver();
+
+            Assert.False(mockObserver.UpdateCalled);
+            Assert.Equal(0, mockObserver.UpdatedLives);
+
             logicLevel.Subscribe(mockObserver);
 
             // Act
@@ -85,10 +76,9 @@ namespace Test.Rdho_Ananta_Wibowo
 
             // Assert
             Assert.True(mockObserver.UpdateCalled);
-            // Sekarang nilai awal dijamin pasti 3, dan setelah dikurangi pasti menjadi 2!
             Assert.Equal(2, mockObserver.UpdatedLives);
 
-            // Clean up observer agar tidak membocorkan event ke pengujian selanjutnya
+            // Clean up wajib dilakukan di akhir agar list kembali kosong
             logicLevel.Unsubscribe(mockObserver);
         }
     }

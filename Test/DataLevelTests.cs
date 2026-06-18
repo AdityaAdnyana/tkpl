@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Test.Rdho_Ananta_Wibowo
+namespace Test
 {
     public class DataLevelTests
     {
