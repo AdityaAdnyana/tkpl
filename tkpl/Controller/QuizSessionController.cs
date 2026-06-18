@@ -167,7 +167,16 @@ namespace tkpl.Controller
                     }
                 }
 
-                ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, questionText, correctAnswer, _currentQuestionIndex, isCorrect));
+                ReportQuiz.QuizItems.Add(new ReportQuizItem(
+                    no: _answerRecords.Count,
+                    questionText: questionText,
+                    correctAnswer: correctAnswer,
+                    userAnswer: userAnswer,
+                    isCorrect: isCorrect,
+                    userId: _userId,
+                    quizId: 0,           // Quiz_ID tidak tersedia di sini; kolom nullable di DB
+                    levelId: _levelId
+                ));
 
                 _currentQuestionIndex++;
                 ShowQuestion(_currentQuestionIndex);

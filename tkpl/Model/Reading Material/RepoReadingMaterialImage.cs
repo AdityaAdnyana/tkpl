@@ -36,7 +36,7 @@ namespace tkpl.Model.Reading_Material
             try
             {
                 
-                var imagesFromAPI = await _httpClient.GetFromJsonAsync<List<ImageFromAPI>>("ImageFromAPI");
+                var imagesFromAPI = await _httpClient.GetFromJsonAsync<List<ImageFromAPI>>("reading_material_image");
 
                 if (imagesFromAPI != null)
                 {

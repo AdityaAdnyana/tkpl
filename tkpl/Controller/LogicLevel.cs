@@ -19,7 +19,7 @@ namespace tkpl.Controller
 
         private LogicLevel()
         {
-            CurrentLives = 3; // Default sementara, akan direset saat StartSession
+            CurrentLives = 3;
         }
 
         public static LogicLevel Instance()

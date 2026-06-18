@@ -31,7 +31,8 @@ public class Lesson : ILevelComponent
     }
 }
 
-// Composite yang bisa berisi Lesson atau bahkan Sub-Module di masa depan. Modul akan menghitung total nyawa berdasarkan komponen-komponen yang ada di dalamnya.
+// Composite yang bisa berisi Lesson atau bahkan Sub-Module di masa depan.
+// Modul akan menghitung total nyawa berdasarkan komponen-komponen yang ada di dalamnya.
 public class Module : ILevelComponent
 {
     public int ModuleId { get; set; }

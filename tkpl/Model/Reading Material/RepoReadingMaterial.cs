@@ -36,14 +36,14 @@ namespace tkpl.Model.Reading_Material
             }
         }
 
-        
+
 
         public static async Task FetchMaterialsFromApiAsync()
         {
             try
             {
-              
-                var materialsFromAPI = await _httpClient.GetFromJsonAsync<List<ReadingMaterialFromAPI>>("ReadingMaterialFromAPI");
+
+                var materialsFromAPI = await _httpClient.GetFromJsonAsync<List<ReadingMaterialFromAPI>>("reading_material");
 
                 if (materialsFromAPI != null)
                 {
@@ -73,7 +73,7 @@ namespace tkpl.Model.Reading_Material
         public class ReadingMaterialFromAPI
         {
             public int Reading_Material_ID { get; set; }
-            public int Module_ID { get; set; } 
+            public int Module_ID { get; set; }
             public string title { get; set; }
             public string string_material { get; set; }
         }
