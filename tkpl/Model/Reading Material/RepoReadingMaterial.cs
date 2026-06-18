@@ -19,6 +19,11 @@ namespace tkpl.Model.Reading_Material
             BaseAddress = new Uri("https://localhost:7021/")
         };
 
+        static RepoReadingMaterial()
+        {
+            InitializeFallbackData();
+        }
+
         // Data cadangan jika API mati (diambil dari SQL Anda)
         private static void InitializeFallbackData()
         {
@@ -31,11 +36,13 @@ namespace tkpl.Model.Reading_Material
             }
         }
 
+        
+
         public static async Task FetchMaterialsFromApiAsync()
         {
             try
             {
-                // blms selesai
+              
                 var materialsFromAPI = await _httpClient.GetFromJsonAsync<List<ReadingMaterialFromAPI>>("ReadingMaterialFromAPI");
 
                 if (materialsFromAPI != null)

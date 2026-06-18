@@ -9,6 +9,7 @@ namespace tkpl.View.Materi_Page
 {
     public static class ReadingMaterialFactory
     {
+        
         public static ReadingMaterialDisplay CreateDisplayMaterial(int materialId)
         {
             var display = new ReadingMaterialDisplay();

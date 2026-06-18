@@ -18,7 +18,7 @@ namespace tkpl.Model.Reading_Material
             BaseAddress = new Uri("https://localhost:7021/")
         };
 
-        // Data cadangan jika API mati (diambil dari SQL Anda)
+        // Data cadangan jika API mati 
         private static void InitializeFallbackData()
         {
             if (MateriImageTable.Count == 0)
@@ -30,11 +30,12 @@ namespace tkpl.Model.Reading_Material
             }
         }
 
+
         public static async Task FetchImagesFromApiAsync()
         {
             try
             {
-                // blmn selesai
+                
                 var imagesFromAPI = await _httpClient.GetFromJsonAsync<List<ImageFromAPI>>("ImageFromAPI");
 
                 if (imagesFromAPI != null)

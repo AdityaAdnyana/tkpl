@@ -18,11 +18,19 @@ namespace tkpl.Model.User
             user = CurrentUser ?? new User();
         }
 
-        public void SingUp(string username, string password)
+        public async Task<bool> SignUp(string username, string password)
         {
-            user = new User(username, password);
-            user.id = ++idStart;
-            RepoUser.UserTable.Add(user);
+            
+            bool isRegistered = await RepoUser.RegisterUserAsync(username, password);
+            if(isRegistered)
+            {
+                user = new User(username, password);
+                user.id = ++idStart;
+                RepoUser.UserTable.Add(user);
+                CurrentUser = user;
+                isLoggedIn = true;
+            }
+            return isRegistered;
         }
 
         public bool Login(string username, string password)
