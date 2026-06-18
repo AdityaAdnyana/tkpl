@@ -126,9 +126,7 @@ public class LevelController : Controller
         return Ok($"Modul '{module.module_name}' (ID: {id}) beserta seluruh bab, materi, dan kuis di dalamnya berhasil dihapus.");
     }
 
-    // =========================================================================
-    // 6. READ (GET ALL) - Mengambil Data Level Module Detail
-    // =========================================================================
+    // READ (GET ALL) - Mengambil Data Level Module Detail
     [HttpGet("LevelModuleDetail")]
     public async Task<ActionResult> GetLevelModuleDetails()
     {
