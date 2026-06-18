@@ -5,13 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using tkpl.Model.User;
 
 namespace tkpl.View.User_Page
 {
     public partial class SigninPage : Form
     {
-        LoginPage loginPage = new LoginPage();
-        Homepage homepage = new Homepage();
+        
         public SigninPage()
         {
             InitializeComponent();
@@ -70,8 +70,9 @@ namespace tkpl.View.User_Page
 
             // Panggil metode dari RepoUser
             bool isSuccess = await RepoUser.RegisterUserAsync(inputUsername, inputPassword);
+            //bool isSuccess = await new UserModel().SignUp(inputUsername, inputPassword);
 
-            // 4. HASILNYA
+            
             if (isSuccess)
             {
                 MessageBox.Show("Pendaftaran berhasil! Silakan Login.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -80,6 +81,10 @@ namespace tkpl.View.User_Page
                 TbUsername.Clear();
                 TbPassword.Clear();
                 TbConPass.Clear();
+                //pindah page/forn ke homepage
+                Homepage homepage = new Homepage();
+                homepage.Show();
+                this.Hide();
             }
             else
             {
@@ -89,13 +94,12 @@ namespace tkpl.View.User_Page
             // Kembalikan tombol seperti semula
             BtSignIn.Text = "Sign In";
             BtSignIn.Enabled = true;
-            homepage.FormClosed += (s, args) => this.Close();
-            homepage.Show();
-            this.Hide();
+           
         }
 
         private void BtLogin_Click(object sender, EventArgs e)
         {
+            LoginPage loginPage = new LoginPage();
             loginPage.FormClosed += (s, args) => this.Close();
             loginPage.Show();
             this.Hide();

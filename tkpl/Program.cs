@@ -3,6 +3,8 @@ using System.Windows.Forms;
 using tkpl.Controller;
 using tkpl.Model;
 using tkpl.View;
+using tkpl.View.Materi_Page;
+using tkpl.View.User_Page;
 
 namespace tkpl
 {
@@ -19,7 +21,9 @@ namespace tkpl
 
             QuizView quizView = new QuizView();
             Homepage menuHomepage = new Homepage();
-            Application.Run(menuHomepage);
+            LoginPage loginPage = new LoginPage();
+            //MateriPage materiPage = new MateriPage(1); 
+            Application.Run(loginPage);
         }
     }
 }

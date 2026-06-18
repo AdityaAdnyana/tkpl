@@ -31,27 +31,16 @@ namespace tkpl.View.User_Page
 
             // Generate user details labels dynamically
             userMenuFacade.ViewUserInfo();
-            uploadReport(); 
+            uploadReport();
 
             // Create Logout Button programmatically
-            Button btnLogout = new Button();
-            btnLogout.Text = "Logout";
-            btnLogout.Location = new Point(800, 20);
-            btnLogout.Size = new Size(150, 40);
-            btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.FlatAppearance.BorderSize = 0;
-            btnLogout.BackColor = Color.FromArgb(220, 53, 69);
-            btnLogout.ForeColor = Color.White;
-            btnLogout.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnLogout.Cursor = Cursors.Hand;
-            btnLogout.Click += btnLogout_Click;
-            this.Controls.Add(btnLogout);
+
 
             // Wire up navigation/exit button
             this.BtnExit.Click += (s, e) => this.Close();
         }
 
-        private async void uploadReport() 
+        private async void uploadReport()
         {
             bool isSaved = await ReportQuiz.SaveReportsToApiAsync();
 
@@ -59,7 +48,7 @@ namespace tkpl.View.User_Page
             {
                 MessageBox.Show("Hasil kuis berhasil disimpan ke database!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-        
+
                 ReportQuiz.QuizItems.Clear();
 
             }
@@ -69,12 +58,7 @@ namespace tkpl.View.User_Page
             }
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            userModel.Logout();
-            MessageBox.Show("Anda telah logout dari sistem.", "Logout Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
-        }
+        
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -97,17 +81,21 @@ namespace tkpl.View.User_Page
 
         private void SetupTabelDinamis()
         {
+            // Sel tidak bisa diedit
+            dataGridViewReport.ReadOnly = true;
+            // Menghilangkan baris kosong tambahan di paling bawah
+            dataGridViewReport.AllowUserToAddRows = false;
+            // Pengguna tidak bisa menghapus baris dengan tombol Delete
+            dataGridViewReport.AllowUserToDeleteRows = false;   
+           
+            
             // Data Binding: Menyambungkan DataSource tabel langsung ke BindingList kita
             dataGridViewReport.DataSource = ReportQuiz.QuizItems;
 
             // Pastikan tabel meng-generate kolom secara otomatis sesuai properti kelas
             dataGridViewReport.AutoGenerateColumns = true;
 
-            // Merapikan Tampilan Kolom
-            if (dataGridViewReport.Columns["Lesson"] != null)
-            {
-                dataGridViewReport.Columns["Lesson"].Visible = false;
-            }
+            //int id, string questionText, string correctAnswer, int questionIndex, bool isUserCorrect
 
             // Mengubah teks judul kolom agar lebih enak dibaca pengguna
             if (dataGridViewReport.Columns["id"] != null)
@@ -116,14 +104,34 @@ namespace tkpl.View.User_Page
             if (dataGridViewReport.Columns["QuestionText"] != null)
                 dataGridViewReport.Columns["QuestionText"].HeaderText = "Soal Evaluasi";
 
-            if (dataGridViewReport.Columns["IsCorrect"] != null)
-                dataGridViewReport.Columns["IsCorrect"].HeaderText = "Status (Benar/Salah)";
 
             if (dataGridViewReport.Columns["CorrectAnswer"] != null)
                 dataGridViewReport.Columns["CorrectAnswer"].HeaderText = "Kunci Jawaban";
 
+            if (dataGridViewReport.Columns["questionIndex"] != null)
+                dataGridViewReport.Columns["questionIndex"].HeaderText = "Nomor Soal";
+
+            if (dataGridViewReport.Columns["IsCorrect"] != null)
+                dataGridViewReport.Columns["IsCorrect"].HeaderText = "Status (Benar/Salah)";
+
+
             // Membuat lebar kolom otomatis menyesuaikan panjang teks soal
             dataGridViewReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLogout_Click_1(object sender, EventArgs e)
+        {
+            userModel.Logout();
+            MessageBox.Show("Anda telah logout dari sistem.", "Logout Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LoginPage loginPage = new LoginPage();
+            loginPage.Show();
+            loginPage.FormClosed += (s, args) => this.Close(); // Close UserPage when LoginPage is closed
+            this.Close();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace tkpl.Model.User
     interface IUserModel
     {
 
-        void SingUp(string username, string password);
+        Task<bool> SignUp(string username, string password);
         bool Login(string username, string password);
 
         void Logout();
