@@ -82,6 +82,15 @@ namespace tkpl.View.User_Page
 
         private void SetupTabelDinamis()
         {
+            // Sel tidak bisa diedit
+            dataGridViewReport.ReadOnly = true;
+            // Menghilangkan baris kosong tambahan di paling bawah
+            dataGridViewReport.AllowUserToAddRows = false;
+            // Pengguna tidak bisa menghapus baris dengan tombol Delete
+
+            dataGridViewReport.AllowUserToDeleteRows = false;   
+           
+            
             // Data Binding: Menyambungkan DataSource tabel langsung ke BindingList kita
             dataGridViewReport.DataSource = ReportQuiz.QuizItems;
 

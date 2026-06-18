@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -20,5 +20,8 @@ namespace tkpl.Model.User
         string GetPassword();
 
         void SetPassword(string password);
+
+        int GetUnlockedLevel();
+        void UnlockLevel(int levelId);
     }
 }

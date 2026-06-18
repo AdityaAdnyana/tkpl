@@ -5,6 +5,7 @@ namespace tkpl.Model
     {
 
         public int Difficulty { get; set; }
+        public decimal ScoreWeight { get; set; }
         public string QuestionText { get; set; } = string.Empty;
         public string ImagePath { get; set; } = string.Empty;
         public T ExpectedAnswer { get; set; } = default!; // initialized to satisfy nullable-analysis (CS8618)

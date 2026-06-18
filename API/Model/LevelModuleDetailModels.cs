@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Model
@@ -7,15 +7,16 @@ namespace API.Model
     public class LevelModuleDetailModels
     {
         [Key]
-        public int Detail_ID { get; set; }
+        [Column("Detail_ID")]
+        public int DetailId { get; set; }
 
-        public int? Module_ID { get; set; }
-        public int? Level_ID { get; set; }
+        [Column("Module_ID")]
+        public int ModuleId { get; set; }
 
-        [ForeignKey("Module_ID")]
+        [Column("Level_ID")]
+        public int LevelId { get; set; }
+
         public ModuleModels? Module { get; set; }
-
-        [ForeignKey("Level_ID")]
         public LevelModels? Level { get; set; }
     }
 }

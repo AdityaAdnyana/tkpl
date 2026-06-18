@@ -22,7 +22,7 @@ namespace tkpl.View
         /// </summary>
         public void ClearScoreCards()
         {
-            fLScore.Controls.Clear();
+            scoreFlowPanel.Controls.Clear();
         }
 
         /// <summary>
@@ -31,49 +31,49 @@ namespace tkpl.View
         /// </summary>
         public void AddScoreCardPanel(Panel panel)
         {
-            fLScore.Controls.Add(panel);
+            scoreFlowPanel.Controls.Add(panel);
         }
 
         /// <summary>
         /// Menampilkan ringkasan hasil sesi quiz: skor, jumlah dijawab, dan persentase progress.
         /// Mengaktifkan panel review agar score card dapat dilihat.
         /// </summary>
-        public void SetResult(int correctAnswers, int totalQuestions)
+        public void SetResult(string scoreText, string answeredText, string skippedText, string sessionTimeText, int progressPercentage, string progressPercentageText)
         {
-            lbTotalScoreVal.Text = $"{correctAnswers}/{totalQuestions}";
-            lbAnsweredVal.Text = $"{totalQuestions}";
+            totalScoreLabel.Text = scoreText;
+            answeredCountLabel.Text = answeredText;
+            skippedCountLabel.Text = skippedText;
+            sessionTimeLabel.Text = sessionTimeText;
 
-            int percentage = totalQuestions > 0 ? (correctAnswers * 100) / totalQuestions : 0;
-            progressValue.Maximum = 100;
-            progressValue.Value = percentage;
-            lbProgressValue.Text = $"{percentage}%";
+            sessionProgressBar.Maximum = 100;
+            sessionProgressBar.Value = progressPercentage;
+            progressPercentageLabel.Text = progressPercentageText;
 
             // Mengaktifkan panel review agar user dapat melihat score cards
-            panelScoreCard.Enabled = true;
+            scoreCardPanel.Enabled = true;
         }
 
-        public Button GetBtReview() => btReview;
-
-
-        public Button GetBtClose() => btClose;
-
-
-        public Button GetBtContinue() => btContinue;
-        
-
-        public void ToglePanelScoreCard()
+        public event EventHandler ReviewClicked
         {
-            panelScoreCard.Visible = !panelScoreCard.Visible;
+            add { reviewButton.Click += value; }
+            remove { reviewButton.Click -= value; }
         }
 
-        private void QuizSessionResult_Load(object sender, EventArgs e)
+        public event EventHandler CloseClicked
         {
-
+            add { closeButton.Click += value; }
+            remove { closeButton.Click -= value; }
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        public event EventHandler ContinueClicked
         {
+            add { continueButton.Click += value; }
+            remove { continueButton.Click -= value; }
+        }
 
+        public void TogglePanelScoreCard()
+        {
+            scoreCardPanel.Visible = !scoreCardPanel.Visible;
         }
     }
 }

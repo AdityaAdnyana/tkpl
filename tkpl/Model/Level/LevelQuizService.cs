@@ -18,16 +18,17 @@ namespace tkpl.Model.Level
         /// <returns>Daftar pertanyaan yang telah disaring dan dipilih</returns>
         public List<IQuestion> GenerateQuizForLevel(int level)
         {
-            // Menentukan Modul: Level 1 & 2 -> Modul 0, Level 3 & 4 -> Modul 1
-            // Karena level dimulai dari 1, (level - 1) / 2 akan menghasilkan indeks yang benar
-            int moduleIndex = (level - 1) / 2;
-
-            if (moduleIndex < 0 || moduleIndex >= RepoLevel.MasterTable.Count)
+            if (!RepoLevel.LevelToModuleMap.TryGetValue(level, out int targetModuleId))
             {
-                throw new ArgumentException($"Modul untuk level {level} tidak ditemukan (Index {moduleIndex} di luar batas MasterTable).");
+                throw new ArgumentException($"Mapping modul untuk level {level} tidak ditemukan dalam database.");
             }
 
-            Module targetModule = RepoLevel.MasterTable[moduleIndex];
+            Module targetModule = RepoLevel.MasterTable.FirstOrDefault(m => m.ModuleId == targetModuleId);
+
+            if (targetModule == null)
+            {
+                throw new ArgumentException($"Modul dengan ID {targetModuleId} untuk level {level} tidak ditemukan dalam MasterTable.");
+            }
             List<IQuestion> allQuestions = GetAllQuestionsFromModule(targetModule);
 
             int countEasy = (level % 2 != 0) ? 5 : 3;

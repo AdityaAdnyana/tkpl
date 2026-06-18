@@ -28,7 +28,7 @@ namespace API.Model
 
             public List<EssayQuizModels> EssayQuizzes { get; set; } = new List<EssayQuizModels>();
             public List<ObjectiveQuizModels> ObjectiveQuizzes { get; set; } = new List<ObjectiveQuizModels>();
-            public List<ReadingMaterial.QuizImageModels> QuizImages { get; set; } = new List<ReadingMaterial.QuizImageModels>();
+            public List<QuizImageModels> QuizImages { get; set; } = new List<QuizImageModels>();
         }
 
         [Table("essay_quiz")]
@@ -84,6 +84,20 @@ namespace API.Model
             public ObjectiveQuizModels? ObjectiveQuiz { get; set; }
         }
 
+        [Table("quiz_image")]
+        public class QuizImageModels
+        {
+            [Key]
+            public int Quiz_Image_ID { get; set; }
 
+            public int? Quiz_ID { get; set; }
+
+            [Column("image_url")]
+            public string? Image_Url { get; set; }
+
+            [JsonIgnore]
+            [ForeignKey("Quiz_ID")]
+            public QuizModels? Quiz { get; set; }
+        }
     }
 }

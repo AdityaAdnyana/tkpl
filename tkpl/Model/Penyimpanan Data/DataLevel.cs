@@ -35,13 +35,15 @@ public class Lesson : ILevelComponent
 // Modul akan menghitung total nyawa berdasarkan komponen-komponen yang ada di dalamnya.
 public class Module : ILevelComponent
 {
+    public int ModuleId { get; set; }
     public string ModuleName { get; set; }
 
     private List<ILevelComponent> _components = new List<ILevelComponent>();
 
-    public  Module(string name)
+    public Module(int moduleId, string moduleName)
     {
-        ModuleName = name;
+        ModuleId = moduleId;
+        ModuleName = moduleName;
     }
 
     public string GetTitle() => ModuleName;

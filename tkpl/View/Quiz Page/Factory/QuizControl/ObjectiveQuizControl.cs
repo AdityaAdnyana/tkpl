@@ -29,7 +29,7 @@ namespace tkpl.View.Factory.QuizControl
             {
                 Button answerButton = new Button();
                 answerButton.Size = new Size(AppConfig.UI.AnswerButtonWidth, AppConfig.UI.AnswerButtonHeight);
-                answerButton.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.FontSize);
+                answerButton.Font = new Font(AppConfig.UI.FontFamily, AppConfig.UI.AnswerButtonFontSize);
                 answerButton.Text = option;
                 answerButton.UseVisualStyleBackColor = true;
                 answerButton.Visible = true;

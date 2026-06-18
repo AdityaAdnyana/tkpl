@@ -1,4 +1,4 @@
-﻿namespace tkpl
+namespace tkpl
 {
     partial class QuizView
     {
@@ -30,10 +30,10 @@
         {
             panel1 = new Panel();
             panel3 = new Panel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            answerPanel = new FlowLayoutPanel();
             panel4 = new Panel();
             btSkip = new Button();
-            label1 = new Label();
+            questionLabel = new Label();
             panel2 = new Panel();
             health = new Label();
             button1 = new Button();
@@ -57,9 +57,9 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(flowLayoutPanel1);
+            panel3.Controls.Add(answerPanel);
             panel3.Controls.Add(panel4);
-            panel3.Controls.Add(label1);
+            panel3.Controls.Add(questionLabel);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 55);
             panel3.Margin = new Padding(2);
@@ -67,13 +67,13 @@
             panel3.Size = new Size(1058, 609);
             panel3.TabIndex = 3;
             // 
-            // flowLayoutPanel1
+            // answerPanel
             // 
-            flowLayoutPanel1.Location = new Point(77, 219);
-            flowLayoutPanel1.Margin = new Padding(2);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(876, 279);
-            flowLayoutPanel1.TabIndex = 1;
+            answerPanel.Location = new Point(77, 219);
+            answerPanel.Margin = new Padding(2);
+            answerPanel.Name = "answerPanel";
+            answerPanel.Size = new Size(876, 279);
+            answerPanel.TabIndex = 1;
             // 
             // panel4
             // 
@@ -94,16 +94,16 @@
             btSkip.Text = "SKIP";
             btSkip.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // questionLabel
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(77, 38);
-            label1.Margin = new Padding(2, 0, 2, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(876, 179);
-            label1.TabIndex = 1;
-            label1.Text = "Aksara tradisional yang paling banyak digunakan di Indonesia adalah....";
+            questionLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            questionLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            questionLabel.Location = new Point(77, 38);
+            questionLabel.Margin = new Padding(2, 0, 2, 0);
+            questionLabel.Name = "questionLabel";
+            questionLabel.Size = new Size(876, 179);
+            questionLabel.TabIndex = 1;
+            questionLabel.Text = "Aksara tradisional yang paling banyak digunakan di Indonesia adalah....";
             // 
             // panel2
             // 
@@ -156,7 +156,6 @@
             Margin = new Padding(2);
             Name = "QuizView";
             Text = "Quiz";
-            Load += QuizView_Load;
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
@@ -169,10 +168,10 @@
 
         private Panel panel1;
         private Panel panel3;
-        private Label label1;
+        private Label questionLabel;
         private Panel panel2;
         private Panel panel4;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel answerPanel;
         private Button button1;
         private ProgressBar quizSessionProgressBar;
         private Label health;

@@ -66,21 +66,12 @@ namespace tkpl.View
             // btnUser
             // 
             btnUser.Location = new Point(21, 879);
-            btnUser.Name = "BtnUser";
-            btnUser.Size = new Size(150, 46);
-            btnUser.TabIndex = 3;
-            btnUser.Text = "User";
-            btnUser.UseVisualStyleBackColor = true;
-            btnUser.Click += BtnUser_Click_1;
-            btnUser.Location = new Point(21, 879);
             btnUser.Name = "btnUser";
             btnUser.Size = new Size(150, 46);
             btnUser.TabIndex = 3;
             btnUser.Text = "User";
             btnUser.UseVisualStyleBackColor = true;
-
-       
-
+            btnUser.Click += BtnUser_Click_1;
             // 
             // btnStartLevel2
             // 
@@ -99,7 +90,6 @@ namespace tkpl.View
             btnStartLevel3.TabIndex = 5;
             btnStartLevel3.Text = "Level3";
             btnStartLevel3.UseVisualStyleBackColor = true;
-            btnStartLevel3.Click += btnStartLevel3_Click;
             // 
             // btnToMateri
             // 
