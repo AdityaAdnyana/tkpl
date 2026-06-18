@@ -171,9 +171,9 @@ namespace tkpl.View
             pictureBox2.Location = new Point(44, 49);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(75, 75);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // totalScoreLabel
             // 
@@ -208,9 +208,9 @@ namespace tkpl.View
             pictureBox3.Location = new Point(44, 49);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(75, 75);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 3;
             pictureBox3.TabStop = false;
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // sessionTimeLabel
             // 
@@ -245,9 +245,9 @@ namespace tkpl.View
             pictureBox4.Location = new Point(44, 49);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(75, 75);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 3;
             pictureBox4.TabStop = false;
-            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // answeredCountLabel
             // 
@@ -282,9 +282,9 @@ namespace tkpl.View
             pictureBox5.Location = new Point(44, 49);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(75, 75);
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 3;
             pictureBox5.TabStop = false;
-            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // skippedCountLabel
             // 
