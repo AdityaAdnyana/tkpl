@@ -19,6 +19,11 @@ namespace tkpl.Model.Reading_Material
             BaseAddress = new Uri("https://localhost:7021/")
         };
 
+        static RepoReadingMaterial()
+        {
+            InitializeFallbackData();
+        }
+
         // Data cadangan jika API mati (diambil dari SQL Anda)
         private static void InitializeFallbackData()
         {
@@ -30,6 +35,8 @@ namespace tkpl.Model.Reading_Material
                 MaterialTable.Add(new ReadingMaterial { Reading_Material_ID = 4, Module_ID = 1, title = "Menjumlahkan Vektor dengan Metode Urai Vektor", string_material = "Metode analitis rumus cosinus memiliki kelemahan..." });
             }
         }
+
+        
 
         public static async Task FetchMaterialsFromApiAsync()
         {

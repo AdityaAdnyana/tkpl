@@ -16,7 +16,7 @@ namespace tkpl.View.User_Page
         StateMachine stateMachine = new StateMachine();
         public UserMenuView()
         {
-            InitializeComponent();
+            //InitializeComponent();
             stateMachine.TransitionState("userMenu");
         }
 

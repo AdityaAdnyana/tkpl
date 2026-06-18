@@ -38,7 +38,7 @@ public class Module : ILevelComponent
 
     private List<ILevelComponent> _components = new List<ILevelComponent>();
 
-    public Module(string name)
+    public  Module(string name)
     {
         ModuleName = name;
     }

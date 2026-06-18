@@ -66,19 +66,22 @@ namespace tkpl.View
             // 
             // btnUser
             // 
-            BtnUser.Location = new Point(21, 879);
-            BtnUser.Name = "BtnUser";
-            BtnUser.Size = new Size(150, 46);
-            BtnUser.TabIndex = 3;
-            BtnUser.Text = "User";
-            BtnUser.UseVisualStyleBackColor = true;
-            BtnUser.Click += BtnUser_Click_1;
+            btnUser.Location = new Point(21, 879);
+            btnUser.Name = "BtnUser";
+            btnUser.Size = new Size(150, 46);
+            btnUser.TabIndex = 3;
+            btnUser.Text = "User";
+            btnUser.UseVisualStyleBackColor = true;
+            btnUser.Click += BtnUser_Click_1;
             btnUser.Location = new Point(21, 879);
             btnUser.Name = "btnUser";
             btnUser.Size = new Size(150, 46);
             btnUser.TabIndex = 3;
             btnUser.Text = "User";
             btnUser.UseVisualStyleBackColor = true;
+
+       
+
             // 
             // btnStartLevel2
             // 
@@ -135,7 +138,5 @@ namespace tkpl.View
         private Button btnStartLevel2;
         private Button btnStartLevel3;
         private Button btnToMateri;
-
-
     }
 }

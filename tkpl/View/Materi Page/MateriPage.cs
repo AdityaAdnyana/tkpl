@@ -15,6 +15,8 @@ namespace tkpl.View.Materi_Page
         {
             InitializeComponent();
             this.currentMaterialId = currentMaterialId;
+            
+
         }
 
         private void Title_Click(object sender, EventArgs e)
@@ -22,9 +24,11 @@ namespace tkpl.View.Materi_Page
 
         }
 
+
         private void FormMateri_Load(object sender, EventArgs e)
         {
             
+
             ReadingMaterialDisplay displayData = ReadingMaterialFactory.CreateDisplayMaterial(currentMaterialId);
 
             

@@ -36,6 +36,7 @@
             label1 = new Label();
             dataGridViewReport = new DataGridView();
             label2 = new Label();
+            btnLogout = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewReport).BeginInit();
             SuspendLayout();
             // 
@@ -113,11 +114,23 @@
             label2.TabIndex = 13;
             label2.Text = "label1";
             // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = Color.IndianRed;
+            btnLogout.Location = new Point(840, 66);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(150, 46);
+            btnLogout.TabIndex = 14;
+            btnLogout.Text = "Log Out";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click_1;
+            // 
             // UserPage
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1017, 1068);
+            Controls.Add(btnLogout);
             Controls.Add(label2);
             Controls.Add(dataGridViewReport);
             Controls.Add(label1);
@@ -141,5 +154,6 @@
         private Label label1;
         private DataGridView dataGridViewReport;
         private Label label2;
+        private Button btnLogout;
     }
 }

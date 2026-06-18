@@ -139,6 +139,8 @@ public class LessonFromApi
     public int Lesson_ID { get; set; }
     public string Lesson_Name { get; set; }
 
+    public List<QuizFromApi> Quizzes { get; set; } = new List<QuizFromApi>();
+
 }
 
 public class UserFromAPI

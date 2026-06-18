@@ -72,8 +72,8 @@ namespace tkpl.View
 
         private void BtnUser_Click_1(object sender, EventArgs e)
         {
-            UserProfileView userProfile = new UserProfileView();
-            userProfile.ShowDialog();
+            UserPage userProfile = new UserPage();
+            userProfile.Show();
         }
 
         public Button GetBtnStartLevel1() => btnStartLevel1;
