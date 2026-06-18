@@ -118,9 +118,11 @@ namespace tkpl.View
             // 
             // pictureBox1
             // 
+            pictureBox1.Image = Properties.Resources.Cat_Thumbs_Up_Image;
             pictureBox1.Location = new Point(398, 42);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(250, 250);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
             // 
@@ -171,6 +173,7 @@ namespace tkpl.View
             pictureBox2.Size = new Size(75, 75);
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // totalScoreLabel
             // 
@@ -207,6 +210,7 @@ namespace tkpl.View
             pictureBox3.Size = new Size(75, 75);
             pictureBox3.TabIndex = 3;
             pictureBox3.TabStop = false;
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // sessionTimeLabel
             // 
@@ -243,6 +247,7 @@ namespace tkpl.View
             pictureBox4.Size = new Size(75, 75);
             pictureBox4.TabIndex = 3;
             pictureBox4.TabStop = false;
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // answeredCountLabel
             // 
@@ -279,6 +284,7 @@ namespace tkpl.View
             pictureBox5.Size = new Size(75, 75);
             pictureBox5.TabIndex = 3;
             pictureBox5.TabStop = false;
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // skippedCountLabel
             // 
@@ -478,7 +484,7 @@ namespace tkpl.View
             scoreCardPanel.Name = "scoreCardPanel";
             scoreCardPanel.Size = new Size(792, 588);
             scoreCardPanel.TabIndex = 10;
-            //scoreCardPanel.Hide();
+            scoreCardPanel.Hide();
             // 
             // QuizSessionResult
             // 
@@ -494,7 +500,6 @@ namespace tkpl.View
             Controls.Add(panel4);
             Name = "QuizSessionResult";
             Text = "Session Result";
-
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panelResult.ResumeLayout(false);
