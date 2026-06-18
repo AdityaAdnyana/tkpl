@@ -17,8 +17,6 @@ public static class RepoLevel
         BaseAddress = new Uri("https://localhost:7021/")
     };
 
-   
-
     public static async Task FetchLevelsFromApiAsync()
     {
         try
