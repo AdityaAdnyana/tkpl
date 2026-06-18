@@ -128,7 +128,5 @@ namespace tkpl.View
         private Button btnStartLevel2;
         private Button btnStartLevel3;
         private Button btnToMateri;
-
-
     }
 }

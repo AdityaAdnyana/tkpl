@@ -71,6 +71,7 @@
             Controls.Add(LbTitle);
             Name = "MateriPage";
             Text = "MateriPage";
+            Load += FormMateri_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

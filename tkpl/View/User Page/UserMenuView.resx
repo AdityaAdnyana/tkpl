@@ -55,7 +55,11 @@
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
+<<<<<<< HEAD
     value   : The object must be serialized into a byte array
+=======
+    value   : The object must be serialized into a byte array 
+>>>>>>> Farid-Abdurrochman
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
