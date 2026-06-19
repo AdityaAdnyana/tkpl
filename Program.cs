@@ -16,10 +16,13 @@ namespace tkpl
 
             ApplicationConfiguration.Initialize();
 
-            TempLessonInit dummyLesson = new();
-            Application.Run();
-            //Application.Run(new QuizPilihanGanda());
+            Application.Run(new QuizPilihanGanda());
 
+            TempLessonInit dummyLesson = new();
+
+
+            QuizPilihanGanda quizView = new QuizPilihanGanda();
+            
         }
     }
 }

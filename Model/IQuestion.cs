@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ImplemantasiGenericQuiz
+namespace tkpl.Model
 {
     internal interface IQuestion
     {

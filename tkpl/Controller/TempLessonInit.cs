@@ -1,7 +1,7 @@
 using tkpl.Model;
 namespace tkpl.Controller
 {
-    internal class TempLessonInit
+    public class TempLessonInit
     {
         public TempLessonInit() { 
             Lesson currentLesson = new();

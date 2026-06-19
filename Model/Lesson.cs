@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ImplemantasiGenericQuiz
+namespace tkpl.Model
 {
     internal class Lesson
     {
@@ -24,7 +24,7 @@ namespace ImplemantasiGenericQuiz
                 var userAnswer = Console.ReadLine();
                 bool isCorrect = question.ValidateAnswer(userAnswer);
 
-                Console.WriteLine(question.getAnswer);
+                Console.WriteLine(question.getAnswer());
 
                 if (isCorrect) Console.WriteLine("JAWABAN BENAR!");
                 else Console.WriteLine("JAWABAN SALAH");

@@ -1,24 +1,11 @@
 using System.Diagnostics;
 namespace tkpl.Model
 {
-    internal class Question<T> : IQuestion
+    public class Question<T> : IQuestion
     {
 
         public string QuestionText { get; set; } = string.Empty;
         public T ExpectedAnswer { get; set; } = default!; // initialized to satisfy nullable-analysis (CS8618)
-
-        
-        public List<string> GetStringOptions()
-        {
-            // Base class secara default mengembalikan list kosong.
-            // Class turunan seperti ObjectiveQuiz akan melakukan override method ini.
-            return new List<string>();
-        }
-
-        public string getAnswer()
-        {
-            return "" + ExpectedAnswer;
-        }
 
         // Implementasi IQuestion.ValidateAnswer yang menerima parameter bertipe T.
         public bool ValidateAnswer(T answer)

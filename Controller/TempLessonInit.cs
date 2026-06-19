@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using tkpl.Model;
 
-namespace ImplemantasiGenericQuiz
+namespace tkpl.Controller
 {
     internal class TempLessonInit
     {
@@ -24,8 +25,11 @@ namespace ImplemantasiGenericQuiz
 
             currentLesson.questions.Add(question1);
             currentLesson.questions.Add(question2);
+            
+            QuizPilihanGanda.
 
             currentLesson.StartSession();
+           
             
         }
     }

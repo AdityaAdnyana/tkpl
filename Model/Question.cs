@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ImplemantasiGenericQuiz
+namespace tkpl.Model
 {
     internal class Question<T> : IQuestion
     {
@@ -22,10 +22,16 @@ namespace ImplemantasiGenericQuiz
 
         public bool ValidateAnswer(object answer)
         {
-            T convertedAnswer = (T)Convert.ChangeType(answer, typeof(T));
+            try
+            {
+                T convertedAnswer = (T)Convert.ChangeType(answer, typeof(T));
 
-            if (convertedAnswer is T typedAnswer) return ValidateAnswer(typedAnswer);
-
+                if (convertedAnswer is T typedAnswer) return ValidateAnswer(typedAnswer);
+            }
+            catch
+            {
+                Console.WriteLine("Input tidak valid");
+            }
             return false;
         }
     }
