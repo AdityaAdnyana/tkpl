@@ -139,8 +139,8 @@ namespace tkpl.View.User_Page
             MessageBox.Show("Anda telah logout dari sistem.", "Logout Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoginPage loginPage = new LoginPage();
             loginPage.Show();
-            loginPage.FormClosed += (s, args) => this.Close(); // Close UserPage when LoginPage is closed
             this.Close();
+            loginPage.FormClosed += (s, args) => this.Close(); // Close UserPage when LoginPage is closed
         }
     }
 }

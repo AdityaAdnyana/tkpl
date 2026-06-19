@@ -21,9 +21,7 @@ namespace tkpl.Model.User
             userPage.GeneratLabel("Password: " + model.GetPassword(), new System.Drawing.Point(24, 54), 12);
             userPage.GeneratLabel("ID: " + model.GetUserId(), new System.Drawing.Point(24, 105), 12);
         }
-        public void ViewUserLevelProgres() {
-            
-        }
+        
     
     }
 }
