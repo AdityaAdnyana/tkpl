@@ -69,10 +69,14 @@ public static class RepoUser
             UserTable.Add(newModule);
 
             return true;
+<<<<<<< HEAD
 
 
            
             // return response.IsSuccessStatusCode;
+=======
+
+>>>>>>> 854527f79d21f56dfbe4eefe6ead32e671ffa4d1
         }
         catch (Exception ex)
         {

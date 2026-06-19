@@ -8,6 +8,9 @@ namespace tkpl.Model
         public string QuestionText { get; set; }
         public string ImagePath { get; set; }
         public bool ValidateAnswer(object answer);
+<<<<<<< HEAD:tkpl/Model/Penyimpanan Data/IQuestion.cs
         string GetExpectedAnswerAsString();
+=======
+>>>>>>> aditya-adnyana:tkpl/Model/IQuestion.cs
     }
 }
