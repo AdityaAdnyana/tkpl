@@ -1,5 +1,8 @@
 <Solution>
+<<<<<<< HEAD
   <Project Path="API/API.csproj" />
+=======
+>>>>>>> aditya-adnyana
   <Project Path="Test/Test.csproj" Id="d26f5937-7fbd-4436-9e91-3058d3d01b69" />
   <Project Path="tkpl/tkpl.csproj" />
 </Solution>

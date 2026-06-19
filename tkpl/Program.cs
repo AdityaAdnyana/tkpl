@@ -17,6 +17,7 @@ namespace tkpl
 
             AppConfig.LoadConfig();
 
+<<<<<<< HEAD
             await RepoLevel.FetchLevelsFromApiAsync();
 
             QuizView quizView = new QuizView();
@@ -24,6 +25,8 @@ namespace tkpl
             LoginPage loginPage = new LoginPage();
             //MateriPage materiPage = new MateriPage(1); 
             Application.Run(loginPage);
+=======
+>>>>>>> aditya-adnyana
         }
     }
 }
