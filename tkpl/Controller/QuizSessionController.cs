@@ -16,9 +16,11 @@ namespace tkpl.Controller
         private readonly int _levelId;
         private readonly int _userId;
         private readonly List<AnswerRecord> _answerRecords = new();
+
         
         private int _currentQuestionIndex = 0;
         private DateTime _sessionStartTime;
+
 
         /// <summary>
         /// Inisialisasi QuizSessionController.
@@ -46,6 +48,7 @@ namespace tkpl.Controller
             try
             {
                 if (_currentQuestionIndex >= _lesson.Questions.Count) return;
+
 
                 string questionText = _lesson.Questions[_currentQuestionIndex].QuestionText;
                 decimal scoreWeight = _lesson.Questions[_currentQuestionIndex].ScoreWeight;
@@ -165,6 +168,7 @@ namespace tkpl.Controller
                     }
                 }
 
+
                 ReportQuiz.QuizItems.Add(new ReportQuizItem(
                     no: _answerRecords.Count,
                     questionText: questionText,
@@ -175,6 +179,7 @@ namespace tkpl.Controller
                     quizId: 0,           // Quiz_ID tidak tersedia di sini; kolom nullable di DB
                     levelId: _levelId
                 ));
+
 
                 _currentQuestionIndex++;
                 ShowQuestion(_currentQuestionIndex);
@@ -199,7 +204,7 @@ namespace tkpl.Controller
 
                 QuizSessionResult resultView = new QuizSessionResult();
                 QuizSessionResultController resultController = new QuizSessionResultController(resultView, _answerRecords, sessionTime);
-                
+
                 resultController.OnSessionEnded += () => {
                     _quizView.Close();
                     resultView.Close();

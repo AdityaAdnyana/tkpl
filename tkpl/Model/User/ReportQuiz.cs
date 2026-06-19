@@ -17,11 +17,6 @@ public static class ReportQuiz
         BaseAddress = new Uri("https://localhost:7021/")
     };
 
-    /// <summary>
-    /// Mengirim semua item report yang ada di QuizItems ke API secara batch.
-    /// Data yang dikirim disesuaikan dengan skema tabel report_quiz di database:
-    /// User_ID, Quiz_ID, Level_ID, User_Answer.
-    /// </summary>
     public static async Task<bool> SaveReportsToApiAsync()
     {
         try
