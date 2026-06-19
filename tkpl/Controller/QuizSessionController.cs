@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using tkpl.Model;
+using tkpl.Model.Observer;
 using tkpl.Model.User;
 using tkpl.View;
 using tkpl.View.Factory.ImageControl;
 using tkpl.View.Factory.QuizControl;
-using tkpl.View.Factory.ScoreCard;
 
 namespace tkpl.Controller
 {
@@ -75,8 +72,9 @@ namespace tkpl.Controller
         {
             try
             {
-                // Mendaftarkan Observer (QuizView) ke Publisher (LogicLevel)
-                _gameLogic.Subscribe(_quizView);
+                // Mendaftarkan Observer (QuizView) ke Publisher menggunakan abstraksi antarmuka
+                ILivesSubject livesSubject = _gameLogic;
+                livesSubject.Subscribe(_quizView);
 
                 // Reset nyawa berdasarkan jumlah soal pada sesi ini (integer div 3)
                 _gameLogic.ResetLives(_lesson.Questions.Count);
