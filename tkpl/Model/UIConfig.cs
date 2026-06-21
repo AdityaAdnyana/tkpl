@@ -1,3 +1,5 @@
+using System.Security.Permissions;
+
 namespace tkpl.Model
 {
     public class UIConfig
@@ -30,5 +32,30 @@ namespace tkpl.Model
         public int ScoreCardButtonHeight { get; set; } = 43;
         public float ScoreCardButtonFontSize { get; set; } = 9f;
         public string ScoreCardButtonFontFamily { get; set; } = "Segoe UI";
+
+        //Report card Settings
+
+        public int ReportCardWidth { get; set; } = 311;
+        public int ReportCardHeight { get; set; } = 224;
+
+        public int ReportCardContentWidth { get;set; } = 160;
+        public int ReportCardContentHeight { get;set; } = 32;
+        public float ReportCardContentFontSize { get; set; } =9f;  
+        public string ReportCardContentFontFamily { get; set; } = "Segoe UI";
+
+        // Report module Settings
+
+        public int ReportModuleWidth { get; set; } = 938;
+        public int ReportModuleHeight { get; set; } = 70;
+
+        public int ReportModuleContentWidth { get; set; } = 380;
+        public int ReportModuleContentHeight { get;set; } = 200;
+        public float ReportModuleContentFontSize { get; set; } = 10f;
+        public string ReportModuleContentFontFamily { get;set; } = "Segoe UI";
+
+        public int ReportModuleButtonWidth { get; set; } = 150;
+        public int ReportModuleButtonHeight { get;set; } = 36;
+        public float ReportModuleButtonFontSize { get; set; } = 10f;
+        public string ReportModuleButtonFontFamily { get;set; } = "Segoe UI";
     }
 }

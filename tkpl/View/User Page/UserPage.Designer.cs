@@ -34,10 +34,9 @@
             btnResultQuiz = new Button();
             BtnExit = new Button();
             label1 = new Label();
-            dataGridViewReport = new DataGridView();
             label2 = new Label();
             btnLogout = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewReport).BeginInit();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // LB_Password
@@ -95,16 +94,6 @@
             label1.TabIndex = 11;
             label1.Text = "label1";
             // 
-            // dataGridViewReport
-            // 
-            dataGridViewReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewReport.Location = new Point(44, 468);
-            dataGridViewReport.Name = "dataGridViewReport";
-            dataGridViewReport.RowHeadersWidth = 82;
-            dataGridViewReport.Size = new Size(938, 395);
-            dataGridViewReport.TabIndex = 12;
-            dataGridViewReport.CellContentClick += dataGridView1_CellContentClick;
-            // 
             // label2
             // 
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -125,14 +114,21 @@
             btnLogout.UseVisualStyleBackColor = false;
             btnLogout.Click += btnLogout_Click_1;
             // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Location = new Point(46, 391);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(944, 484);
+            flowLayoutPanel1.TabIndex = 15;
+            // 
             // UserPage
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1017, 1068);
+            ClientSize = new Size(1023, 1068);
+            Controls.Add(flowLayoutPanel1);
             Controls.Add(btnLogout);
             Controls.Add(label2);
-            Controls.Add(dataGridViewReport);
             Controls.Add(label1);
             Controls.Add(btnToMateri);
             Controls.Add(BtnUser);
@@ -141,7 +137,6 @@
             Controls.Add(LB_Password);
             Name = "UserPage";
             Text = "UserPage";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewReport).EndInit();
             ResumeLayout(false);
         }
 
@@ -152,8 +147,8 @@
         private Button btnResultQuiz;
         private Button BtnExit;
         private Label label1;
-        private DataGridView dataGridViewReport;
         private Label label2;
         private Button btnLogout;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }

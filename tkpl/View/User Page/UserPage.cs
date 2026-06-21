@@ -12,17 +12,16 @@ namespace tkpl.View.User_Page
     public partial class UserPage : Form
     {
         private UserModel userModel;
-        private UserMenuFacade userMenuFacade;
+        private UserMenuControler userMenuControler;
 
         public UserPage()
         {
             InitializeComponent();
-            SetupTabelDinamis();
+            //SetupTabelDinamis();
 
 
-            // Initialize Model and Facade
             userModel = new UserModel();
-            userMenuFacade = new UserMenuFacade(userModel, this);
+            userMenuControler = new UserMenuControler(userModel, this);
 
             // Hide the placeholder static labels
             LB_Password.Visible = false;
@@ -30,7 +29,7 @@ namespace tkpl.View.User_Page
             label2.Visible = false;
 
             // Generate user details labels dynamically
-            userMenuFacade.ViewUserInfo();
+            userMenuControler.ViewUserInfo();
             uploadReport();
 
             // Create Logout Button programmatically
@@ -80,54 +79,10 @@ namespace tkpl.View.User_Page
             this.Controls.Add(label);
         }
 
-        private void SetupTabelDinamis()
+        public void AddModuleReport(Panel reportCard)
         {
-            // Sel tidak bisa diedit
-            dataGridViewReport.ReadOnly = true;
-            // Menghilangkan baris kosong tambahan di paling bawah
-            dataGridViewReport.AllowUserToAddRows = false;
-            // Pengguna tidak bisa menghapus baris dengan tombol Delete
-
-            dataGridViewReport.AllowUserToDeleteRows = false;   
-           
-            
-            // Data Binding: Menyambungkan DataSource tabel langsung ke BindingList kita
-            dataGridViewReport.DataSource = ReportQuiz.QuizItems;
-
-            // Pastikan tabel meng-generate kolom secara otomatis sesuai properti kelas
-            dataGridViewReport.AutoGenerateColumns = true;
-
-            //int id, string questionText, string correctAnswer, int questionIndex, bool isUserCorrect
-
-            // Mengubah teks judul kolom agar lebih enak dibaca pengguna
-            if (dataGridViewReport.Columns["No"] != null)
-                dataGridViewReport.Columns["No"].HeaderText = "No.";
-
-            if (dataGridViewReport.Columns["QuestionText"] != null)
-                dataGridViewReport.Columns["QuestionText"].HeaderText = "Soal Evaluasi";
-
-            if (dataGridViewReport.Columns["CorrectAnswer"] != null)
-                dataGridViewReport.Columns["CorrectAnswer"].HeaderText = "Kunci Jawaban";
-
-            if (dataGridViewReport.Columns["UserAnswer"] != null)
-                dataGridViewReport.Columns["UserAnswer"].HeaderText = "Jawaban Anda";
-
-            if (dataGridViewReport.Columns["IsCorrect"] != null)
-                dataGridViewReport.Columns["IsCorrect"].HeaderText = "Status (Benar/Salah)";
-
-            // Sembunyikan kolom internal yang tidak perlu ditampilkan ke user
-            if (dataGridViewReport.Columns["UserId"] != null)
-                dataGridViewReport.Columns["UserId"].Visible = false;
-            if (dataGridViewReport.Columns["QuizId"] != null)
-                dataGridViewReport.Columns["QuizId"].Visible = false;
-            if (dataGridViewReport.Columns["LevelId"] != null)
-                dataGridViewReport.Columns["LevelId"].Visible = false;
-
-
-            // Membuat lebar kolom otomatis menyesuaikan panjang teks soal
-            dataGridViewReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            flowLayoutPanel1.Controls.Add(reportCard);
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
 

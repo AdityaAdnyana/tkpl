@@ -150,7 +150,7 @@ namespace tkpl.Controller
 
                 AnswerStatus status = isCorrect ? AnswerStatus.Correct : AnswerStatus.Wrong;
                 _answerRecords.Add(new AnswerRecord(questionText, userAnswer, correctAnswer, status, scoreWeight));
-
+                ReportQuiz.QuizItems.Add(new ReportQuizItem(_userId, status, _lesson.Title, correctAnswer, userAnswer, questionText, scoreWeight));
                 if (isCorrect)
                 {
                     _quizView.ShowInfoMessage("Jawaban Anda Benar!", "Hasil");
@@ -169,16 +169,7 @@ namespace tkpl.Controller
                 }
 
 
-                ReportQuiz.QuizItems.Add(new ReportQuizItem(
-                    no: _answerRecords.Count,
-                    questionText: questionText,
-                    correctAnswer: correctAnswer,
-                    userAnswer: userAnswer,
-                    isCorrect: isCorrect,
-                    userId: _userId,
-                    quizId: 0,           // Quiz_ID tidak tersedia di sini; kolom nullable di DB
-                    levelId: _levelId
-                ));
+          
 
 
                 _currentQuestionIndex++;

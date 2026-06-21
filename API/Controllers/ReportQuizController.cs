@@ -19,8 +19,13 @@ public class ReportQuizController : ControllerBase
     public class ReportQuizRequest
     {
         public int User_ID { get; set; }
-        public int Level_ID { get; set; }
-        public string User_Answer { get; set; } = string.Empty;
+
+        public string? Lesson_Title { get; set; }
+        public string? Question_Text { get; set; }
+        public string? Correct_Answer { get; set; }
+        public string? User_Answer { get; set; }
+        public decimal? Score_Weight { get; set; }
+        public string? Is_Correct { get; set; }
     }
 
     // GET /ReportQuiz/{userId} — Ambil semua report kuis milik satu user
@@ -35,7 +40,12 @@ public class ReportQuizController : ControllerBase
                 r.User_ID,
                 r.Quiz_ID,
                 r.Level_ID,
-                r.User_Answer
+                r.Lesson_Title,
+                r.Question_Text,
+                r.Correct_Answer,
+                r.User_Answer,
+                r.Score_Weight,
+                r.Is_Correct
             })
             .ToListAsync();
 
@@ -55,8 +65,13 @@ public class ReportQuizController : ControllerBase
         {
             User_ID = request.User_ID,
             Quiz_ID = null,
-            Level_ID = request.Level_ID,
-            User_Answer = request.User_Answer
+            Level_ID = null,
+            Lesson_Title = request.Lesson_Title,
+            Question_Text = request.Question_Text,
+            Correct_Answer = request.Correct_Answer,
+            User_Answer = request.User_Answer,
+            Score_Weight = request.Score_Weight,
+            Is_Correct = request.Is_Correct
         };
 
         _context.ReportQuizzes.Add(newReport);
@@ -78,8 +93,13 @@ public class ReportQuizController : ControllerBase
         {
             User_ID = r.User_ID,
             Quiz_ID = null,
-            Level_ID = r.Level_ID,
-            User_Answer = r.User_Answer
+            Level_ID = null,
+            Lesson_Title = r.Lesson_Title,
+            Question_Text = r.Question_Text,
+            Correct_Answer = r.Correct_Answer,
+            User_Answer = r.User_Answer,
+            Score_Weight = r.Score_Weight,
+            Is_Correct = r.Is_Correct
         }).ToList();
 
         _context.ReportQuizzes.AddRange(newReports);

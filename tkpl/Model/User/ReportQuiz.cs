@@ -5,12 +5,13 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using tkpl.Model;
 
 
 public static class ReportQuiz
 {
     // Cache lokal berisi item-item report yang akan dikirim ke API
-    public static BindingList<ReportQuizItem> QuizItems = new BindingList<ReportQuizItem>();
+    public static List<ReportQuizItem> QuizItems = new List<ReportQuizItem>();
 
     private static readonly HttpClient _httpClient = new HttpClient
     {
@@ -31,8 +32,12 @@ public static class ReportQuiz
                 dataToSend.Add(new ReportQuizRequest
                 {
                     User_ID = item.UserId,
-                    Level_ID = item.LevelId,
-                    User_Answer = item.UserAnswer
+                    Lesson_Title = item.LessonTitle,
+                    Question_Text = item.QuestionText,
+                    Correct_Answer = item.CorrectAnswer,
+                    User_Answer = item.UserAnswer,
+                    Score_Weight = item.ScoreWeight,
+                    Is_Correct = item.IsCorrect.ToString()
                 });
             }
 
@@ -65,12 +70,12 @@ public static class ReportQuiz
 public class ReportQuizItem
 {
     // Data untuk tampilan di DataGridView (UserPage)
-    public int No { get; set; }
+    public string LessonTitle { get; set; }
     public string QuestionText { get; set; } = string.Empty;
     public string CorrectAnswer { get; set; } = string.Empty;
     public string UserAnswer { get; set; } = string.Empty;
-    public bool IsCorrect { get; set; }
-
+    public decimal ScoreWeight { get; set; }
+    public AnswerStatus IsCorrect { get; set; }
     // Data yang akan disimpan ke database
     public int UserId { get; set; }
     public int QuizId { get; set; }
@@ -78,28 +83,16 @@ public class ReportQuizItem
 
     public ReportQuizItem() { }
 
-    /// <summary>
-    /// Constructor lengkap untuk membuat ReportQuizItem.
-    /// </summary>
-    /// <param name="no">Nomor urut soal untuk tampilan</param>
-    /// <param name="questionText">Teks soal</param>
-    /// <param name="correctAnswer">Jawaban yang benar</param>
-    /// <param name="userAnswer">Jawaban yang diberikan user</param>
-    /// <param name="isCorrect">Apakah jawaban user benar</param>
-    /// <param name="userId">ID user yang mengerjakan</param>
-    /// <param name="quizId">ID quiz di database</param>
-    /// <param name="levelId">ID level yang sedang dikerjakan</param>
-    public ReportQuizItem(int no, string questionText, string correctAnswer, string userAnswer,
-        bool isCorrect, int userId, int quizId, int levelId)
+    
+    public ReportQuizItem(int userId,AnswerStatus status, string lessonTitle, string correctAnswer, string answer, string questionText,decimal scoreWeight)
     {
-        No = no;
-        QuestionText = questionText;
-        CorrectAnswer = correctAnswer;
-        UserAnswer = userAnswer;
-        IsCorrect = isCorrect;
         UserId = userId;
-        QuizId = quizId;
-        LevelId = levelId;
+        IsCorrect = status;
+        LessonTitle = lessonTitle;
+        CorrectAnswer = correctAnswer;
+        UserAnswer = answer;
+        QuestionText = questionText;
+        ScoreWeight = scoreWeight;
     }
 }
 
@@ -112,6 +105,10 @@ public class ReportQuizItem
 public class ReportQuizRequest
 {
     public int User_ID { get; set; }
-    public int Level_ID { get; set; }
-    public string User_Answer { get; set; } = string.Empty;
+    public string? Lesson_Title { get; set; }
+    public string? Question_Text { get; set; }
+    public string? Correct_Answer { get; set; }
+    public string? User_Answer { get; set; }
+    public decimal? Score_Weight { get; set; }
+    public string? Is_Correct { get; set; }
 }
