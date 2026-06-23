@@ -51,7 +51,7 @@ namespace tkpl.View
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(150, 46);
             btnExit.TabIndex = 1;
-            btnExit.Text = "Exit";
+            btnExit.Text = "Keluar";
             btnExit.UseVisualStyleBackColor = true;
             // 
             // btnResultQuiz
@@ -60,7 +60,7 @@ namespace tkpl.View
             btnResultQuiz.Name = "btnResultQuiz";
             btnResultQuiz.Size = new Size(150, 46);
             btnResultQuiz.TabIndex = 2;
-            btnResultQuiz.Text = "Result";
+            btnResultQuiz.Text = "Hasil";
             btnResultQuiz.UseVisualStyleBackColor = true;
             // 
             // btnUser
@@ -69,7 +69,7 @@ namespace tkpl.View
             btnUser.Name = "btnUser";
             btnUser.Size = new Size(150, 46);
             btnUser.TabIndex = 3;
-            btnUser.Text = "User";
+            btnUser.Text = "Pengguna";
             btnUser.UseVisualStyleBackColor = true;
             btnUser.Click += BtnUser_Click_1;
             // 
@@ -114,7 +114,8 @@ namespace tkpl.View
             Controls.Add(btnExit);
             Controls.Add(btnStartLevel1);
             Name = "Homepage";
-            Text = "Form2";
+            Text = "Homepage";
+            Load += Homepage_Load;
             ResumeLayout(false);
         }
 
