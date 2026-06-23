@@ -33,6 +33,11 @@ namespace tkpl.View
             MateriMenuPage materiMenuPage = new MateriMenuPage();
             materiMenuPage.Show();
         }
+
+        private void Homepage_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

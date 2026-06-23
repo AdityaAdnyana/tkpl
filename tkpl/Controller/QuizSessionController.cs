@@ -41,6 +41,12 @@ namespace tkpl.Controller
         private void SetupGuiQuizViewEvent()
         {
             _quizView.SkipClicked += HandleSkipQuestion;
+            _quizView.CloseClicked += HandleCloseSession;
+        }
+
+        private void HandleCloseSession(object sender, EventArgs e)
+        {
+            _quizView.Close();
         }
 
         private void HandleSkipQuestion(object sender, EventArgs e)

@@ -45,7 +45,7 @@ namespace tkpl.View.Factory.ScoreCard
             checkButton.Font = new Font(ui.ScoreCardButtonFontFamily, ui.ScoreCardButtonFontSize, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkButton.Location = new Point(3, 132);
             checkButton.Size = new Size(ui.ScoreCardButtonWidth, ui.ScoreCardButtonHeight);
-            checkButton.Text = "Check Answer";
+            checkButton.Text = "Periksa Jawaban";
             checkButton.UseVisualStyleBackColor = false;
             bool isShowingAnswer = false;
             checkButton.Click += (sender, e) =>
@@ -53,12 +53,12 @@ namespace tkpl.View.Factory.ScoreCard
                 if (!isShowingAnswer)
                 {
                     contentLabel.Text = $"Jawaban Sebenarnya:\n{_correctAnswer}";
-                    checkButton.Text = "Show Question";
+                    checkButton.Text = "Lihat Soal";
                 }
                 else
                 {
                     contentLabel.Text = $"{_questionText}\nJawaban: {_answerText}";
-                    checkButton.Text = "Check Answer";
+                    checkButton.Text = "Periksa Jawaban";
                 }
                 isShowingAnswer = !isShowingAnswer;
             };

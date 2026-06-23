@@ -91,7 +91,7 @@ namespace tkpl
             btSkip.Name = "btSkip";
             btSkip.Size = new Size(112, 34);
             btSkip.TabIndex = 1;
-            btSkip.Text = "SKIP";
+            btSkip.Text = "LEWATI";
             btSkip.UseVisualStyleBackColor = true;
             // 
             // questionLabel
