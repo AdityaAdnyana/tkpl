@@ -15,7 +15,11 @@ namespace tkpl.Model.User
 
         public UserModel()
         {
-            user = CurrentUser ?? new User();
+            if (CurrentUser == null)
+            {
+                CurrentUser = new User();
+            }
+            user = CurrentUser;
         }
 
         public async Task<bool> SignUp(string username, string password)

@@ -88,6 +88,12 @@ namespace tkpl
             remove { btSkip.Click -= value; }
         }
 
+        public event EventHandler CloseClicked
+        {
+            add { button1.Click += value; }
+            remove { button1.Click -= value; }
+        }
+
         public void ShowInfoMessage(string message, string title)
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
