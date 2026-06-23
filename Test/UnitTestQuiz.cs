@@ -1,4 +1,4 @@
-﻿using Xunit;
+using Xunit;
 using System.Collections.Generic;
 using tkpl.Model;
 
@@ -98,7 +98,7 @@ namespace tkpl.Tests
         public void AddQuestions_IncrementsCount()
         {
             // Arrange
-            var lesson = new Lesson();
+            var lesson = new Lesson("Sample Title", "Sample Content");
             var q1 = new EssayQuiz<string>();
             var q2 = new ObjectiveQuiz<int>();
 
