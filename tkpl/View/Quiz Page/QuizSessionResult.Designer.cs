@@ -499,7 +499,7 @@ namespace tkpl.View
             Controls.Add(pictureBox1);
             Controls.Add(panel4);
             Name = "QuizSessionResult";
-            Text = "Session Result";
+            Text = "Hasil Sesi Quiz";
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panelResult.ResumeLayout(false);
