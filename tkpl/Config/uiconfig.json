@@ -1,10 +1,22 @@
-﻿{
+{
   "AnswerButtonWidth": 150,
   "AnswerButtonHeight": 50,
+  "AnswerButtonFontSize": 12.0,
   "TextBoxWidth": 400,
   "TextBoxHeight": 35,
   "SubmitButtonWidth": 150,
   "SubmitButtonHeight": 45,
+  "SubmitButtonFontSize": 12.0,
   "FontFamily": "Segoe UI",
-  "FontSize": 15.0
+  "FontSize": 15.0,
+  "ScoreCardWidth": 198,
+  "ScoreCardHeight": 175,
+  "ScoreCardContentWidth": 156,
+  "ScoreCardContentHeight": 118,
+  "ScoreCardContentFontSize": 8.0,
+  "ScoreCardContentFontFamily": "Segoe UI",
+  "ScoreCardButtonWidth": 192,
+  "ScoreCardButtonHeight": 43,
+  "ScoreCardButtonFontSize": 9.0,
+  "ScoreCardButtonFontFamily": "Segoe UI"
 }

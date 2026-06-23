@@ -1,4 +1,4 @@
-﻿using Xunit;
+using Xunit;
 using System.Collections.Generic;
 using tkpl.Model;
 
@@ -92,22 +92,22 @@ namespace tkpl.Tests
         }
     }
 
-    //public class LessonTests
-    //{
-    //    [Fact]
-    //    public void AddQuestions_IncrementsCount()
-    //    {
-    //        // Arrange
-    //        var lesson = new Lesson();
-    //        var q1 = new EssayQuiz<string>();
-    //        var q2 = new ObjectiveQuiz<int>();
+    public class LessonTests
+    {
+        [Fact]
+        public void AddQuestions_IncrementsCount()
+        {
+            // Arrange
+            var lesson = new Lesson("Sample Title", "Sample Content");
+            var q1 = new EssayQuiz<string>();
+            var q2 = new ObjectiveQuiz<int>();
 
-    //        // Act
-    //        lesson.Questions.Add(q1);
-    //        lesson.Questions.Add(q2);
+            // Act
+            lesson.Questions.Add(q1);
+            lesson.Questions.Add(q2);
 
-    //        // Assert
-    //        Assert.Equal(2, lesson.Questions.Count);
-    //    }
-    //}
+            // Assert
+            Assert.Equal(2, lesson.Questions.Count);
+        }
+    }
 }
