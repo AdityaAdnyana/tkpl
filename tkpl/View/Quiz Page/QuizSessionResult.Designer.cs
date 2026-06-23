@@ -109,11 +109,11 @@ namespace tkpl.View
             // 
             // continueButton
             // 
-            continueButton.Location = new Point(924, 13);
+            continueButton.Location = new Point(919, 13);
             continueButton.Name = "continueButton";
-            continueButton.Size = new Size(112, 34);
+            continueButton.Size = new Size(117, 34);
             continueButton.TabIndex = 1;
-            continueButton.Text = "CONTINUE";
+            continueButton.Text = "LANJUTKAN";
             continueButton.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
@@ -163,7 +163,7 @@ namespace tkpl.View
             label6.Name = "label6";
             label6.Size = new Size(160, 25);
             label6.TabIndex = 2;
-            label6.Text = "Total Score";
+            label6.Text = "Total Skor";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox2
@@ -171,9 +171,9 @@ namespace tkpl.View
             pictureBox2.Location = new Point(44, 49);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(75, 75);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // totalScoreLabel
             // 
@@ -200,7 +200,7 @@ namespace tkpl.View
             label7.Name = "label7";
             label7.Size = new Size(160, 25);
             label7.TabIndex = 4;
-            label7.Text = "Session Time";
+            label7.Text = "Waktu Sesi";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox3
@@ -208,9 +208,9 @@ namespace tkpl.View
             pictureBox3.Location = new Point(44, 49);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(75, 75);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 3;
             pictureBox3.TabStop = false;
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // sessionTimeLabel
             // 
@@ -237,7 +237,7 @@ namespace tkpl.View
             label8.Name = "label8";
             label8.Size = new Size(160, 25);
             label8.TabIndex = 4;
-            label8.Text = "Answered";
+            label8.Text = "Terjawab";
             label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox4
@@ -245,9 +245,9 @@ namespace tkpl.View
             pictureBox4.Location = new Point(44, 49);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(75, 75);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 3;
             pictureBox4.TabStop = false;
-            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // answeredCountLabel
             // 
@@ -274,7 +274,7 @@ namespace tkpl.View
             label9.Name = "label9";
             label9.Size = new Size(160, 25);
             label9.TabIndex = 4;
-            label9.Text = "Skipped";
+            label9.Text = "Dilewati";
             label9.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox5
@@ -282,9 +282,9 @@ namespace tkpl.View
             pictureBox5.Location = new Point(44, 49);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(75, 75);
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 3;
             pictureBox5.TabStop = false;
-            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             // 
             // skippedCountLabel
             // 
@@ -361,7 +361,7 @@ namespace tkpl.View
             btCheckAndCloseAnswer.Name = "btCheckAndCloseAnswer";
             btCheckAndCloseAnswer.Size = new Size(192, 43);
             btCheckAndCloseAnswer.TabIndex = 0;
-            btCheckAndCloseAnswer.Text = "Check Answer";
+            btCheckAndCloseAnswer.Text = "Lihat Jawaban";
             btCheckAndCloseAnswer.UseVisualStyleBackColor = false;
             // 
             // panel3
@@ -401,7 +401,7 @@ namespace tkpl.View
             button3.Name = "button3";
             button3.Size = new Size(192, 43);
             button3.TabIndex = 0;
-            button3.Text = "Check Answer";
+            button3.Text = "Lihat Jawaban";
             button3.UseVisualStyleBackColor = false;
             // 
             // panel5
@@ -441,7 +441,7 @@ namespace tkpl.View
             button4.Name = "button4";
             button4.Size = new Size(192, 43);
             button4.TabIndex = 0;
-            button4.Text = "Check Answer";
+            button4.Text = "Lihat Jawaban";
             button4.UseVisualStyleBackColor = false;
             // 
             // closeButton
@@ -484,7 +484,7 @@ namespace tkpl.View
             scoreCardPanel.Name = "scoreCardPanel";
             scoreCardPanel.Size = new Size(792, 588);
             scoreCardPanel.TabIndex = 10;
-            scoreCardPanel.Hide();
+            scoreCardPanel.Visible = false;
             // 
             // QuizSessionResult
             // 
